@@ -48,12 +48,7 @@ struct PieceArgs{
 		uint64_t b_queen_bb = 0;
 		uint64_t b_bishops_bb = 0;
 		uint64_t b_rooks_bb = 0;
-		uint64_t b_knights_bb = 0;
-		uint64_t b_all_pieces_bb = 0;
-
-		uint64_t w_all_pieces_bb = 0;
-		uint64_t all_pieces_bb = 0;
-			
+		uint64_t b_knights_bb = 0;	
 };
 
 class Pieces{
@@ -98,6 +93,8 @@ class Pieces{
 		}
 		void setBoard(PieceArgs args);
 		void setAllPieces(uint64_t);
+		void setBlackPieces(uint64_t);
+		void setWhitePieces(uint64_t);
 		void setWhiteKingPos(uint64_t);
 		void setWhiteKnightsPos(uint64_t);
 		void setWhitePawnsPos(uint64_t);
@@ -112,7 +109,15 @@ class Pieces{
 };
 
 void Pieces::setBoard(PieceArgs args){
-	setAllPieces(args.all_pieces_bb);
+	uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb;
+	uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb;
+
+
+	uint64_t all_pieces_bb = w_all_pieces | b_all_pieces;
+	setAllPieces(all_pieces_bb);
+	setWhitePieces(w_all_pieces);
+	setBlackPieces(b_all_pieces);
+
 	setWhiteKingPos(args.w_king_bb);
 	setWhiteKnightsPos(args.w_knights_bb);
 	setWhitePawnsPos(args.w_pawns_bb);
@@ -126,6 +131,13 @@ void Pieces::setAllPieces(uint64_t all_pieces_bb){
 	this->all_pieces = all_pieces_bb;
 }
 
+void Pieces::setWhitePieces(uint64_t w_all_pieces_bb){
+	this->w_all_pieces = w_all_pieces_bb;
+}
+
+void Pieces::setBlackPieces(uint64_t b_all_pieces_bb){
+	this->b_all_pieces = b_all_pieces_bb;
+}
 void Pieces::setWhiteKingPos(uint64_t w_king_bb){
 	this->w_king = w_king_bb;
 }
@@ -155,9 +167,8 @@ uint64_t Pieces::generateWhitePawnMoves(){
 
 	uint64_t captureMoves = (w_pawns << 7 | w_pawns << 9) & b_all_pieces;
 
-	//cout << "binary " << oneSquareMoves | twoSquareMoves | captureMoves << endl;
 
-	return oneSquareMoves | twoSquareMoves | captureMoves;	
+	return (oneSquareMoves & ~all_pieces | (((oneSquareMoves & ~all_pieces) << 8 ) &~all_pieces) ) | captureMoves;	
 }
 
 uint64_t Pieces::generateWhiteKingMoves(){

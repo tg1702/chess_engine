@@ -1,0 +1,16 @@
+HelloTest.BasicAssertions 56 6.84911e-05
+KingTests.KingMovement 0 0
+KingTests.KingStartingMoves 1 0.0031473
+KingTests.WhiteKingStartingMoves 51 5.66353e-05
+KnightTests.WhiteKnightStartingMoves 51 8.11922e-05
+KingTests.EmptyBoardWhiteKingMoves 1 0.0026616
+KingTests.EmptyBoardCenterWhiteKingMoves 47 5.74787e-05
+KingTests.EmptyBoardCornerWhiteKingMoves 48 7.39875e-05
+KingTests.MoveToEnemySquare 43 6.23674e-05
+KnightTests.EmptyBoardCenter 28 0.000126675
+KnightTests.EmptyBoardCornerKnightMoves 22 0.000119205
+KnightTests.KnightMoveToEnemySquare 21 0.000157457
+PawnTests.WhitePawnsStartingMoves 20 0.00026642
+PawnTests.BlockedByOpponent 9 0.000350344
+PawnTests.CaputureEnemyPiece 1 0.0032442
+---
