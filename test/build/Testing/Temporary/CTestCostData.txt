@@ -1,0 +1,12 @@
+HelloTest.BasicAssertions 35 0.000243517
+KingTests.KingMovement 0 0
+KingTests.KingStartingMoves 1 0.0031473
+KingTests.WhiteKingStartingMoves 30 0.000106047
+KnightTests.WhiteKnightStartingMoves 30 6.84933e-05
+KingTests.EmptyBoardWhiteKingMoves 1 0.0026616
+KingTests.EmptyBoardCenterWhiteKingMoves 26 0.000105254
+KingTests.EmptyBoardCornerWhiteKingMoves 27 8.04185e-05
+KingTests.MoveToEnemySquare 22 8.94136e-05
+KnightTests.EmptyBoardCenter 7 0.000392343
+KnightTests.EmptyBoardCornerKnightMoves 1 0.0031917
+---
