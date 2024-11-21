@@ -1,10 +1,12 @@
 #include <iostream>
 #include "types.h"
+#include "magic.h"
+#include "lookup.h"
 
 using namespace std;
 
 #pragma once
-class Pieces{
+class PieceManager{
 	private:
 		uint64_t w_king;
 		uint64_t w_rooks;
@@ -24,7 +26,7 @@ class Pieces{
 		uint64_t w_all_pieces;
 		uint64_t all_pieces;
 	public:
-		Pieces(){
+		PieceManager(){
 			
 			w_king = W_KING_START;
 			w_rooks = W_ROOKS_START;
@@ -51,17 +53,20 @@ class Pieces{
 		void setWhiteKingPos(uint64_t);
 		void setWhiteKnightsPos(uint64_t);
 		void setWhitePawnsPos(uint64_t);
-		
+		void setWhiteRooksPos(uint64_t);
+
 		void setBlackKingPos(uint64_t);
 		void setBlackKnightsPos(uint64_t);
 		void setBlackPawnsPos(uint64_t);
-		uint64_t generateWhitePawnMoves();
-		uint64_t generateWhiteKingMoves();
-		uint64_t generateWhiteKnightMoves();
+		
+		uint64_t getWhitePawnMoves();
+		uint64_t getWhiteKingMoves();
+		uint64_t getWhiteKnightMoves();
+		uint64_t getWhiteRookMoves();
 		uint64_t outputRank(uint64_t);
 };
 
-void Pieces::setBoard(PieceArgs args){
+void PieceManager::setBoard(PieceArgs args){
 	uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb;
 	uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb;
 
@@ -77,64 +82,97 @@ void Pieces::setBoard(PieceArgs args){
 	setBlackKingPos(args.b_king_bb);
 	setBlackKnightsPos(args.b_knights_bb);
 	setBlackPawnsPos(args.b_pawns_bb);
+	setWhiteRooksPos(args.w_rooks_bb);
 	
 }
 
-void Pieces::setAllPieces(uint64_t all_pieces_bb){
+void PieceManager::setAllPieces(uint64_t all_pieces_bb){
 	this->all_pieces = all_pieces_bb;
 }
 
-void Pieces::setWhitePieces(uint64_t w_all_pieces_bb){
+void PieceManager::setWhitePieces(uint64_t w_all_pieces_bb){
 	this->w_all_pieces = w_all_pieces_bb;
 }
 
-void Pieces::setBlackPieces(uint64_t b_all_pieces_bb){
+void PieceManager::setBlackPieces(uint64_t b_all_pieces_bb){
 	this->b_all_pieces = b_all_pieces_bb;
 }
-void Pieces::setWhiteKingPos(uint64_t w_king_bb){
+void PieceManager::setWhiteKingPos(uint64_t w_king_bb){
 	this->w_king = w_king_bb;
 }
 
-void Pieces::setWhiteKnightsPos(uint64_t w_knights_bb){
+void PieceManager::setWhiteKnightsPos(uint64_t w_knights_bb){
 	this->w_knights = w_knights_bb;
 }
 
-void Pieces::setWhitePawnsPos(uint64_t w_pawns_bb){
+void PieceManager::setWhitePawnsPos(uint64_t w_pawns_bb){
 	this->w_pawns = w_pawns_bb;
 }
 
-void Pieces::setBlackKingPos(uint64_t b_king_bb){
+void PieceManager::setBlackKingPos(uint64_t b_king_bb){
 	this->b_king = b_king_bb;
 }
 
-void Pieces::setBlackKnightsPos(uint64_t b_knights_bb){
+void PieceManager::setBlackKnightsPos(uint64_t b_knights_bb){
 	this->b_knights = b_knights_bb;
 }
 
-void Pieces::setBlackPawnsPos(uint64_t b_pawns_bb){
+void PieceManager::setBlackPawnsPos(uint64_t b_pawns_bb){
 	this->b_pawns = b_pawns_bb;
 }
-uint64_t Pieces::generateWhitePawnMoves(){
+
+void PieceManager::setWhiteRooksPos(uint64_t w_rooks_bb){
+	this->w_rooks = w_rooks_bb;
+}
+
+uint64_t PieceManager::getWhitePawnMoves(){
 	uint64_t oneSquareMoves = w_pawns << 8;
 	uint64_t twoSquareMoves = w_pawns << 16;
 
-	uint64_t captureMoves = (w_pawns << 7 | w_pawns << 9) & b_all_pieces;
+	uint64_t captureMoves = (w_pawns << 7 | w_pawns << 9) & b_all_pieces & outputRank(oneSquareMoves);
 
-
-	return (oneSquareMoves & ~all_pieces | (((oneSquareMoves & ~all_pieces) << 8 ) &~all_pieces) ) | captureMoves;	
+	return (oneSquareMoves & ~all_pieces) | (twoSquareMoves & ~(all_pieces<<8)) | captureMoves;
 }
 
-uint64_t Pieces::generateWhiteKingMoves(){
-	uint64_t oneRowAhead = outputRank(w_king << 8);
-	uint64_t sameRow = outputRank(w_king);
-	uint64_t oneRowBehind = outputRank(w_king >> 8);
+uint64_t PieceManager::getWhiteKingMoves(){
+	uint64_t bitboard = w_king;
+ 	uint64_t kingMoves = 0ULL;
+ 	
+	while (bitboard != 0ULL){
+		int index = countr_zero(bitboard);
+		bitboard = bitclear(bitboard, index);
 
-	uint64_t kingMoves = (((w_king << 8) | (w_king << 7) | (w_king << 9)) & oneRowAhead) | (((w_king << 1) | (w_king >> 1)) & sameRow) | (((w_king >> 8) | (w_king >> 7) | (w_king >> 9)) & oneRowBehind);
-       
-	return kingMoves & ~w_all_pieces;	
+		kingMoves |= whiteKingLookups[index];
+ 	}
+
+
+ 	return kingMoves & ~w_all_pieces;
+ 
 }
 
-uint64_t Pieces::generateWhiteKnightMoves(){
+uint64_t PieceManager::getWhiteRookMoves(){
+	uint64_t bitboard = w_rooks;
+ 	uint64_t rookMoves = 0ULL;
+ 	int count = 0;
+	while (bitboard != 0ULL){
+		count += 1;
+		int square = countr_zero(bitboard);
+
+		
+		int index = generateMagicIndex((w_all_pieces | b_all_pieces) & rookOccupancyMasks[square], rookMagics[square], square);
+	
+		rookMoves |= rookMoveList[square][index];
+
+		bitboard = bitclear(bitboard, square);
+
+ 	}
+
+	return rookMoves & ~w_all_pieces;
+	
+}
+
+uint64_t PieceManager::getWhiteKnightMoves(){
+ 
  uint64_t twoRowAheadLocation = outputRank(w_knights << 16);
  uint64_t oneRowAheadLocation = outputRank(w_knights << 8);
 
@@ -143,10 +181,13 @@ uint64_t Pieces::generateWhiteKnightMoves(){
  uint64_t forwardKnightMoves = (((w_knights << 15) | (w_knights << 17)) & twoRowAheadLocation) | (((w_knights << 6) | (w_knights << 10)) & oneRowAheadLocation); 
  uint64_t backwardKnightMoves = (((w_knights >> 15) | (w_knights >> 17)) & twoRowBehindLocation) | (((w_knights >> 6) | (w_knights >> 10)) & oneRowBehindLocation);
 
- return (forwardKnightMoves | backwardKnightMoves) & ~w_all_pieces;
+ 
+ uint64_t knightMoves = forwardKnightMoves | backwardKnightMoves;
+
+ return  knightMoves & ~w_all_pieces;
 }
 
-uint64_t Pieces::outputRank(uint64_t pos){
+uint64_t PieceManager::outputRank(uint64_t pos){
 	uint64_t rank_location = 0;
 	for (int i = 0; i < 8; ++i){
 		if (ranks[i] & pos)
