@@ -7,10 +7,16 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+
+// Max size of lookup table (redefine as 512 for bishops)
+#define TABLE_SIZE 4096
 using namespace std;
 
 #pragma once
-
+enum SlidingPieces{
+	ROOK,
+	BISHOP
+};
 
 uint64_t outputRank(uint64_t);
 uint64_t generateWhitePawnMoves(uint64_t);
@@ -19,7 +25,7 @@ uint64_t generateWhiteKnightMoves(uint64_t);
 uint64_t generateWhiteRookMask(uint64_t);
 
 
-void writeToTextFile(array<uint64_t, 4096> lookupTable){
+void writeToTextFile(array<uint64_t, TABLE_SIZE> lookupTable){
 	ofstream file;
 	file.open("magic.txt", std::ios_base::app);
 	file << endl;
@@ -57,8 +63,104 @@ uint64_t generateWhiteRookMask(int plain_square){
  return upDirection | downDirection | leftDirection | rightDirection;
 }
 
-int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square){
-	return  (int)((bitboard * magicNumber) >> rookShifts[square]);
+
+uint64_t generateWhiteBishopMask(int plain_square){
+ uint64_t square = bitset(plain_square);
+ uint64_t upLeftDirection = 0Ull;
+ uint64_t downLeftDirection = 0Ull;
+ uint64_t upRightDirection = 0Ull;
+ uint64_t downRightDirection = 0Ull;
+
+ for (int i = 7; i <= 49; i+= 7){ 
+	 
+	 if (((square) & FILE_H)) break;
+	 upRightDirection |= square << i;
+ 
+	 if (((square << i) & RANK_1) || ((square << i) & RANK_8) || ((square << i) & FILE_A) || ((square << i) & FILE_H)) break;
+ }
+
+ for (int i = 9; i <= 63; i+= 9){
+	 if (square & FILE_H) break; 
+ 	 downRightDirection |= square >> i;
+	
+	 if (((square >> i) & RANK_1) || ((square >> i) & RANK_8) || ((square >> i) & FILE_A) || ((square >> i) & FILE_H)) break;
+ }
+ 
+ 
+ for (int i = 9; i <= 63; i+= 9){
+	
+	if (((square) & FILE_A)) break;
+	upLeftDirection |= square << i;
+	
+	if (((square << i) & RANK_1) || ((square << i) & RANK_8) || ((square << i) & FILE_A) || ((square << i) & FILE_H)) break;
+ } 
+
+for (int i = 7; i <= 49; i+= 7){
+        if (square & FILE_A) break; 
+	downLeftDirection |= square >> i;
+	if (((square >> i) & RANK_1) || ((square >> i) & RANK_8) || ((square >> i) & FILE_A) || ((square >> i) & FILE_H)) break;
+} 
+
+ return upLeftDirection | downLeftDirection | upRightDirection | downRightDirection;
+}
+
+
+uint64_t calcLegalBishopMoves(int plain_square, uint64_t occupancy){
+	
+ uint64_t square = bitset(plain_square);
+ uint64_t upLeftDirection = 0Ull;
+ uint64_t downLeftDirection = 0Ull;
+ uint64_t upRightDirection = 0Ull;
+ uint64_t downRightDirection = 0Ull;
+
+ for (int i = 7; i <= 49; i+= 7){ 
+	 
+	 if (((square) & FILE_H)) break;
+	 upRightDirection |= square << i;
+ 
+	 
+	if (occupancy & (square << i)) break;
+	 if (((square << i) & RANK_1) || ((square << i) & RANK_8) || ((square << i) & FILE_A) || ((square << i) & FILE_H)) break;
+ }
+
+ for (int i = 9; i <= 63; i+= 9){
+	 if (square & FILE_H) break; 
+ 	 downRightDirection |= square >> i;
+	
+	if (occupancy & (square >> i)) break;
+	 if (((square >> i) & RANK_1) || ((square >> i) & RANK_8) || ((square >> i) & FILE_A) || ((square >> i) & FILE_H)) break;
+ }
+ 
+ 
+ for (int i = 9; i <= 63; i+= 9){
+	
+	if (((square) & FILE_A)) break;
+	upLeftDirection |= square << i;
+	
+	if (occupancy & (square << i)) break;
+	if (((square << i) & RANK_1) || ((square << i) & RANK_8) || ((square << i) & FILE_A) || ((square << i) & FILE_H)) break;
+ } 
+
+for (int i = 7; i <= 49; i+= 7){
+        if (square & FILE_A) break; 
+	downLeftDirection |= square >> i;
+	
+	if (occupancy & (square >> i)) break;
+	if (((square >> i) & RANK_1) || ((square >> i) & RANK_8) || ((square >> i) & FILE_A) || ((square >> i) & FILE_H)) break;
+} 
+
+ return upLeftDirection | downLeftDirection | upRightDirection | downRightDirection;
+}
+int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int type){
+	switch(type){
+	case ROOK:	
+		return (int)((bitboard * magicNumber) >> rookShifts[square]);
+		break;
+	case BISHOP:	
+		return (int)((bitboard * magicNumber) >> bishopShifts[square]);
+		break;
+
+	}
 }
 
 int countr_zero(uint64_t bb){
@@ -84,23 +186,27 @@ int count_ones(unsigned long long bb){
 
 uint64_t* createBlockedBoards(uint64_t blocked_pieces, int MAX_PATTERNS){
 	vector<int> blockedIndices;
-	static uint64_t blockedBitboards[4096] = {0ULL};
+	static uint64_t blockedBitboards[TABLE_SIZE] = {0ULL};
 	for (int index = 0; index < 64; index++){
 		if (((blocked_pieces >> index) & 1 )){
 	       	blockedIndices.push_back(index);
 		}
 	}
 
-	for (int i = 0; i < 4096; i++){
+	for (int i = 0; i < TABLE_SIZE; i++){
 		blockedBitboards[i] = 0;
 	}
+
+	
        		
 	for (int patternIndex = 0; patternIndex < MAX_PATTERNS; patternIndex++){
 		for (size_t bitIndex = 0; bitIndex < blockedIndices.size(); bitIndex++){
 			int bit = (patternIndex >> bitIndex) & 1;
 			blockedBitboards[patternIndex] |= (uint64_t)bit << blockedIndices[bitIndex];
 		}
-	}	
+	}
+
+		
 	return blockedBitboards;	
 }
 
@@ -157,14 +263,27 @@ uint64_t random_uint64_fewbits() {
   return random_uint64() & random_uint64() & random_uint64();
 }
 
-uint64_t generateMagicNumber(int square, uint64_t blockers){ 
+uint64_t generateMagicNumber(int square, uint64_t blockers, int type){ 
 	
-	int MAX_PATTERNS = 1 << (64 - rookShifts[square]);    
-	blockers = blockers & rookOccupancyMasks[square];
-	uint64_t* occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
-        uint64_t attackCombos = generateWhiteRookMask(square);
+	int MAX_PATTERNS;
+	uint64_t attackCombos;	
 
-    	array<uint64_t, 4096> lookupTable = {0ULL};
+	switch(type){
+		case ROOK:
+			MAX_PATTERNS = 1 << (64 - rookShifts[square]);    
+			blockers = blockers & rookOccupancyMasks[square];
+			attackCombos = generateWhiteRookMask(square);
+			break;
+		case BISHOP:	
+			MAX_PATTERNS = 1 << (64 - bishopShifts[square]);
+			blockers = blockers & bishopOccupancyMasks[square];
+			attackCombos = generateWhiteBishopMask(square);
+			break;
+	}
+
+	uint64_t* occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
+
+    	array<uint64_t, TABLE_SIZE> lookupTable = {0ULL};
     	uint64_t magicNumber = 0;
      
        			
@@ -177,8 +296,17 @@ uint64_t generateMagicNumber(int square, uint64_t blockers){
 		
 		int i;
 		for (i = 0; i < MAX_PATTERNS; i++){
-                        int index = generateMagicIndex(occupancyCombos[i], magicNumber, square);
-			uint64_t legalMoves = calcLegalRookMoves(square, occupancyCombos[i]);	
+                        int index = generateMagicIndex(occupancyCombos[i], magicNumber, square, type);
+			uint64_t legalMoves;
+				
+			switch(type) {
+				case ROOK:
+					legalMoves = calcLegalRookMoves(square, occupancyCombos[i]);
+					break;
+				case BISHOP:
+					legalMoves = calcLegalBishopMoves(square, occupancyCombos[i]);
+					break;
+			}		
 			
 			if (lookupTable[index] == 0ULL){
                                 lookupTable[index] = legalMoves;

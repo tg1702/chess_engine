@@ -116,7 +116,7 @@ TEST(RookTests, CenterWithBlockers){
 }
 
 
-TEST(RookTests, CornerWithBlockers){
+TEST(RookTests, A8CornerWithBlockers){
 	PieceManager p = PieceManager();
 
 	
@@ -128,9 +128,82 @@ TEST(RookTests, CornerWithBlockers){
  
 }
 
+
+TEST(RookTests, H1CornerWithBlockers){
+	PieceManager p = PieceManager();
+
+	
+	PieceArgs args {.w_king_bb = bitset(G2), .w_rooks_bb = bitset(H1), .w_pawns_bb = bitset(C4) | bitset(D1), .b_knights_bb = bitset(H8)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getWhiteRookMoves(), 72340172838076686);
+
+	// White behind black
+ 
+}
 TEST(RookTests, StartingPosition){
 
 	PieceManager p = PieceManager();
 
 	EXPECT_EQ(p.getWhiteRookMoves(), 0);
+}
+
+TEST(BishopTests, CenterWithBlockers){
+	PieceManager p = PieceManager();
+
+	PieceArgs args {.w_pawns_bb = bitset(F6), .w_bishops_bb = bitset(D4), .b_pawns_bb = bitset(B2)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getWhiteBishopMoves(),0x80402800284402);
+
+
+	PieceManager p2 = PieceManager();
+
+	PieceArgs args2 {.w_pawns_bb = bitset(B6), .w_bishops_bb = bitset(D4), .b_pawns_bb = bitset(G1)};
+	p2.setBoard(args2);
+	EXPECT_EQ(p2.getWhiteBishopMoves(),0x102042800284482);
+}
+
+TEST(BishopTests, H1CornerWithBlockers){
+	PieceManager p = PieceManager();
+
+	
+	PieceArgs args {.w_king_bb = bitset(B7), .w_bishops_bb = bitset(H1), .b_knights_bb = bitset(C6)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getWhiteBishopMoves(), 0x201008040200);
+
+	// White behind black
+ 
+}
+
+TEST(BishopTests, A8CornerWithBlockers){
+	PieceManager p = PieceManager();
+
+	
+	PieceArgs args {.w_bishops_bb = bitset(A8), .b_knights_bb = bitset(H1)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getWhiteBishopMoves(), 0x40201008040201);
+
+	// White behind black
+ 
+}
+
+TEST(BishopTests, StartingPosition){
+	PieceManager p = PieceManager();
+
+	EXPECT_EQ(p.getWhiteBishopMoves(), 0);
+
+}
+
+TEST(QueenTests, EmptyBoardCenter){
+	PieceManager p = PieceManager();
+	PieceArgs args {.w_queens_bb = bitset(D4)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getWhiteQueenMoves(), 1266167048752878738);
+
+
+}
+
+TEST(QueenTests, StartingPosition){
+	PieceManager p = PieceManager();
+	EXPECT_EQ(p.getWhiteQueenMoves(), 0);
+
 }

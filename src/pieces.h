@@ -12,12 +12,12 @@ class PieceManager{
 		uint64_t w_rooks;
 		uint64_t w_pawns;
 		uint64_t w_bishops;
-		uint64_t w_queen;
+		uint64_t w_queens;
 		uint64_t w_knights;
 		uint64_t b_king; 
 
 		uint64_t b_pawns;
-		uint64_t b_queen;
+		uint64_t b_queens;
 		uint64_t b_bishops;
 		uint64_t b_rooks;
 		uint64_t b_knights;
@@ -32,12 +32,12 @@ class PieceManager{
 			w_rooks = W_ROOKS_START;
 			w_pawns = W_PAWNS_START;
 			w_bishops = W_BISHOPS_START;
-			w_queen = W_QUEEN_START;
+			w_queens = W_QUEEN_START;
 			w_knights = W_KNIGHTS_START;
 			b_king =  B_KING_START; 
 
 			b_pawns = B_PAWNS_START;
-			b_queen = B_QUEEN_START;
+			b_queens = B_QUEEN_START;
 			b_bishops = B_BISHOPS_START;
 			b_rooks = B_ROOKS_START;
 			b_knights = B_KNIGHTS_START;
@@ -54,15 +54,18 @@ class PieceManager{
 		void setWhiteKnightsPos(uint64_t);
 		void setWhitePawnsPos(uint64_t);
 		void setWhiteRooksPos(uint64_t);
-
+		void setWhiteBishopsPos(uint64_t);
+		void setWhiteQueensPos(uint64_t);
 		void setBlackKingPos(uint64_t);
 		void setBlackKnightsPos(uint64_t);
 		void setBlackPawnsPos(uint64_t);
-		
+	
+		uint64_t getWhiteQueenMoves();	
 		uint64_t getWhitePawnMoves();
 		uint64_t getWhiteKingMoves();
 		uint64_t getWhiteKnightMoves();
 		uint64_t getWhiteRookMoves();
+		uint64_t getWhiteBishopMoves();
 		uint64_t outputRank(uint64_t);
 };
 
@@ -75,7 +78,9 @@ void PieceManager::setBoard(PieceArgs args){
 	setAllPieces(all_pieces_bb);
 	setWhitePieces(w_all_pieces);
 	setBlackPieces(b_all_pieces);
-
+	
+	setWhiteQueensPos(args.w_queens_bb);
+	setWhiteBishopsPos(args.w_bishops_bb);
 	setWhiteKingPos(args.w_king_bb);
 	setWhiteKnightsPos(args.w_knights_bb);
 	setWhitePawnsPos(args.w_pawns_bb);
@@ -83,6 +88,7 @@ void PieceManager::setBoard(PieceArgs args){
 	setBlackKnightsPos(args.b_knights_bb);
 	setBlackPawnsPos(args.b_pawns_bb);
 	setWhiteRooksPos(args.w_rooks_bb);
+	setWhiteBishopsPos(args.w_bishops_bb);
 	
 }
 
@@ -101,12 +107,19 @@ void PieceManager::setWhiteKingPos(uint64_t w_king_bb){
 	this->w_king = w_king_bb;
 }
 
+void PieceManager::setWhiteQueensPos(uint64_t w_queens_bb){
+	this->w_queens = w_queens_bb;
+}
 void PieceManager::setWhiteKnightsPos(uint64_t w_knights_bb){
 	this->w_knights = w_knights_bb;
 }
 
 void PieceManager::setWhitePawnsPos(uint64_t w_pawns_bb){
 	this->w_pawns = w_pawns_bb;
+}
+
+void PieceManager::setWhiteBishopsPos(uint64_t w_bishops_bb){
+	this->w_bishops = w_bishops_bb;
 }
 
 void PieceManager::setBlackKingPos(uint64_t b_king_bb){
@@ -153,13 +166,12 @@ uint64_t PieceManager::getWhiteKingMoves(){
 uint64_t PieceManager::getWhiteRookMoves(){
 	uint64_t bitboard = w_rooks;
  	uint64_t rookMoves = 0ULL;
- 	int count = 0;
+
 	while (bitboard != 0ULL){
-		count += 1;
 		int square = countr_zero(bitboard);
 
 		
-		int index = generateMagicIndex((w_all_pieces | b_all_pieces) & rookOccupancyMasks[square], rookMagics[square], square);
+		int index = generateMagicIndex((w_all_pieces | b_all_pieces) & rookOccupancyMasks[square], rookMagics[square], square, 0);
 	
 		rookMoves |= rookMoveList[square][index];
 
@@ -168,6 +180,50 @@ uint64_t PieceManager::getWhiteRookMoves(){
  	}
 
 	return rookMoves & ~w_all_pieces;
+	
+}
+
+
+uint64_t PieceManager::getWhiteQueenMoves(){
+	uint64_t bitboard = w_queens;
+ 	uint64_t rookMoves = 0ULL;
+	uint64_t bishopMoves = 0ULL;
+
+	while (bitboard != 0ULL){
+		int square = countr_zero(bitboard);
+
+		
+		int rookIndex = generateMagicIndex((w_all_pieces | b_all_pieces) & rookOccupancyMasks[square], rookMagics[square], square, 0);
+	
+		rookMoves |= rookMoveList[square][rookIndex];
+		int bishopIndex = generateMagicIndex((w_all_pieces | b_all_pieces) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
+
+		bishopMoves |= bishopMoveList[square][rookIndex];
+		bitboard = bitclear(bitboard, square);
+
+ 	}
+
+	return (bishopMoves | rookMoves) & ~w_all_pieces;
+	
+}
+uint64_t PieceManager::getWhiteBishopMoves(){
+	uint64_t bitboard = w_bishops;
+ 	uint64_t bishopMoves = 0ULL;
+ 	
+	while (bitboard != 0ULL){
+	
+		int square = countr_zero(bitboard);
+
+		
+		int index = generateMagicIndex((w_all_pieces | b_all_pieces) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
+	
+		bishopMoves |= bishopMoveList[square][index];
+
+		bitboard = bitclear(bitboard, square);
+
+ 	}
+
+	return bishopMoves & ~w_all_pieces;
 	
 }
 
