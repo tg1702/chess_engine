@@ -14,8 +14,8 @@ using namespace std;
 
 #pragma once
 enum SlidingPieces{
-	ROOK,
-	BISHOP
+	ROOK_MOVES,
+	BISHOP_MOVES
 };
 
 uint64_t outputRank(uint64_t);
@@ -153,10 +153,10 @@ for (int i = 7; i <= 49; i+= 7){
 }
 int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int type){
 	switch(type){
-	case ROOK:	
+	case ROOK_MOVES:	
 		return (int)((bitboard * magicNumber) >> rookShifts[square]);
 		break;
-	case BISHOP:	
+	case BISHOP_MOVES:	
 		return (int)((bitboard * magicNumber) >> bishopShifts[square]);
 		break;
 
@@ -165,9 +165,9 @@ int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int 
 
 int countr_zero(uint64_t bb){
 	int count = 0;
-	while ((bb & 1) == 0){
+	while ((bb & 1ULL) == 0){
 		count += 1;
-		bb >>= 1;
+		bb >>= 1ULL;
 	}
 	return count;	
 }
@@ -269,12 +269,12 @@ uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
 	uint64_t attackCombos;	
 
 	switch(type){
-		case ROOK:
+		case ROOK_MOVES:
 			MAX_PATTERNS = 1 << (64 - rookShifts[square]);    
 			blockers = blockers & rookOccupancyMasks[square];
 			attackCombos = generateWhiteRookMask(square);
 			break;
-		case BISHOP:	
+		case BISHOP_MOVES:	
 			MAX_PATTERNS = 1 << (64 - bishopShifts[square]);
 			blockers = blockers & bishopOccupancyMasks[square];
 			attackCombos = generateWhiteBishopMask(square);
@@ -300,10 +300,10 @@ uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
 			uint64_t legalMoves;
 				
 			switch(type) {
-				case ROOK:
+				case ROOK_MOVES:
 					legalMoves = calcLegalRookMoves(square, occupancyCombos[i]);
 					break;
-				case BISHOP:
+				case BISHOP_MOVES:
 					legalMoves = calcLegalBishopMoves(square, occupancyCombos[i]);
 					break;
 			}		
