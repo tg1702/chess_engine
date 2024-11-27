@@ -4,15 +4,14 @@
 using namespace std;
 
 int main(){
-	/*
-	Pieces pieces = Pieces();
-	cout << pieces.generateWhitePawnMoves() << endl;
-	cout << pieces.generateWhiteKingMoves() << endl;
-	cout << pieces.generateWhiteKnightMoves() << endl;
-	*/
+	
+	PieceManager pieces = PieceManager();
 
-	for (int i = H4; i <= A8; i++){
-		cout << "0x" << hex << bitset(i) << "ULL, "<< endl;
+
+	for (int i = 0; i < 64; i++){
+		PieceArgs args {.w_knights_bb = bitset(i)};
+		pieces.setBoard(args);
+		cout << "0x" << hex << pieces.getMovesBB(WHITE, KNIGHT) << "ULL, "<< endl;
 	}
 	return 0;
 

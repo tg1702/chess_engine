@@ -7,6 +7,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <array>
 
 // Max size of lookup table (redefine as 512 for bishops)
 #define TABLE_SIZE 4096
