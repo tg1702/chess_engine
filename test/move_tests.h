@@ -4,6 +4,7 @@
 TEST(KingTests, KingStartingMoves){
 	PieceManager p = PieceManager();
 	EXPECT_EQ(p.getMovesBB(WHITE, KING), 0);
+	p.generateAllMoves(BLACK);	
 	EXPECT_EQ(p.getMovesBB(BLACK, KING), 0 );
 }
 
@@ -34,6 +35,7 @@ TEST(KingTests, MoveToEnemySquare){
 TEST(KnightTests, WhiteKnightStartingMoves){
 	PieceManager p = PieceManager();
 	EXPECT_EQ(p.getMovesBB(WHITE, KNIGHT), 10813440);
+	p.generateAllMoves(BLACK);
 	EXPECT_EQ(p.getPiecesBB(BLACK, KNIGHT), 0x4200000000000000);
 }
 
@@ -69,6 +71,7 @@ TEST(PawnTests, PawnsStartingMoves){
 	
 	PieceManager p = PieceManager();
 	EXPECT_EQ(p.getMovesBB(WHITE, PAWN), 4294901760);
+	p.generateAllMoves(BLACK);
 	EXPECT_EQ(p.getMovesBB(BLACK, PAWN), 281470681743360);
 }
 
@@ -148,7 +151,7 @@ TEST(RookTests, StartingPosition){
 	PieceManager p = PieceManager();
 
 	EXPECT_EQ(p.getMovesBB(WHITE, ROOK), 0);
-
+	p.generateAllMoves(BLACK);
 	EXPECT_EQ(p.getMovesBB(BLACK, ROOK), 0);
 }
 
@@ -195,10 +198,16 @@ TEST(BishopTests, StartingPosition){
 	PieceManager p = PieceManager();
 
 	EXPECT_EQ(p.getMovesBB(WHITE, BISHOP), 0);
-
+	p.generateAllMoves(BLACK);
 	EXPECT_EQ(p.getMovesBB(BLACK, BISHOP), 0);
 }
 
+TEST(BishopTests, 1E4){
+	PieceManager p = PieceManager();
+	PieceArgs args {.w_pawns_bb = bitset(G2), .w_bishops_bb = bitset(F1)};
+	p.setBoard(args);
+	EXPECT_EQ(p.getMovesBB(WHITE, BISHOP),0x804020100800);
+}
 TEST(QueenTests, EmptyBoardCenter){
 	PieceManager p = PieceManager();
 	PieceArgs args {.w_queens_bb = bitset(D4)};
