@@ -45,9 +45,43 @@ class PieceManager{
 			generateAllMoves(WHITE);
 			//generateAllMoves(BLACK);
 		}
+
+
+		PieceManager(PieceArgs args){
+			uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;
+
+			uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
+
+
+	uint64_t all_pieces_bb = w_all_pieces | b_all_pieces;
+	setAllPiecesBB(all_pieces_bb);
+	setSidePiecesBB(w_all_pieces, WHITE);
+	setSidePiecesBB(b_all_pieces, BLACK);
+	
+	setQueensPosBB(args.w_queens_bb, WHITE);
+	setBishopsPosBB(args.w_bishops_bb, WHITE);
+	setKingPosBB(args.w_king_bb, WHITE);
+	setKnightsPosBB(args.w_knights_bb, WHITE);
+	setPawnsPosBB(args.w_pawns_bb, WHITE);
+	setRooksPosBB(args.w_rooks_bb, WHITE);
+	
+	
+	setKingPosBB(args.b_king_bb, BLACK);
+	setKnightsPosBB(args.b_knights_bb, BLACK);
+	setPawnsPosBB(args.b_pawns_bb, BLACK);
+	setQueensPosBB(args.b_queens_bb, BLACK);
+	setBishopsPosBB(args.b_bishops_bb, BLACK);
+	setRooksPosBB(args.b_rooks_bb, BLACK);
+	
+	move_count = 0;
+	
+	generateAllMoves(WHITE);
+	//generateAllMoves(BLACK);
+}
 		void setBoard(PieceArgs args);
 		void setAllPiecesBB(uint64_t);
 		void setSidePiecesBB(uint64_t, bool);
+		void setSidePiecesBB(bool);
 		void setKingPosBB(uint64_t, bool);
 		void setKnightsPosBB(uint64_t, bool);
 		void setPawnsPosBB(uint64_t, bool);
@@ -69,9 +103,13 @@ class PieceManager{
 		
 		uint64_t outputRank(uint64_t);
 
-		void clearMoves(void);	
+		void clearMoves(bool);	
 		void addPossibleMove(int, uint64_t);
 		void addKingSideCastlingRights(bool);
+		void addQueenSideCastlingRights(bool);
+		
+		void removeKingSideCastlingRights(bool);
+		void removeQueenSideCastlingRights(bool);
 		unsigned int encodeMove(int, int, int);
 		array<unsigned int, 256> getEncodedMove(void);	
 		bool canQueenSideCastle(bool);
@@ -107,20 +145,15 @@ void PieceManager::setBoard(PieceArgs args){
 	
 	move_count = 0;
 	
-	clearMoves();
 	generateAllMoves(WHITE);
 	//generateAllMoves(BLACK);
 }
 
-void PieceManager::clearMoves(){
+void PieceManager::clearMoves(bool side){
 	fill(begin(generatedMoves), end(generatedMoves), 0);
 	move_count = 0;	
-	for (int side = 0; side < SIDES; ++side){
-		for (int type = 0; type < PIECE_TYPES; type++){
-			this->attacks[side][type] = 0ULL;
-		
-		}
-	}
+
+	
 }
 
 void PieceManager::setAnyPosBB(bool side, int type, uint64_t pos){
@@ -134,6 +167,9 @@ void PieceManager::setSidePiecesBB(uint64_t all_pieces_bb, bool side){
 	this->Pieces[side][ALL] = all_pieces_bb;
 }
 
+void PieceManager::setSidePiecesBB(bool side){
+	this->Pieces[side][ALL] = this->Pieces[side][KING] | this->Pieces[side][QUEEN] | this->Pieces[side][ROOK] | this->Pieces[side][BISHOP] | this->Pieces[side][KNIGHT] | this->Pieces[side][PAWN];
+}
 void PieceManager::setKingPosBB(uint64_t king_bb, bool side){
 	this->Pieces[side][KING] = king_bb;
 }
@@ -165,6 +201,8 @@ uint64_t PieceManager::getMovesBB(bool side, int type){
 uint64_t PieceManager::getPiecesBB(bool side, int type){
 	return this->Pieces[side][type];
 }
+
+
 void PieceManager::generatePawnMoves(bool side){
 	uint64_t bitboard = this->Pieces[side][PAWN];
 	uint64_t pawnMoves = 0ULL;
@@ -173,20 +211,11 @@ void PieceManager::generatePawnMoves(bool side){
 	
   	while (bitboard != 0ULL){
 		index = countr_zero(bitboard);
-		
-		if (side == WHITE){
-			captureMoves = (bitboard << 7 | bitboard << 9) & Pieces[!side][ALL] & outputRank(bitset(index) << 8);
-
-		}
-		else {
-			captureMoves = (bitboard >> 7 | bitboard >> 9) & Pieces[!side][ALL] & outputRank(bitset(index) >> 8);
-		}
-
 			
 		bitboard = bitclear(bitboard, index);
-		pawnMoves |= (pawnLookups[side][index] | captureMoves) & (~all_pieces | ~all_pieces<<8);
+		pawnMoves |= (pawnLookups[side][index] | (pawnAttackLookups[side][index] & this->Pieces[!side][ALL])) & (~all_pieces | ~all_pieces<<8);
 
-		addPossibleMove(index, (pawnLookups[side][index] | captureMoves) & (~all_pieces | ~all_pieces<<8));
+		addPossibleMove(index, (pawnLookups[side][index] | (pawnAttackLookups[side][index] & this->Pieces[!side][ALL])) & (~all_pieces | ~all_pieces<<8));
 		
 	}	
 	this->attacks[side][PAWN] = pawnMoves;	
@@ -202,8 +231,8 @@ void PieceManager::generateKingMoves(bool side){
 		int index = countr_zero(bitboard);
 		bitboard = bitclear(bitboard, index);
 
-		kingMoves |= whiteKingLookups[index] & ~(this->Pieces[side][ALL]);
-		addPossibleMove(index, whiteKingLookups[index] & ~(this->Pieces[side][ALL]));
+		kingMoves |= kingLookups[index] & ~(this->Pieces[side][ALL]);
+		addPossibleMove(index, kingLookups[index] & ~(this->Pieces[side][ALL]));
  	}
 
 
@@ -213,9 +242,22 @@ void PieceManager::generateKingMoves(bool side){
 }
 
 void PieceManager::addKingSideCastlingRights(bool side){
-	side == WHITE? this->attacks[side][KING] | bitset(H1) : this->attacks[side][KING] | bitset(H8); 
+	side == WHITE? this->attacks[side][KING] |= bitset(G1) : this->attacks[side][KING] |= bitset(G8); 
 }
 
+void PieceManager::addQueenSideCastlingRights(bool side){
+	side == WHITE? this->attacks[side][KING] |= bitset(C1) : this->attacks[side][KING] |= bitset(C8);
+}
+
+
+void PieceManager::removeKingSideCastlingRights(bool side){
+
+	side == WHITE? this->attacks[side][KING] &= ~bitset(G1) : this->attacks[side][KING] &= ~bitset(G8); 
+}
+
+void PieceManager::removeQueenSideCastlingRights(bool side){
+	side == WHITE? this->attacks[side][KING] &= ~bitset(C1) : this->attacks[side][KING] &= ~bitset(C8);
+}
 void PieceManager::generateRookMoves(bool side){
 	uint64_t bitboard = this->Pieces[side][ROOK];
  	uint64_t rookMoves = 0ULL;
@@ -253,7 +295,7 @@ void PieceManager::generateQueenMoves(bool side){
 		rookMoves |= rookMoveList[square][rookIndex] & ~(this->Pieces[side][ALL]);
 		int bishopIndex = generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 
-		bishopMoves |= bishopMoveList[square][rookIndex] & ~(this->Pieces[side][ALL]);
+		bishopMoves |= bishopMoveList[square][bishopIndex] & ~(this->Pieces[side][ALL]);
 		bitboard = bitclear(bitboard, square);
 
 		addPossibleMove(square, (bishopMoveList[square][bishopIndex] & ~(this->Pieces[side][ALL])) | (rookMoveList[square][rookIndex] & ~(this->Pieces[side][ALL])));
@@ -305,7 +347,7 @@ void PieceManager::generateKnightMoves(bool side){
 }
 
 void PieceManager::generateAllMoves(bool side){
-
+			this->attacks[side][ALL] = 0ULL;
 			generateKingMoves(side);
 			generateQueenMoves(side);
 			generateRookMoves(side);
@@ -345,15 +387,52 @@ array<unsigned int, 256> PieceManager::getEncodedMove(){
 
 bool PieceManager::canKingSideCastle(bool side){
 	if (side == WHITE)
-		return (Pieces[side][KING] & bitset(E1)) && (Pieces[side][ROOK] & bitset(H1)) && ((1ULL << F1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && ((1ULL << G1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && !isAttacked(side, E1) && !isAttacked(side, F1) && !isAttacked(side, G1);
+		return (Pieces[side][KING] & bitset(E1)) && 
+			(Pieces[side][ROOK] & bitset(H1)) && 
+			((1ULL << F1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
+			((1ULL << G1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
+			!isAttacked(side, E1) && 
+			!isAttacked(side, F1) && 
+			!isAttacked(side, G1);
 	else
-		return 0;
+		return (Pieces[side][KING] & bitset(E8)) &&                                                                                                                 (Pieces[side][ROOK] & bitset(H8)) &&                                                                                                                ((1ULL << F8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&                                                                                      ((1ULL << G8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
+                        !isAttacked(side, E8) &&
+                        !isAttacked(side, F8) &&
+                        !isAttacked(side, G8);
 }
 
 bool PieceManager::isAttacked(bool side, int square){
-	return this->attacks[!side][ALL] & (1ULL >> square);
+	bool opponent = !side;	
+	int bishopIndex = generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
+	 	
+	int rookIndex = generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & rookOccupancyMasks[square], rookMagics[square], square, 0);
+	return (kingLookups[square] & this->Pieces[opponent][KING]) ||
+	       (knightLookups[square] & this->Pieces[opponent][KNIGHT]) ||
+		(pawnAttackLookups[side][square] & this->Pieces[opponent][PAWN]) ||
+		(rookMoveList[square][rookIndex] & this->Pieces[opponent][ROOK]) ||
+		(bishopMoveList[square][bishopIndex] & this->Pieces[opponent][BISHOP]) ||
+		((bishopMoveList[square][bishopIndex] | rookMoveList[square][rookIndex]) & this->Pieces[opponent][QUEEN]);
 }
 
 bool PieceManager::canQueenSideCastle(bool side){
-	return false;
+	if (side == WHITE)
+		return (Pieces[side][KING] & bitset(E1)) && 
+			(Pieces[side][ROOK] & bitset(A1)) && 
+			((1ULL << B1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
+			((1ULL << C1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
+			((1ULL << D1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
+			!isAttacked(side, B1) && 
+			!isAttacked(side, C1) && 
+			!isAttacked(side, D1) && 
+			!isAttacked(side, E1);
+	else
+		return  (Pieces[side][KING] & bitset(E8)) &&
+                        (Pieces[side][ROOK] & bitset(A8)) &&
+                        ((1ULL << B8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
+                        ((1ULL << C8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
+                        ((1ULL << D8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
+                        !isAttacked(side, B8) &&
+                        !isAttacked(side, C8) &&
+                        !isAttacked(side, D8) &&
+                        !isAttacked(side, E8);
 }
