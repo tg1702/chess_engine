@@ -72,6 +72,8 @@ TEST(PawnTests, PawnsStartingMoves){
 	PieceManager p = PieceManager();
 	EXPECT_EQ(p.getMovesBB(WHITE, PAWN), 4294901760);
 	p.generateAllMoves(BLACK);
+
+	cout << p.getPiecesBB(BLACK, PAWN) << endl;
 	EXPECT_EQ(p.getMovesBB(BLACK, PAWN), 281470681743360);
 }
 

@@ -21,6 +21,23 @@ TEST(MakeMoveTests, InitialBoardMoves){
 
 }
 
+TEST(Captures, NormalCaptures){
+	PieceArgs args {.w_knights_bb = bitset(F3), .b_pawns_bb = bitset(E5)};
+
+	Board board = Board(args);
+
+	EXPECT_EQ(board.makeMove(F3, E5, WHITE), "Piece type = 5 from = 18 to = 35"); 
+}
+
+TEST(Captures, PawnCaptures){
+	PieceArgs args {.w_pawns_bb = bitset(E4), .b_rooks_bb = bitset(D5)};
+	Board board = Board(args);
+
+	board.printBoard();
+	EXPECT_EQ(board.makeMove(E4, D5, WHITE), "Piece type = 2 from = 27 to = 36");
+	board.printBoard();
+
+}
 TEST(CastleTests, WhiteKingSideCastle){
 	Board board = Board();
 		
@@ -328,4 +345,128 @@ TEST(CastleTests, InvalidQSMovedA8Rook){
 	board.makeMove(C4, C5, WHITE);
 	board.printBoard();
 	EXPECT_EQ(board.makeMove(E8, C8, BLACK), "Invalid move 5961");
+}
+
+TEST(CastleTests, WhitePromotionMoves){
+	PieceArgs args {.w_pawns_bb = RANK_7, .b_king_bb = bitset(A2), .b_queens_bb = bitset(A1)};
+	Board board = Board(args);
+	
+	EXPECT_EQ(board.makeMove(A7, A8, WHITE, QUEEN_PROMOTION), "Promoting 55 pawn to 1");
+	
+	board.makeMove(A1, B1, BLACK);
+
+	EXPECT_EQ(board.makeMove(E7, E8, WHITE, ROOK_PROMOTION), "Promoting 51 pawn to 2");
+	
+	board.makeMove(B1, A1, BLACK);
+	
+	EXPECT_EQ(board.makeMove(F7, F8, WHITE, BISHOP_PROMOTION), "Promoting 50 pawn to 3");
+	
+	board.makeMove(A1, B1, BLACK);
+	
+	EXPECT_EQ(board.makeMove(G7, G8, WHITE, KNIGHT_PROMOTION), "Promoting 49 pawn to 4");
+		
+	board.makeMove(B1, A1, BLACK);
+
+	EXPECT_EQ(board.makeMove(H7, H8, WHITE), "Promoting 48 pawn to 1");
+	
+	board.printBoard();		
+	
+	EXPECT_EQ(board.getMoveCount(), 32);
+}
+
+TEST(CastleTests, WhitePromotionCaptures){
+	PieceArgs args {.w_pawns_bb = bitset(A7) | bitset(E7) | bitset(F7) | bitset(B7) | bitset(H7), .b_king_bb = bitset(A2), .b_queens_bb = bitset(D8) | bitset(E8) | bitset(G8) | bitset(C8)};
+        Board board = Board(args);
+
+	board.printBoard();
+
+        EXPECT_EQ(board.makeMove(A7, A8, WHITE, QUEEN_PROMOTION), "Promoting 55 pawn to 1");
+
+        board.makeMove(A1, B1, BLACK);
+
+        EXPECT_EQ(board.makeMove(E7, D8, WHITE, ROOK_PROMOTION), "Promoting 51 pawn to 2");
+
+        board.makeMove(B1, A1, BLACK);
+
+        
+	EXPECT_EQ(board.makeMove(F7, E8, WHITE, BISHOP_PROMOTION), "Promoting 50 pawn to 3");
+
+        board.makeMove(A1, B1, BLACK);
+
+        EXPECT_EQ(board.makeMove(B7, C8, WHITE, KNIGHT_PROMOTION), "Promoting 54 pawn to 4");
+
+        board.makeMove(B1, A1, BLACK);
+
+        EXPECT_EQ(board.makeMove(H7, G8, WHITE), "Promoting 48 pawn to 1");
+        board.printBoard();
+
+        //EXPECT_EQ(board.getMoveCount(), 32);
+}
+
+
+TEST(CastleTests, BlackPromotionMoves){
+	PieceArgs args {.w_king_bb = bitset(A8), .b_pawns_bb = RANK_2, .b_queens_bb = bitset(B8)};
+	Board board = Board(args);
+
+	board.printBoard();	
+	board.makeMove(A8, A7, WHITE);
+	
+	EXPECT_EQ(board.makeMove(A2, A1, BLACK, QUEEN_PROMOTION), "Promoting 15 pawn to 1");
+	
+	board.makeMove(A7, A8, WHITE);
+	
+	EXPECT_EQ(board.makeMove(E2, E1, BLACK, ROOK_PROMOTION), "Promoting 11 pawn to 2");
+	
+	
+	board.makeMove(A8, A7, WHITE);
+	EXPECT_EQ(board.makeMove(F2, F1, BLACK, BISHOP_PROMOTION), "Promoting 10 pawn to 3");
+	
+	
+	board.makeMove(A7, A8, WHITE);
+	
+	EXPECT_EQ(board.makeMove(G2, G1, BLACK, KNIGHT_PROMOTION), "Promoting 9 pawn to 4");
+		
+	
+	board.makeMove(A8, A7, WHITE);
+
+	EXPECT_EQ(board.makeMove(H2, H1, BLACK), "Promoting 8 pawn to 1");
+	
+	board.printBoard();		
+	
+	//EXPECT_EQ(board.getMoveCount(), 32);
+}
+
+
+TEST(CastleTests, BlackPromotionCaptures){
+	PieceArgs args {.w_king_bb = bitset(A8), .w_queens_bb = bitset(C1) | bitset(D1) | bitset(F1) | bitset(G1),.b_pawns_bb = bitset(A2) | bitset(B2) | bitset(C2) | bitset(E2) | bitset(F2), .b_queens_bb = bitset(B8)};
+	
+	Board board = Board(args);
+
+	board.printBoard();	
+	
+	board.makeMove(A8, A7, WHITE);
+	
+	EXPECT_EQ(board.makeMove(A2, A1, BLACK, QUEEN_PROMOTION), "Promoting 15 pawn to 1");
+	
+	board.makeMove(A7, A8, WHITE);
+	
+	EXPECT_EQ(board.makeMove(B2, C1, BLACK, ROOK_PROMOTION), "Promoting 14 pawn to 2");
+	
+	
+	board.makeMove(A8, A7, WHITE);
+	
+	EXPECT_EQ(board.makeMove(C2, D1, BLACK, BISHOP_PROMOTION), "Promoting 13 pawn to 3");
+	
+	
+	board.makeMove(A7, A8, WHITE);
+	
+	EXPECT_EQ(board.makeMove(E2, F1, BLACK, KNIGHT_PROMOTION), "Promoting 11 pawn to 4");
+		
+	
+	board.makeMove(A8, A7, WHITE);
+
+	EXPECT_EQ(board.makeMove(F2, G1, BLACK), "Promoting 10 pawn to 1");
+	
+	board.printBoard();		
+	
 }
