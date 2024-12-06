@@ -1,7 +1,6 @@
 #include <iostream>
 #include "pieces.h"
-#include "types.h"
-#include "lookup.h"
+#include "board.h"
 using namespace std;
 
 int main(){

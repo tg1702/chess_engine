@@ -19,6 +19,9 @@ enable_testing()
 add_executable(
   hello_test
   tests.cpp
+  ../src/pieces.cpp 
+  ../src/utils.cpp 
+  ../src/board.cpp
 )
 target_link_libraries(
   hello_test
