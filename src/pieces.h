@@ -89,11 +89,10 @@ class PieceManager{
 		void addKingSideCastlingRights(bool);
 		void addQueenSideCastlingRights(bool);
 		bool isPromoting(bool, int, int);	
-		unsigned int encodeMove(int, int, int);
 		std::array<unsigned int, 256> getEncodedMove(void);	
 		bool canQueenSideCastle(bool);
 		bool canKingSideCastle(bool);
 		bool isAttacked(bool, int);
-		void addEnPassantRights(bool);
+		void addEnPassantRights(bool, int);
 };
 

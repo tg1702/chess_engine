@@ -41,4 +41,9 @@ int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int 
                 return (int)((bitboard * magicNumber) >> bishopShifts[square]);
 }
 
+
+unsigned int encodeMove(int from, int to, int flags, int fromPiece, int toPiece){
+
+	return  ((flags & 0xf)<<12) | ((from & 0x3f)<<6) | (to & 0x3f);
+}
 }

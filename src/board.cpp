@@ -13,10 +13,13 @@ Board::Board(){
 			hasMovedA8Rook = false;
 			hasMovedH8Rook = false;
 		
-			enPassantSquareWhite = false;
-			enPassantSquareBlack = false;
-			
-			generatedMoves = getMove();	
+			enPassantWhiteSquare = 0;
+			enPassantBlackSquare = 0;
+	
+			enPassantWhiteFlag = false;
+			enPassantBlackFlag = false;	
+				
+			setMoves();	
 			addCastlingRights();	
 }
 
@@ -31,8 +34,13 @@ Board::Board(PieceArgs args){
 			hasMovedBlackKing = false;
 			hasMovedA8Rook = false;
 			hasMovedH8Rook = false;
-		
-			generatedMoves = getMove();	
+	
+			enPassantWhiteSquare = 0;
+			enPassantBlackSquare = 0;
+
+			enPassantWhiteFlag = false;
+			enPassantBlackFlag = false;
+			setMoves();
 			addCastlingRights();
 }
 void Board::addCastlingRights(){
@@ -57,16 +65,24 @@ void Board::addCastlingRights(){
 }
 std::string Board::makeMove(int from, int to, bool side, int special){
 	bool validCapture = false;
-	std::string moveMessage = "Invalid move " + std::to_string(from) + std::to_string(to);	
+	
+	std::string moveMessage = "Invalid move " + pieceSquareNames[from] + pieceSquareNames[to];	
 	if (side != turn) return "It is not your turn!";
 
+	
+	if (side == WHITE && enPassantWhiteFlag) 
+		pieces.addEnPassantRights(WHITE, enPassantWhiteSquare);
+	if (side == BLACK && enPassantBlackFlag)
+		pieces.addEnPassantRights(BLACK, enPassantBlackSquare);
+		
 	addCastlingRights();
 	for (size_t i = 0; i < PIECE_TYPES; i++){
 			
-		if ( side == WHITE && i == KING && from == E1 && to == G1 && (pieces.getPiecesBB(side, i) & bitset(E1)) && (pieces.getMovesBB(side, i) & bitset(G1))){
-				
-				
-				moveMessage = "Piece type = " + std::to_string(i) + " from = " + std::to_string(from) + " to = " + std::to_string(to);	
+		if ((pieces.getPiecesBB(side, i) & bitset(from)) && (pieces.getMovesBB(side, i) & bitset(to))){
+			if (side == WHITE && i == KING && from == E1 && to == G1)
+			{
+
+				special = CASTLE_FLAG;	
 
 				
 				uint64_t kingBB = pieces.getPiecesBB(WHITE,KING);
@@ -78,8 +94,10 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 				pieces.setAnyPosBB( WHITE, ROOK, bitclear(rookBB , H1));
 				pieces.setAnyPosBB( WHITE, ROOK,pieces.getPiecesBB(WHITE, ROOK) | bitset(F1));
 			}
-			else if (side == WHITE && i == KING && from == E1 && to == C1 &&(pieces.getPiecesBB(side, i) & bitset(E1)) && (pieces.getMovesBB(side, i) & bitset(C1))){
-				moveMessage = "Piece type = " + std::to_string(i) + " from = " + std::to_string(from) + " to = " + std::to_string(to);	
+
+			else if (side == WHITE && i == KING && from == E1 && to == C1){
+			
+				special = CASTLE_FLAG;
 				
 				uint64_t kingBB = pieces.getPiecesBB(WHITE,KING);
 				uint64_t rookBB = pieces.getPiecesBB(WHITE, ROOK);
@@ -89,11 +107,11 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 				
 				pieces.setAnyPosBB( WHITE, ROOK , bitclear(rookBB, A1));
 				pieces.setAnyPosBB( WHITE, ROOK ,pieces.getPiecesBB(WHITE, ROOK) | bitset(D1));
-				
 			}
 
-			else if ( side == BLACK && i == KING && from == E8 && to == G8 && (pieces.getPiecesBB(side, i) & bitset(E8)) && (pieces.getMovesBB(side, i) & bitset(G8))){
-				moveMessage = "Piece type = " + std::to_string(i) + " from = " + std::to_string(from) + " to = " + std::to_string(to);
+			else if ( side == BLACK && i == KING && from == E8 && to == G8){
+
+				special = CASTLE_FLAG;
 
 
                                 uint64_t kingBB = pieces.getPiecesBB(BLACK,KING);
@@ -104,10 +122,11 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 
                                 pieces.setAnyPosBB( BLACK, ROOK, bitclear(rookBB , H8));
                                 pieces.setAnyPosBB( BLACK, ROOK,pieces.getPiecesBB(BLACK, ROOK) | bitset(F8));
-                        }
-                        else if (side == BLACK && i == KING &&  from == E8 && to == C8 && (pieces.getPiecesBB(side, i) & bitset(E8)) && (pieces.getMovesBB(side, i) & bitset(C8))){
+			}
 
-                                moveMessage = "Piece type = " + std::to_string(i) + " from = " + std::to_string(from) + " to = " + std::to_string(to);
+			else if ( side == BLACK && i == KING && from == E8 && to == C8){
+
+				special = CASTLE_FLAG;
 
                                 uint64_t kingBB = pieces.getPiecesBB(BLACK, KING);
                                 uint64_t rookBB = pieces.getPiecesBB(BLACK, ROOK);
@@ -117,10 +136,9 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 
                                 pieces.setAnyPosBB( BLACK, ROOK , bitclear(rookBB, A8));
                                 pieces.setAnyPosBB( BLACK, ROOK ,pieces.getPiecesBB(BLACK, ROOK) ^ bitset(D8));
+			}
 
-                        }
-		
-			else if ((pieces.getPiecesBB(side, i) & bitset(from)) && (pieces.getMovesBB(side, i) & bitset(to)) && pieces.isPromoting(side, from, to))
+			else if (i == PAWN && pieces.isPromoting(side, from, to))
 			{
 				uint64_t pawnBB = pieces.getPiecesBB(side, PAWN);
 				pieces.setAnyPosBB(side, PAWN, bitclear(pawnBB, from));
@@ -144,42 +162,56 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 						break;
 				}
 
-				moveMessage = "Promoting " + std::to_string(from) + " pawn to " + std::to_string(special);	
 				validCapture = true;
 				
 			}
-/*
-		else if (side == BLACK && movedPawnSeventhRank()){
+
+		else if ( i == PAWN && side == WHITE && (bitset(to) & bitset(enPassantWhiteSquare<<8))){
+			special = EN_PASSANT_FLAG;
+			
+			uint64_t whitePawnBB = pieces.getPiecesBB(WHITE, PAWN);
+			uint64_t blackPawnBB = pieces.getPiecesBB(BLACK, PAWN);
+			
+			pieces.setAnyPosBB(WHITE, PAWN, bitclear(whitePawnBB, from));
+			pieces.setAnyPosBB(WHITE, PAWN, whitePawnBB ^ bitset(to));
+			pieces.setAnyPosBB(BLACK, PAWN, bitclear(blackPawnBB, enPassantWhiteSquare));
+			
+
+			enPassantWhiteFlag = false;
+			enPassantWhiteSquare = 0;
+		}
+
+
+		else if ( i == PAWN && side == BLACK && (bitset(to) & bitset(enPassantBlackSquare>>8))){
+			special = EN_PASSANT_FLAG;	
+			
+			uint64_t whitePawnBB = pieces.getPiecesBB(WHITE, PAWN);
+			uint64_t blackPawnBB = pieces.getPiecesBB(BLACK, PAWN);
+			
+			pieces.setAnyPosBB(BLACK, PAWN, bitclear(blackPawnBB, from));
+			pieces.setAnyPosBB(BLACK, PAWN, blackPawnBB ^ bitset(to));
+			pieces.setAnyPosBB(WHITE, PAWN, bitclear(whitePawnBB, enPassantBlackSquare));
+			
+
+			enPassantBlackFlag = false;
+			enPassantBlackSquare = 0;
+		}
+
+
+		else {
+				
+
+		if (side == BLACK && movePawnFifthRank(from, to)){	
 			enPassantWhiteFlag = true;
-			pieces.addEnPassantRights(WHITE);
+			enPassantWhiteSquare = to;
 		}
 
-		else if (side == WHITE && movedPawnSecondRank()){
+		else if (side == WHITE && movePawnFourthRank(from, to) ){
 			enPassantBlackFlag = true;
-			pieces.addEnPassantRights(BLACK);
+			enPassantBlackSquare = to;
 		}
-
-		else if ( i == PAWN && side == WHITE && (pieces.getPiecesBB(side, i) & bitset(from) & (bitset(enPassantWhiteFlag<<1) | bitset(enPassantWhiteFlag>>1))) && (pieces.getMovesBB(side, i) & bitset(enPassantWhiteFlag<<8))){
-			enPassantWhiteFlag = 0;
 			
-			pieces.setAnyPosBB(WHITE, PAWN, bitclear(pieces.getMovesBB(WHITE, PAWN), from));
-			pieces.setAnyPosBB(WHITE, PAWN, pieces.getMovesBB(WHITE, PAWN) ^ bitset(enPassantWhiteFlag<<8));
-			pieces.setAnyPosBB(BLACK, PAWN, bitclear(pieces.getMovesBB(BLACK, PAWN), enPassantWhiteFlag));
-		}
 		
-		else if ( i == PAWN && side == BLACK && (pieces.getPiecesBB(side, i) & bitset(from) & (bitset(enPassantWhiteFlag<<1) | bitset(enPassantBlackFlag>>1))) && (pieces.getMovesBB(side, i) & bitset(enPassantBlackFlag<<8))){
-			enPassantBlackFlag = 0;
-			
-			pieces.setAnyPosBB(BLACK, PAWN, bitclear(pieces.getMovesBB(BLACK, PAWN), from));
-			pieces.setAnyPosBB(BLACK, PAWN, pieces.getMovesBB(BLACK, PAWN) ^ bitset(enPassantBlackFlag<<8));
-			pieces.setAnyPosBB(WHITE, PAWN, bitclear(pieces.getMovesBB(WHITE, PAWN), enPassantBlackFlag));
-		}
-			*/
-		else if ((pieces.getPiecesBB(side, i) & bitset(from)) && (pieces.getMovesBB(side, i) & bitset(to))){
-			
-			moveMessage = "Piece type = " + std::to_string(i) + " from = " + std::to_string(from) + " to = " + std::to_string(to);	
-			
-
 			uint64_t curBB = pieces.getPiecesBB(side, i);
                         pieces.setAnyPosBB( side, i ,bitclear(curBB, from));
                         pieces.setAnyPosBB( side, i ,pieces.getPiecesBB(side, i) | bitset(to));
@@ -194,29 +226,53 @@ std::string Board::makeMove(int from, int to, bool side, int special){
 			if (i == ROOK && (pieces.getPiecesBB(side, ROOK) & bitset(H1))	&& side == WHITE) hasMovedH1Rook = true;
 			if (i == ROOK && (pieces.getPiecesBB(side, ROOK) & bitset(A8))	&& side == BLACK) hasMovedA8Rook = true;
 			if (i == ROOK && (pieces.getPiecesBB(side, ROOK) & bitset(H8))	&& side == BLACK) hasMovedH8Rook = true;
-			}
+		}
+			
+			
+                         moveMessage = pieceSquareNames[from] + pieceSquareNames[to];
+		}
+	
 
 
+		
+
+			
+			
 
 	}
 
 	
 	for (size_t i = 0; i < PIECE_TYPES && validCapture; i++){
 		if (pieces.getPiecesBB(!side, i) & bitset(to)){ 
+			special = CAPTURE_FLAG;
 			uint64_t capturedBB = pieces.getPiecesBB(!side, i);
                         pieces.setAnyPosBB( !side, i ,bitclear(capturedBB, to));
 
 		}
 
 	}
+
 	pieces.setSidePiecesBB(side);
 	
-	if (moveMessage.find("Invalid Move") != std::string::npos)
+	if(moveMessage.find("Invalid move") != std::string::npos)
 		return moveMessage;
+	if (side == WHITE){
+		enPassantWhiteFlag = false;
+		enPassantWhiteSquare = 0;
+	}
+	else {
+		enPassantBlackFlag = false;
+		enPassantBlackSquare = 0;
+	}
 
+
+	addMoveToHistory(utils::encodeMove(from, to, special, 0));	
+	
 	turn = !turn;	
 	pieces.clearMoves(side);
 	pieces.generateAllMoves(!side);
+	setMoves();
+	
 	return moveMessage;		
 }
 
@@ -254,3 +310,19 @@ void Board::printBoard(){
 	cout << "\n\n\n";
 }
 
+bool Board::movePawnFifthRank(int from, int to){
+	
+	return (pieces.getPiecesBB(BLACK, PAWN) & RANK_7 & bitset(from)) && (pieces.getMovesBB(BLACK, PAWN) & RANK_5 & bitset(to)) && (pieces.getPiecesBB(WHITE, PAWN) & (bitset(to<<1) | bitset(to>>1)));
+
+}
+
+bool Board::movePawnFourthRank(int from, int to){
+
+	return (( pieces.getPiecesBB(BLACK, PAWN) &(bitset(to<<1) | bitset(to>>1))) && pieces.getPiecesBB(WHITE, PAWN) & RANK_2 & bitset(from)) && (pieces.getMovesBB(WHITE, PAWN) & RANK_4 & bitset(to));
+
+}
+
+void Board::addMoveToHistory(int move){
+	actualMoves[actualMoveCount] = move;
+	actualMoveCount++;
+}

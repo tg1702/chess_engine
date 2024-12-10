@@ -151,11 +151,11 @@ void PieceManager::generateKingMoves(bool side){
 void PieceManager::addKingSideCastlingRights(bool side){
 	if (side == WHITE){
 		this->attacks[side][KING] |= bitset(G1);
-		generatedMoves[move_count] = encodeMove(E1, G1, CASTLE_FLAG);
+		generatedMoves[move_count] = utils::encodeMove(E1, G1, CASTLE_FLAG, KING);
 	}
 	else{
 		this->attacks[side][KING] |= bitset(G8);
-		generatedMoves[move_count] = encodeMove(E8, G8, CASTLE_FLAG);	
+		generatedMoves[move_count] = utils::encodeMove(E8, G8, CASTLE_FLAG, KING);	
 	      }
 		
         move_count += 1;	
@@ -164,11 +164,11 @@ void PieceManager::addKingSideCastlingRights(bool side){
 void PieceManager::addQueenSideCastlingRights(bool side){
 	if (side == WHITE){
 	       	this->attacks[side][KING] |= bitset(C1);
-	        generatedMoves[move_count] = encodeMove(E1, C1, CASTLE_FLAG);
+	        generatedMoves[move_count] = utils::encodeMove(E1, C1, CASTLE_FLAG, KING);
 	}
 	else{
 		this->attacks[side][KING] |= bitset(C8);
-		generatedMoves[move_count] = encodeMove(E8, C8, CASTLE_FLAG);
+		generatedMoves[move_count] = utils::encodeMove(E8, C8, CASTLE_FLAG, KING);
 	}
 
 	move_count += 1;
@@ -285,10 +285,6 @@ bool PieceManager::isPromoting(bool side, int from, int to){
 		}
 
 }
-unsigned int PieceManager::encodeMove(int from, int to, int flags){
-
-	return  ((flags & 0xf)<<12) | ((from & 0x3f)<<6) | (to & 0x3f);
-}
 void PieceManager::addPossibleMove(int start, uint64_t positions, bool side, int type){
 
 	while (positions != 0ULL){
@@ -296,14 +292,14 @@ void PieceManager::addPossibleMove(int start, uint64_t positions, bool side, int
 	
 		if (type == PAWN && isPromoting(side, start, to)){
 			for(const auto& promoted_code: promoted_piece_codes){
-				generatedMoves[move_count] = encodeMove(start, to, promoted_code);
+				generatedMoves[move_count] = utils::encodeMove(start, to, promoted_code, type);
 				move_count += 1;
 
 			}
 		}	
 
 		else{	
-			generatedMoves[move_count] = encodeMove(start, to, 0ULL);	
+			generatedMoves[move_count] = utils::encodeMove(start, to, 0ULL, type);	
 			move_count += 1;	
 		}
 		positions = bitclear(positions, to);
@@ -367,3 +363,9 @@ bool PieceManager::canQueenSideCastle(bool side){
                         !isAttacked(side, E8);
 }
 
+void PieceManager::addEnPassantRights(bool side, int enPassantSquare){
+	if (side == WHITE)
+		this->attacks[side][PAWN] |= bitset(enPassantSquare<<8);
+	else
+		this->attacks[side][PAWN] |= bitset(enPassantSquare>>8);
+}

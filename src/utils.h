@@ -11,4 +11,5 @@ namespace utils{
 	int countr_zero(uint64_t);
 	int count_ones(unsigned long long);
 	int generateMagicIndex(unsigned long, unsigned long, int , int); 
+	unsigned int encodeMove(int, int, int, int, int=0);
 }
