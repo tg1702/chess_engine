@@ -3,7 +3,6 @@
 
 #define bitset(nbit) ( 1ULL << nbit)
 #define bitclear(value, index) (value &= ~(1ULL << index))
-
 #pragma once
 
 namespace utils{
@@ -12,4 +11,7 @@ namespace utils{
 	int count_ones(unsigned long long);
 	int generateMagicIndex(unsigned long, unsigned long, int , int); 
 	unsigned int encodeMove(int, int, int, int, int=0);
+
+
+	
 }

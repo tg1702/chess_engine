@@ -71,10 +71,11 @@ TEST(PawnTests, PawnsStartingMoves){
 	
 	PieceManager p = PieceManager();
 	EXPECT_EQ(p.getMovesBB(WHITE, PAWN), 4294901760);
+	p.clearMoves();	
 	p.generateAllMoves(BLACK);
 
-	cout << p.getPiecesBB(BLACK, PAWN) << endl;
 	EXPECT_EQ(p.getMovesBB(BLACK, PAWN), 281470681743360);
+	EXPECT_EQ(p.getEncodedMoveCount(), 20);
 }
 
 TEST(PawnTests, BlockedByOpponent){
@@ -209,13 +210,14 @@ TEST(BishopTests, 1E4){
 	PieceArgs args {.w_pawns_bb = bitset(G2), .w_bishops_bb = bitset(F1)};
 	p.setBoard(args);
 	EXPECT_EQ(p.getMovesBB(WHITE, BISHOP),0x804020100800);
+	EXPECT_EQ(p.getEncodedMoveCount(), 7);
 }
 TEST(QueenTests, EmptyBoardCenter){
 	PieceManager p = PieceManager();
 	PieceArgs args {.w_queens_bb = bitset(D4)};
 	p.setBoard(args);
 	EXPECT_EQ(p.getMovesBB(WHITE, QUEEN), 1266167048752878738);
-
+	EXPECT_EQ(p.getEncodedMoveCount(), 27);
 
 }
 

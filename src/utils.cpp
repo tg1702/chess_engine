@@ -44,6 +44,6 @@ int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int 
 
 unsigned int encodeMove(int from, int to, int flags, int fromPiece, int toPiece){
 
-	return  ((flags & 0xf)<<12) | ((from & 0x3f)<<6) | (to & 0x3f);
+	return  ((flags & 0xf)<<18) | ((from & 0x3f)<<12) | ((to & 0x3f)<<6) | ((fromPiece & 0x7)<<3) | ((toPiece & 0x7));
 }
 }

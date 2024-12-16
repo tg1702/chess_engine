@@ -4,6 +4,8 @@
 #include "magic.h"
 #include "utils.h"
 #include "lookup.h"
+#include "move.h"
+#include <vector>
 
 #define SIDES 2
 #define MAX_PIECE_TYPES 7
@@ -15,10 +17,8 @@ class PieceManager{
 	private:
 		uint64_t Pieces[SIDES][MAX_PIECE_TYPES];
 		uint64_t attacks[SIDES][MAX_PIECE_TYPES];
-		uint64_t all_pieces;
-		
-		std::array<unsigned int, 256> generatedMoves = {0ULL};
-		int move_count;
+		uint64_t all_pieces;	
+		std::vector<Move> generatedMoves;
 	public:
 
 
@@ -84,15 +84,20 @@ class PieceManager{
 		void generateRookMoves(bool);
 		void generateBishopMoves(bool);
 
-		void clearMoves(bool);	
+		void clearMoves();	
 		void addPossibleMove(int, uint64_t, bool, int);
 		void addKingSideCastlingRights(bool);
 		void addQueenSideCastlingRights(bool);
 		bool isPromoting(bool, int, int);	
-		std::array<unsigned int, 256> getEncodedMove(void);	
+		std::vector<Move> getEncodedMove(void);	
 		bool canQueenSideCastle(bool);
 		bool canKingSideCastle(bool);
 		bool isAttacked(bool, int);
-		void addEnPassantRights(bool, int);
+		void addEnPassantRights(bool, int, int);
+		void movePiece(bool, int, int, int);
+		void clearPiece(bool, int, int);
+		void addPiece(bool, int, int);
+		void removeEnPassantRights(bool, int, int);
+		int getEncodedMoveCount(void) { return generatedMoves.size();}	
 };
 
