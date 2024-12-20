@@ -2,6 +2,7 @@
 #include "pieces.h"
 #include "types.h"
 #include "move.h"
+#include "movegen.h"
 #include <cctype>
 #include <algorithm>
 #include <vector>
@@ -13,6 +14,8 @@ class Board{
 	private:
 		PieceManager pieces = PieceManager();
 		std::vector<Move> generatedMoves;
+		
+		MoveList moves;	
 		int moveCount;
 		int captures=0;	
 		std::stack<Move> actualMoves;
@@ -23,7 +26,9 @@ class Board{
 		bool hasMovedBlackKing;
 		bool hasMovedA8Rook;
 		bool hasMovedH8Rook;
-		
+	
+		int enPassantSquare;
+
 		int enPassantWhiteLeftFromSquare;
 		int enPassantBlackLeftFromSquare;
 		int enPassantWhiteRightFromSquare;
@@ -40,7 +45,7 @@ class Board{
 		void addEncodedMove(void);
 		void getGeneratedEncodedMoves(void);
 		void generateEncodedMoves(void);	
-		std::string makeMove(int, int, int=NORMAL);	
+		std::string makeMove(Move&);	
 		std::string unmakeMove();
 		void printBoard(void);
 		void addCastlingRights(void);
@@ -67,19 +72,19 @@ class Board{
 		bool isBlackEnPassantMove(int);
 		bool isInCheck(bool);
 		int updateToCaptureFlag(int);
-		std::vector<Move> generateMoves(void);
+		MoveList generateMoves(void);
 		int getActualMoveCount(void);
 		void setActualMoveCount(int);
 		void printHistory(void);
-inline void setMoves(){
-	generatedMoves = pieces.getEncodedMove();
-}
 
 inline std::vector<Move> getMoves() {
 	return generatedMoves;
 }
 
-inline int getMoveCount(){ return generatedMoves.size(); }
+inline MoveList getMovesList(){
+	return moves;
+}
+inline int getMoveCount(){ return moves.getMoveCount(); }
 
 inline bool getTurn() { return turn;}
 };

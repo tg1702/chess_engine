@@ -1,5 +1,6 @@
 #include "board.h"
 #include "move.h"
+#include "movegen.h"
 #include <iostream>
 #include <algorithm>
 #include <array>
@@ -26,9 +27,9 @@ Board::Board(){
 
 			enPassantWhiteFlag = false;
 			enPassantBlackFlag = false;
-
-			//	pieces.generateAllMoves(turn);	
-			addCastlingRights();
+			enPassantSquare = -1;
+			//addCastlingRights();
+			
 }
 
 Board::Board(PieceArgs args){
@@ -54,9 +55,8 @@ Board::Board(PieceArgs args){
 			enPassantBlackToSquare = 0;	
 			enPassantWhiteFlag = false;
 			enPassantBlackFlag = false;
-			
-//			pieces.generateAllMoves(turn);
-			addCastlingRights();
+			enPassantSquare = -1;	
+			//addCastlingRights();
 
 }
 void Board::addCastlingRights(){
@@ -64,23 +64,28 @@ void Board::addCastlingRights(){
 			if (turn == WHITE){
 			
 				if (pieces.canKingSideCastle(WHITE) && !hasMovedH1Rook && !hasMovedWhiteKing)
-					pieces.addKingSideCastlingRights(WHITE);
+					moves.addKingSideCastling(WHITE);
 
 				if (pieces.canQueenSideCastle(WHITE) && !hasMovedA1Rook && !hasMovedWhiteKing)
-					pieces.addQueenSideCastlingRights(WHITE);
+					moves.addQueenSideCastling(WHITE);
 			}
 
 
 			else {
 				if (pieces.canKingSideCastle(BLACK) && !hasMovedH8Rook && !hasMovedBlackKing)
-                                	pieces.addKingSideCastlingRights(BLACK);
+                                	moves.addKingSideCastling(BLACK);
                        
 				if (pieces.canQueenSideCastle(BLACK) && !hasMovedA8Rook && !hasMovedBlackKing)
-                                	pieces.addQueenSideCastlingRights(BLACK);			
+                                	moves.addQueenSideCastling(BLACK);			
 			}
 }
 
-std::string Board::makeMove(int from, int to, int special){
+std::string Board::makeMove(Move& m){
+	int from = m.getFrom();
+	int to = m.getTo();
+	int special = m.getFlag();
+
+	int pieceType = m.getFromPiece();
 	bool validCapture = false;
 	size_t toPieceType = 0;
 	size_t capturedPieceType = 0;
@@ -89,8 +94,8 @@ std::string Board::makeMove(int from, int to, int special){
 
 
 	//cout << " en passant white flag " << enPassantWhiteFlag << endl;	
-		for (size_t pieceType = 0; pieceType < PIECE_TYPES; pieceType++){
-		if (isValidMove(pieceType, from, to)){
+		//for (size_t pieceType = 0; pieceType < PIECE_TYPES; pieceType++){
+			//if (isValidMove(pieceType, from, to)){
 			if (pieceType == KING && isWhiteKSCastlingMove(from, to))
 			{
 
@@ -108,7 +113,6 @@ std::string Board::makeMove(int from, int to, int special){
 
 				special = B_KS_CASTLE_FLAG;
 				blackKingSideCastle();
-					
 			}
 
 			else if (pieceType == KING && isBlackQSCastlingMove(from, to)){
@@ -123,36 +127,29 @@ std::string Board::makeMove(int from, int to, int special){
 
 				promotePawns(turn, from, to, special);
 				validCapture = true;
-				
 			}
 
-			else if ( pieceType == PAWN && isWhiteEnPassantMove(to)){
+			else if ( pieceType == PAWN && turn == WHITE && special == EN_PASSANT_FLAG){
 				special = EN_PASSANT_FLAG;
 				enPassantWhite(from, to);
 			}
 
 
-			else if ( pieceType == PAWN && isBlackEnPassantMove(to)){
+			else if ( pieceType == PAWN && turn == BLACK && special == EN_PASSANT_FLAG){
 				special = EN_PASSANT_FLAG;	
-				enPassantBlack(from, to);	
+				enPassantBlack(from, to);
 			}
 
 
 			else {
 				special = NORMAL;	
 
-		
 				if (turn == BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
 					//cout << "fifth rank check " << endl;
-					enPassantWhiteFlag = true;
-					
-					enPassantWhiteToSquare = to + 8;
 				
 					//cout << " left of to " << pieceSquareNames[(to - 1)] << " right of to " << pieceSquareNames[(to + 1)] << '\n' ;	
-					if ( bitset(to)<<1 & pieces.getPiecesBB(WHITE, PAWN) & utils::getRankMask(bitset(to)))
-						enPassantWhiteLeftFromSquare = to+1;
-					if ( bitset(to)>>1 & pieces.getPiecesBB(WHITE, PAWN) & utils::getRankMask(bitset(to)) )	
-						enPassantWhiteRightFromSquare = to-1;
+					//std::cout << "black double pawn push " << endl;	
+					enPassantSquare = to;
 					
 					//if (enPassantWhiteLeftFromSquare)
 						//cout << "ep black moved " << pieceSquareNames[from] << pieceSquareNames[to] << "ep from to " << pieceSquareNames[enPassantWhiteLeftFromSquare] << pieceSquareNames[enPassantWhiteToSquare] << '\n';
@@ -162,14 +159,10 @@ std::string Board::makeMove(int from, int to, int special){
 				}
 
 				else if (turn == WHITE && pieceType == PAWN && movePawnFourthRank(from, to) ){
-					enPassantBlackFlag = true;
-					 if ( bitset(to+1) & pieces.getPiecesBB(BLACK, PAWN) & utils::getRankMask(bitset(to)))
-                                                enPassantBlackLeftFromSquare = to+1;
-                                         if ( bitset(to-1) & pieces.getPiecesBB(BLACK, PAWN) & utils::getRankMask(bitset(to)))
-                                                enPassantBlackRightFromSquare = to-1;
-					
-					enPassantBlackToSquare = to  - 8;
+					enPassantSquare = to;
+					//std::cout << " to = " << pieceSquareNames[to] << " next to " << pieceSquareNames[to-1] << " and " << pieceSquareNames[to+1] << '\n';
 				}
+				
 					
 				pieces.movePiece(turn, pieceType, from, to);
 				validCapture = true;
@@ -181,18 +174,20 @@ std::string Board::makeMove(int from, int to, int special){
 				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(H1))	&& turn == WHITE) hasMovedH1Rook = true;
 				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(A8))	&& turn == BLACK) hasMovedA8Rook = true;
 				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(H8))	&& turn == BLACK) hasMovedH8Rook = true;
+		
+			
 			}
 			
                          moveMessage = pieceSquareNames[from] + pieceSquareNames[to];
 			 toPieceType = pieceType;
-		}
-	
+		//}
+		
 
-	}
+	//}
 		
 	
 	for (size_t i = 0; i < PIECE_TYPES && validCapture; i++){
-		if (pieces.getPiecesBB(!turn, i) & bitset(to)){ 
+		if ((pieces.getPiecesBB(!turn, i) & bitset(to))){ 
 			special = updateToCaptureFlag(special);
 				
 			pieces.clearPiece(!turn, i, to);
@@ -201,8 +196,7 @@ std::string Board::makeMove(int from, int to, int special){
 
 	}
 
-	
-	
+		
 	//cout << "captures: " << captures << endl;
 	//if (from == D5 && to == E6)
 		//cout << "special " << endl;
@@ -212,7 +206,8 @@ std::string Board::makeMove(int from, int to, int special){
 	pieces.setSidePiecesBB(!turn);
 
 
-
+	//std::cout<< " white pieces all " << pieces.getPiecesBB(WHITE, ALL) << '\n';
+	//std::cout << "black pieces all " << pieces.getPiecesBB(BLACK, ALL) << '\n';
 	
 	/*
 	if (from == G1 && to == F3){
@@ -229,24 +224,26 @@ std::string Board::makeMove(int from, int to, int special){
 	return moveMessage;		
 }
 
-std::vector<Move> Board::generateMoves(){
-	
-	pieces.clearMoves();	
-	
-	pieces.generateAllMoves(turn);
-	
-	addEnPassantRights();	
-	removeEnPassantRights();	
-	setMoves();
+MoveList Board::generateMoves(){
 
-	return getMoves();
+	moves.clearMoves();
+
+	PieceBB friendly {.king_bb = pieces.getPiecesBB(turn, KING), .queen_bb = pieces.getPiecesBB(turn, QUEEN), .rook_bb = pieces.getPiecesBB(turn, ROOK),  .bishop_bb = pieces.getPiecesBB(turn, BISHOP), .knight_bb = pieces.getPiecesBB(turn, KNIGHT), .pawn_bb = pieces.getPiecesBB(turn, PAWN)};
+		
+	moves.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL));
+	
+
+	addEnPassantRights();	
+	enPassantSquare = -1;
+	
+	return getMovesList();
 }
 void Board::printBoard(){
-	array<char, 64> board;
+	std::array<char, 64> board;
 
-	fill(begin(board), end(board), '.');
+	std::fill(std::begin(board), std::end(board), '.');
 	
-	array<char, 6> char_type = {'k', 'r', 'p', 'b', 'q', 'n'};
+	std::array<char, 6> char_type = {'k', 'r', 'e', 'b', 'q', 'n'};
 	for (size_t square = 0; square < 64; square++){
 		for (int side = 0; side < 2; side++){
 		for(int type = 0; type < PIECE_TYPES; type++){
@@ -268,20 +265,20 @@ void Board::printBoard(){
 
 	for (int row = 7; row >=0 ; row--){
 		for (int col = 7; col >= 0; col--){
-			cout << board[row*8 + col] << " ";
+			std::cout << board[row*8 + col] << " ";
 		}
-		cout << endl;
+		std::cout << endl;
 	}
-	cout << "\n\n\n";
+	std::cout << "\n\n\n";
 }
 
 bool Board::movePawnFifthRank(int from, int to){	
-	return ((pieces.getPiecesBB(BLACK, PAWN) & RANK_7 & bitset(from)) && (pieces.getMovesBB(BLACK, PAWN) & RANK_5 & bitset(to)));
+	return ((pieces.getPiecesBB(BLACK, PAWN) & RANK_7 & bitset(from)) && (RANK_5 & bitset(to)));
 }
 
 bool Board::movePawnFourthRank(int from, int to){
 
-	return (( pieces.getPiecesBB(BLACK, PAWN) & (bitset(to+1) | bitset(to-1)) & utils::getRankMask(to) & RANK_4) && pieces.getPiecesBB(WHITE, PAWN) & RANK_2 & bitset(from)) && (pieces.getMovesBB(WHITE, PAWN) & RANK_4 & bitset(to));
+	return (pieces.getPiecesBB(WHITE, PAWN) & RANK_2 & bitset(from)) && (RANK_4 & bitset(to));
 
 }
 
@@ -320,7 +317,10 @@ std::string Board::unmakeMove(){
 	int capturedPieceType = lastMove.getToPiece();
 	int flag = lastMove.getFlag();	
 	
-/*
+//	if (from == E5 && to == D6 && piece == PAWN)
+		//std::cout << "flag = " << flag << '\n';
+
+	/*
 	
 if (actualMoves[0].getFrom() == G1 && actualMoves[0].getTo() == H3){
 		printHistory();
@@ -337,7 +337,8 @@ if (actualMoves[0].getFrom() == G1 && actualMoves[0].getTo() == H3){
 		undoMessage = "Undoing normal move " + pieceSquareNames[from] + pieceSquareNames[to];
 	}
 	else if (flag == CAPTURE_FLAG){
-		
+	
+			
 		pieces.addPiece(!turn, capturedPieceType, to);
 		pieces.movePiece(turn, piece, to, from);
 
@@ -346,7 +347,11 @@ if (actualMoves[0].getFrom() == G1 && actualMoves[0].getTo() == H3){
 	else if (flag == EN_PASSANT_FLAG){
 		int target = 0;
 
-		turn ? target = to - 8 : target = to + 8;
+		(turn == WHITE) ? target = to - 8 : target = to + 8;
+	
+		captures += 1;
+		//std::cout << "ep captures " << captures << '\n';		
+		
 		pieces.movePiece(turn, PAWN, to, from);
 		pieces.addPiece(!turn, PAWN, target);
 		undoMessage = "Undoing en passant capture " + pieceSquareNames[from] + pieceSquareNames[to];	
@@ -429,31 +434,48 @@ if (actualMoves[0].getFrom() == G1 && actualMoves[0].getTo() == H3){
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
 	
-	pieces.generateAllMoves(turn);	
+	
+	PieceBB friendly {.king_bb = pieces.getPiecesBB(turn, KING), .queen_bb = pieces.getPiecesBB(turn, QUEEN), .rook_bb = pieces.getPiecesBB(turn, ROOK),  .bishop_bb = pieces.getPiecesBB(turn, BISHOP), .knight_bb = pieces.getPiecesBB(turn, KNIGHT), .pawn_bb = pieces.getPiecesBB(turn, PAWN)};
+	
+	moves.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL));
+	
 	addEnPassantRights();
-
+ 	
+	enPassantSquare = -1;
 	return undoMessage;	
 }
 
 void Board::addEnPassantRights(){
-	if (turn == WHITE && enPassantWhiteFlag) {
-		//cout << "white flag set " << endl;
-		//cout << enPassantWhiteLeftFromSquare << endl;
-		//cout << enPassantWhiteRightFromSquare << endl;	
-		if (enPassantWhiteLeftFromSquare)
-			pieces.addEnPassantRights(WHITE, enPassantWhiteLeftFromSquare, enPassantWhiteToSquare); 
-		if (enPassantWhiteRightFromSquare)
-			pieces.addEnPassantRights(WHITE, enPassantWhiteRightFromSquare, enPassantWhiteToSquare); 
-	}
+	if (enPassantSquare == -1) return;
 
-	if (turn == BLACK && enPassantBlackFlag){	
-		if (enPassantBlackLeftFromSquare)
-			pieces.addEnPassantRights(BLACK, enPassantBlackLeftFromSquare, enPassantBlackToSquare);
-		if (enPassantBlackRightFromSquare)
-			pieces.addEnPassantRights(BLACK, enPassantBlackRightFromSquare, enPassantBlackToSquare); 
-	}
+	uint64_t rank = (turn == WHITE) ? RANK_5 : RANK_4;
+	
+	//std::cout << rank << '\n';	
+//	std::cout << pieces.getPiecesBB(turn, PAWN) << '\n';
+
+	//std::cout << "adj squares " << (bitset(enPassantSquare - 1) | bitset(enPassantSquare + 1)) << '\n';
+	//std::cout << "piece " << (pieces.getPiecesBB(turn, PAWN)) << '\n';
+	//std::cout << "rank " << rank << '\n';
+	//std::cout << "------------------**" << '\n';
+	uint64_t candidates = pieces.getPiecesBB(turn, PAWN) & rank & ( bitset(enPassantSquare - 1) | bitset(enPassantSquare + 1)) ;
+
+	
+	while (candidates != 0ULL){	
+		int from = __builtin_ctzll(candidates);
+
+		
+		if (turn == WHITE)
+			moves.addEnPassantRights(WHITE, from , enPassantSquare+8); 
+		
+
+		else if (turn == BLACK)	
+			moves.addEnPassantRights(BLACK,  from , enPassantSquare-8); 
+		
+		bitclear(candidates, from);
+	
 }
 
+}
 bool Board::isValidMove(int pieceType, int from, int to){
 	//if (from == G1 && to == F3)
 		//cout << "Nf3 attacks " << pieces.getMovesBB(turn, pieceType) << endl;
@@ -479,14 +501,16 @@ bool Board::isBlackKSCastlingMove(int from, int to){
 bool Board::isBlackQSCastlingMove(int from, int to){
         return (turn == BLACK && from == E8 && to == C8);
 }
-
+/*
 void Board::removeEnPassantRights(){
 
 	if (turn == BLACK && enPassantWhiteFlag){	
+	
 		if (enPassantWhiteLeftFromSquare)
-                        pieces.removeEnPassantRights(WHITE, enPassantWhiteLeftFromSquare, enPassantWhiteToSquare);
+                        moves.removeEnPassantRights(WHITE, enPassantWhiteLeftFromSquare, enPassantWhiteToSquare);
                 if (enPassantWhiteRightFromSquare)
-                        pieces.removeEnPassantRights(WHITE, enPassantWhiteRightFromSquare, enPassantWhiteToSquare);
+                        moves.removeEnPassantRights(WHITE, enPassantWhiteRightFromSquare, enPassantWhiteToSquare);
+	
 		
 		enPassantWhiteFlag = false;
  		enPassantWhiteLeftFromSquare = 0;
@@ -496,11 +520,12 @@ void Board::removeEnPassantRights(){
                 enPassantWhiteToSquare = 0;
 	}
 	else if (turn == WHITE && enPassantBlackFlag) {
-		
+	
 	 	if (enPassantBlackLeftFromSquare)
-                        pieces.removeEnPassantRights(BLACK, enPassantBlackLeftFromSquare, enPassantBlackToSquare);
+                        moves.removeEnPassantRights(BLACK, enPassantBlackLeftFromSquare, enPassantBlackToSquare);
                 if (enPassantBlackRightFromSquare)
-                        pieces.removeEnPassantRights(BLACK, enPassantBlackRightFromSquare, enPassantBlackToSquare);		
+                        moves.removeEnPassantRights(BLACK, enPassantBlackRightFromSquare, enPassantBlackToSquare);		
+		
 		enPassantBlackFlag = false;
 		enPassantBlackLeftFromSquare = 0;
 		enPassantBlackRightFromSquare = 0;		
@@ -509,7 +534,7 @@ void Board::removeEnPassantRights(){
 	}
 
 }
-
+*/
 
 void Board::whiteKingSideCastle(){
 
@@ -561,42 +586,33 @@ void Board::promotePawns(bool side, int from, int to, int special){
 
 void Board::enPassantWhite(int from, int to){
 			//cout << "ep ing " << from << to << endl;
-			uint64_t blackPawnBB = pieces.getPiecesBB(BLACK, PAWN);
+		
+	//		std::cout << "trying to ep as white" << pieceSquareNames[from] << pieceSquareNames[to] << '\n';	
 		
 			pieces.movePiece(WHITE, PAWN, from, to);	
-			pieces.clearPiece(BLACK, PAWN, enPassantWhiteToSquare-8);
+			pieces.clearPiece(BLACK, PAWN, to-8);
+
+
 
 			//cout << pieces.getPiecesBB(WHITE, ALL) << endl;
 			//cout << pieces.getPiecesBB(BLACK, ALL) << endl;
 			
-			enPassantWhiteFlag = false;
- 			enPassantWhiteLeftFromSquare = 0;
-
-                	enPassantWhiteRightFromSquare = 0;
-
-                	enPassantWhiteToSquare = 0;
+			//cout << "-------------------------------" << endl;
 }
 
-void Board::enPassantBlack(int from, int to){
-
-			uint64_t whitePawnBB = pieces.getPiecesBB(WHITE, PAWN);
-		
-			
+void Board::enPassantBlack(int from, int to){	
+			//std::cout << "trying to ep " << pieceSquareNames[from] << pieceSquareNames[to] << '\n';	
 			pieces.movePiece(BLACK, PAWN, from, to);
-                        pieces.clearPiece(WHITE, PAWN, enPassantBlackToSquare+8);
+                        pieces.clearPiece(WHITE, PAWN, to+8);
 
-			enPassantBlackFlag = false;
-			enPassantBlackLeftFromSquare = 0;
-			enPassantWhiteRightFromSquare = 0;		
-			enPassantBlackToSquare = 0;
 }
 
 bool Board::isWhiteEnPassantMove(int to){
-	return turn == WHITE && enPassantWhiteFlag && (bitset(to) & bitset(enPassantWhiteToSquare));
+	return turn == WHITE && (enPassantSquare != -1);
 }
 
 bool Board::isBlackEnPassantMove(int to){
-	return turn == BLACK && (bitset(to) & bitset(enPassantBlackToSquare));
+	return turn == BLACK && (enPassantSquare != -1);
 }
 
 bool Board::isInCheck(bool side){

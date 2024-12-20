@@ -27,7 +27,16 @@ enum piece_bb_types{
 	ALL
 };
 
+struct PieceBB {
+	uint64_t king_bb = 0ULL;
+	uint64_t queen_bb = 0ULL;
+	uint64_t rook_bb = 0ULL;
 
+	uint64_t bishop_bb = 0ULL;
+	uint64_t knight_bb = 0ULL;
+	uint64_t pawn_bb = 0ULL;
+
+};
 enum Squares{
 H1, G1, F1, E1, D1, C1, B1, A1,
 

@@ -18,7 +18,6 @@ class PieceManager{
 		uint64_t Pieces[SIDES][MAX_PIECE_TYPES];
 		uint64_t attacks[SIDES][MAX_PIECE_TYPES];
 		uint64_t all_pieces;	
-		std::vector<Move> generatedMoves;
 	public:
 
 
@@ -76,28 +75,12 @@ class PieceManager{
 		PieceManager(PieceArgs args);
 		void setBoard(PieceArgs args);
 		
-		void generateAllMoves(bool);
-		void generateQueenMoves(bool);	
-		void generatePawnMoves(bool);
-		void generateKingMoves(bool);
-		void generateKnightMoves(bool);
-		void generateRookMoves(bool);
-		void generateBishopMoves(bool);
-
-		void clearMoves();	
-		void addPossibleMove(int, uint64_t, bool, int);
-		void addKingSideCastlingRights(bool);
-		void addQueenSideCastlingRights(bool);
-		bool isPromoting(bool, int, int);	
-		std::vector<Move> getEncodedMove(void);	
-		bool canQueenSideCastle(bool);
 		bool canKingSideCastle(bool);
+		bool canQueenSideCastle(bool);		
+		bool isPromoting(bool, int, int);	
 		bool isAttacked(bool, int);
-		void addEnPassantRights(bool, int, int);
 		void movePiece(bool, int, int, int);
 		void clearPiece(bool, int, int);
 		void addPiece(bool, int, int);
-		void removeEnPassantRights(bool, int, int);
-		int getEncodedMoveCount(void) { return generatedMoves.size();}	
 };
 
