@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include "move.h"
 
 #ifndef TYPES_H
 #define TYPES_H
 
 
+constexpr int MAX_MOVES = 256;
 
 enum SlidingPieces{
         ROOK_MOVES,
@@ -492,4 +494,8 @@ constexpr int bishopShifts[64] = {
   58, 59, 59, 59, 59, 59, 59, 58
 };
 
+struct MoveList{
+	Move moves[MAX_MOVES];
+	int count = 0;
+};
 #endif

@@ -27,68 +27,58 @@ PieceManager::PieceManager(){
 		        Pieces[BLACK][ALL] = B_ALL_PIECES_START;
 			Pieces[WHITE][ALL] = W_ALL_PIECES_START;
 
-			all_pieces = Pieces[BLACK][ALL] | Pieces[WHITE][ALL];
 
 }
 
 
-PieceManager::PieceManager(PieceArgs args){
+PieceManager::PieceManager(PieceArgs& args){
 			uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;
 
 			uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
 
 
-	uint64_t all_pieces_bb = w_all_pieces | b_all_pieces;
-	setSidePiecesBB(w_all_pieces, WHITE);
-	setSidePiecesBB(b_all_pieces, BLACK);
-	
-	setQueensPosBB(args.w_queens_bb, WHITE);
-	setBishopsPosBB(args.w_bishops_bb, WHITE);
-	setKingPosBB(args.w_king_bb, WHITE);
-	setKnightsPosBB(args.w_knights_bb, WHITE);
-	setPawnsPosBB(args.w_pawns_bb, WHITE);
-	setRooksPosBB(args.w_rooks_bb, WHITE);
-	
-	
-	setKingPosBB(args.b_king_bb, BLACK);
-	setKnightsPosBB(args.b_knights_bb, BLACK);
-	setPawnsPosBB(args.b_pawns_bb, BLACK);
-	setQueensPosBB(args.b_queens_bb, BLACK);
-	setBishopsPosBB(args.b_bishops_bb, BLACK);
-	setRooksPosBB(args.b_rooks_bb, BLACK);
-	
-	
-	//generateAllMoves(WHITE);
+			Pieces[WHITE][KING] = args.w_king_bb;
+                        Pieces[WHITE][ROOK] = args.w_rooks_bb;
+                        Pieces[WHITE][PAWN] = args.w_pawns_bb;
+                        Pieces[WHITE][BISHOP] = args.w_bishops_bb;
+                        Pieces[WHITE][QUEEN] = args.w_queens_bb;
+                        Pieces[WHITE][KNIGHT] = args.w_knights_bb;
+
+
+                        Pieces[BLACK][KING] =  args.b_king_bb;
+                        Pieces[BLACK][PAWN] = args.b_pawns_bb;
+                        Pieces[BLACK][QUEEN] = args.b_queens_bb;
+                        Pieces[BLACK][BISHOP] = args.b_bishops_bb;
+                        Pieces[BLACK][ROOK] = args.b_rooks_bb;
+                        Pieces[BLACK][KNIGHT] = args.b_knights_bb;
+
+                        Pieces[BLACK][ALL] = b_all_pieces;
+                        Pieces[WHITE][ALL] = w_all_pieces;
+
 
 }
-
-void PieceManager::setBoard(PieceArgs args){
-
-	uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;
-
-	uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
+void PieceManager::setBoard(PieceArgs& args){
+ uint64_t w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;                                                                                                                                                                                                                                                                                                                      uint64_t b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
 
 
-	uint64_t all_pieces_bb = w_all_pieces | b_all_pieces;
-	setAllPiecesBB(all_pieces_bb);
-	setSidePiecesBB(w_all_pieces, WHITE);
-	setSidePiecesBB(b_all_pieces, BLACK);
-	
-	setQueensPosBB(args.w_queens_bb, WHITE);
-	setBishopsPosBB(args.w_bishops_bb, WHITE);
-	setKingPosBB(args.w_king_bb, WHITE);
-	setKnightsPosBB(args.w_knights_bb, WHITE);
-	setPawnsPosBB(args.w_pawns_bb, WHITE);
-	setRooksPosBB(args.w_rooks_bb, WHITE);
-	
-	
-	setKingPosBB(args.b_king_bb, BLACK);
-	setKnightsPosBB(args.b_knights_bb, BLACK);
-	setPawnsPosBB(args.b_pawns_bb, BLACK);
-	setQueensPosBB(args.b_queens_bb, BLACK);
-	setBishopsPosBB(args.b_bishops_bb, BLACK);
-	setRooksPosBB(args.b_rooks_bb, BLACK);
-	
+                        Pieces[WHITE][KING] = args.w_king_bb;
+                        Pieces[WHITE][ROOK] = args.w_rooks_bb;
+                        Pieces[WHITE][PAWN] = args.w_pawns_bb;
+                        Pieces[WHITE][BISHOP] = args.w_bishops_bb;
+                        Pieces[WHITE][QUEEN] = args.w_queens_bb;
+                        Pieces[WHITE][KNIGHT] = args.w_knights_bb;
+
+
+                        Pieces[BLACK][KING] =  args.b_king_bb;
+                        Pieces[BLACK][PAWN] = args.b_pawns_bb;
+                        Pieces[BLACK][QUEEN] = args.b_queens_bb;
+                        Pieces[BLACK][BISHOP] = args.b_bishops_bb;
+                        Pieces[BLACK][ROOK] = args.b_rooks_bb;
+                        Pieces[BLACK][KNIGHT] = args.b_knights_bb;
+
+                        Pieces[BLACK][ALL] = b_all_pieces;
+                        Pieces[WHITE][ALL] = w_all_pieces;
+
 }
 
 
@@ -160,18 +150,3 @@ bool PieceManager::canQueenSideCastle(bool side){
                         !isAttacked(side, E8);
 }
 
-void PieceManager::movePiece(bool side, int type, int from, int to){
-	clearPiece(side, type, from);
-	addPiece(side, type, to);
-}
-
-void PieceManager::clearPiece(bool side, int type, int square){
-	uint64_t curBB = getPiecesBB(side, type);
-	bitclear(curBB, square);
-	setAnyPosBB( side, type , curBB);
-	
-}
-
-void PieceManager::addPiece(bool side, int type, int on){
-	setAnyPosBB(side, type, getPiecesBB(side, type) | bitset(on));
-}

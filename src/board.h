@@ -1,25 +1,26 @@
 #include <iostream>
 #include "pieces.h"
 #include "types.h"
-#include "move.h"
 #include "movegen.h"
 #include <cctype>
 #include <algorithm>
 #include <vector>
-#include <stack>
 
 #define PIECE_TYPES 6
 
 class Board{
 	private:
-		PieceManager pieces = PieceManager();
-		std::vector<Move> generatedMoves;
-		
-		MoveList moves;	
-		int moveCount;
-		int captures=0;	
-		std::stack<Move> actualMoves;
+		PieceManager pieces;	
+		MoveGen generator;	
+		MoveList* move_list = new MoveList();
+		std::array<Move, MAX_MOVES> legalMoves;
+
 		bool turn = WHITE;
+		
+
+
+		int actualMoveCount = 0;
+		Move actualMoves[10];
 		bool hasMovedWhiteKing;
 		bool hasMovedA1Rook;
 		bool hasMovedH1Rook;
@@ -29,27 +30,21 @@ class Board{
 	
 		int enPassantSquare;
 
-		int enPassantWhiteLeftFromSquare;
-		int enPassantBlackLeftFromSquare;
-		int enPassantWhiteRightFromSquare;
-		int enPassantBlackRightFromSquare;
-		
-		int enPassantWhiteToSquare;
-		int enPassantBlackToSquare;
-		bool enPassantWhiteFlag;
-		bool enPassantBlackFlag;
 	public:
 		Board(void);
 		Board(PieceArgs args);
-
-		void addEncodedMove(void);
+		Board(std::string);
+		
+		~Board() { delete move_list; }
 		void getGeneratedEncodedMoves(void);
 		void generateEncodedMoves(void);	
-		std::string makeMove(Move&);	
-		std::string unmakeMove();
+		void makeMove(Move&);	
+		void makeMoveHelper(Move&);
+		void unmakeMove();
+		void unmakeMoveHelper();
 		void printBoard(void);
 		void addCastlingRights(void);
-		void addMoveToHistory(Move);
+		void addMoveToHistory(Move&);
 		bool movePawnFifthRank(int, int);
 	       	bool movePawnFourthRank(int, int);
 		bool isValidMove(int, int, int);	
@@ -68,23 +63,19 @@ class Board{
 		void promotePawns(bool, int, int, int);
 		void enPassantWhite(int, int);
 		void enPassantBlack(int, int);
-		bool isWhiteEnPassantMove(int);
-		bool isBlackEnPassantMove(int);
 		bool isInCheck(bool);
 		int updateToCaptureFlag(int);
-		MoveList generateMoves(void);
+		void generateMoves(void);
+		std::vector<Move> generateLegalMoves(void);
+		std::vector<Move> generatePseudoLegalMoves(void);
 		int getActualMoveCount(void);
 		void setActualMoveCount(int);
 		void printHistory(void);
 
-inline std::vector<Move> getMoves() {
-	return generatedMoves;
-}
-
-inline MoveList getMovesList(){
-	return moves;
-}
-inline int getMoveCount(){ return moves.getMoveCount(); }
-
+//inline int getLegalMoveCount() { return legalMoves.getMoveCount(); }
 inline bool getTurn() { return turn;}
+
+
+
+
 };

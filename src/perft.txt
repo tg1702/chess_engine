@@ -3,126 +3,27 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls   s/call   s/call  name    
- 29.15      2.30     2.30 31765147     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  8.24      2.95     0.65 166011717     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  6.97      3.50     0.55 84666961     0.00     0.00  MoveList::addQueenSideCastling(bool)
-  4.94      3.89     0.39 18309679     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  3.55      4.17     0.28 44494814     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  3.42      4.44     0.27 73841990     0.00     0.00  MoveList::addKingSideCastling(bool)
-  3.42      4.71     0.27 25437935     0.00     0.00  std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&)
-  3.42      4.98     0.27   206604     0.00     0.00  Board::printBoard()
-  3.30      5.24     0.26 170484265     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base()
-  3.04      5.48     0.24 170484265     0.00     0.00  std::vector<Move, std::allocator<Move> >::~vector()
-  2.66      5.69     0.21 13052829     0.00     0.00  Board::unmakeMove[abi:cxx11]()
-  2.66      5.90     0.21        2     0.10     0.21  std::deque<Move, std::allocator<Move> >::~deque()
-  1.77      6.04     0.14  5087588     0.00     0.00  Board::makeMove[abi:cxx11](Move&)
-  1.71      6.17     0.14 99345389     0.00     0.00  std::stack<Move, std::deque<Move, std::allocator<Move> > >::top()
-  1.39      6.29     0.11                             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  1.33      6.39     0.10                             std::stack<Move, std::deque<Move, std::allocator<Move> > >::pop()
-  1.14      6.48     0.09 15262761     0.00     0.00  std::deque<Move, std::allocator<Move> >::pop_back()
-  1.14      6.57     0.09 10175174     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&)
-  1.01      6.65     0.08        1     0.08     1.98  perft(int, Board*)
-  1.01      6.73     0.08                             _init
-  0.76      6.79     0.06 20519350     0.00     0.00  MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long)
-  0.76      6.85     0.06 10927657     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  0.76      6.91     0.06  5500795     0.00     0.00  std::stack<Move, std::deque<Move, std::allocator<Move> > >::size() const
-  0.76      6.97     0.06                             Board::addEnPassantRights()
-  0.63      7.02     0.05  5294191     0.00     0.00  MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long)
-  0.57      7.07     0.04 10175174     0.00     0.00  void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&)
-  0.51      7.11     0.04 10175174     0.00     0.00  Move::getTo() const
-  0.51      7.14     0.04  5087907     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
-  0.51      7.18     0.04  5087589     0.00     0.00  std::allocator_traits<std::allocator<Move*> >::deallocate(std::allocator<Move*>&, Move**, unsigned long)
-  0.51      7.22     0.04                             Board::isValidMove(int, int, int)
-  0.44      7.26     0.04 10175176     0.00     0.00  void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&)
-  0.38      7.29     0.03  5087587     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long)
-  0.38      7.32     0.03  5087587     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**)
-  0.38      7.35     0.03                             void __gnu_cxx::new_allocator<Move>::destroy<Move>(Move*)
-  0.38      7.38     0.03                             Move::getFlag() const
-  0.38      7.41     0.03                             std::deque<Move, std::allocator<Move> >::empty() const
-  0.38      7.44     0.03                             std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long)
-  0.38      7.47     0.03                             std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
-  0.32      7.50     0.03                             std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long)
-  0.25      7.51     0.02 10175174     0.00     0.00  std::array<char, 6ul>::operator[](unsigned long)
-  0.25      7.54     0.02 10175174     0.00     0.00  std::stack<Move, std::deque<Move, std::allocator<Move> > >::push(Move const&)
-  0.25      7.55     0.02  5087907     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_destroy_nodes(Move**, Move**)
-  0.25      7.58     0.02  5087907     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
-  0.25      7.59     0.02        1     0.02     0.02  __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long)
-  0.25      7.62     0.02                             Board::generateMoves()
-  0.25      7.63     0.02                             std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const
-  0.25      7.66     0.02                             std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl()
-  0.25      7.67     0.02                             std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl()
-  0.25      7.70     0.02                             std::deque<Move, std::allocator<Move> >::back()
-  0.13      7.71     0.01 15263081     0.00     0.00  std::char_traits<char>::length(char const*)
-  0.13      7.71     0.01 15262761     0.00     0.00  Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**)
-  0.13      7.72     0.01 10175174     0.00     0.00  __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&)
-  0.13      7.74     0.01 10175174     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl(std::allocator<Move> const&)
-  0.13      7.75     0.01  5426843     0.00     0.00  Board::updateToCaptureFlag(int)
-  0.13      7.75     0.01  5294191     0.00     0.00  Board::whiteQueenSideCastle()
-  0.13      7.76     0.01  5087590     0.00     0.00  PieceManager::PieceManager()
-  0.13      7.78     0.01  5087587     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_initialize_map(unsigned long)
-  0.13      7.79     0.01  5087587     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*>::operator++()
-  0.13      7.79     0.01  5087587     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*> std::uninitialized_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>)
-  0.13      7.80     0.01   206604     0.00     0.00  MoveList::getMoves()
-  0.13      7.82     0.01        1     0.01     0.22  Board::~Board()
-  0.13      7.83     0.01                             Board::isCastlingMove(int, int)
-  0.13      7.83     0.01                             Board::blackKingSideCastle()
-  0.13      7.84     0.01                             std::_Deque_iterator<Move, Move const&, Move const*>::operator*() const
-  0.13      7.86     0.01                             std::deque<Move, std::allocator<Move> >::end() const
-  0.13      7.87     0.01                             std::allocator<Move*>::~allocator()
-  0.13      7.88     0.01                             std::allocator_traits<std::allocator<Move> >::select_on_container_copy_construction(std::allocator<Move> const&)
-  0.13      7.88     0.01                             Move** std::__copy_move_a1<false, Move**, Move**>(Move**, Move**, Move**)
-  0.06      7.89     0.01                             std::__array_traits<Move, 256ul>::_S_ref(Move const (&) [256], unsigned long)
-  0.00      7.89     0.00 10175817     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long)
-  0.00      7.89     0.00 10175174     0.00     0.00  __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*)
-  0.00      7.89     0.00 10175174     0.00     0.00  Move::getFrom() const
-  0.00      7.89     0.00  5087589     0.00     0.00  void std::_Destroy<Move*>(Move*, Move*)
-  0.00      7.89     0.00  5087588     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long)
-  0.00      7.89     0.00  5087587     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator()
-  0.00      7.89     0.00   211852     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_Deque_base()
-  0.00      7.89     0.00   206610     0.00     0.00  std::__deque_buf_size(unsigned long)
-  0.00      7.89     0.00   206604     0.00     0.00  Board::getTurn()
-  0.00      7.89     0.00   206604     0.00     0.00  std::stack<Move, std::deque<Move, std::allocator<Move> > >::~stack()
-  0.00      7.89     0.00   132652     0.00     0.00  Board::enPassantBlack(int, int)
-  0.00      7.89     0.00   132652     0.00     0.00  Board::isWhiteEnPassantMove(int)
-  0.00      7.89     0.00   132652     0.00     0.00  Board::isInCheck(bool)
-  0.00      7.89     0.00     6353     0.00     0.00  __gnu_cxx::__alloc_traits<std::allocator<Move>, Move>::_S_select_on_copy(std::allocator<Move> const&)
-  0.00      7.89     0.00        5     0.00     0.00  utils::generateMagicIndex(unsigned long, unsigned long, int, int)
-  0.00      7.89     0.00        4     0.00     0.00  std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array()
-  0.00      7.89     0.00        3     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long)
-  0.00      7.89     0.00        2     0.00     0.00  PieceManager::canKingSideCastle(bool)
-  0.00      7.89     0.00        2     0.00     0.00  utils::count_ones(unsigned long long)
-  0.00      7.89     0.00        2     0.00     0.00  utils::getRankMask(unsigned long)
-  0.00      7.89     0.00        2     0.00     0.00  Move** std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<Move*>(Move* const*, Move* const*, Move**)
-  0.00      7.89     0.00        2     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_M_get_Tp_allocator()
-  0.00      7.89     0.00        2     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*>::_M_set_node(Move**)
-  0.00      7.89     0.00        2     0.00     0.00  std::deque<Move, std::allocator<Move> >::end()
-  0.00      7.89     0.00        2     0.00     0.00  std::deque<Move, std::allocator<Move> >::push_back(Move const&)
-  0.00      7.89     0.00        2     0.00     0.00  Move** std::__copy_move_a<false, Move**, Move**>(Move**, Move**, Move**)
-  0.00      7.89     0.00        2     0.00     0.00  void std::__fill_a<char*, char>(char*, char*, char const&)
-  0.00      7.89     0.00        2     0.00     0.00  std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&)
-  0.00      7.89     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  0.00      7.89     0.00        1     0.00     0.00  PieceManager::isAttacked(bool, int)
-  0.00      7.89     0.00        1     0.00     0.00  PieceManager::isPromoting(bool, int, int)
-  0.00      7.89     0.00        1     0.00     0.00  PieceManager::PieceManager(PieceArgs)
-  0.00      7.89     0.00        1     0.00     0.00  Board::Board(PieceArgs)
-  0.00      7.89     0.00        1     0.00     0.22  __gnu_cxx::char_traits<char>::eq(char const&, char const&)
-  0.00      7.89     0.00        1     0.00     0.00  void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&)
-  0.00      7.89     0.00        1     0.00     0.02  __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long)
-  0.00      7.89     0.00        1     0.00     0.00  std::allocator<Move*>::allocator<Move>(std::allocator<Move> const&)
-  0.00      7.89     0.00        1     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::~_Deque_impl()
-  0.00      7.89     0.00        1     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_node(Move*)
-  0.00      7.89     0.00        1     0.00     0.00  std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base()
-  0.00      7.89     0.00        1     0.00     0.00  std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64])
-  0.00      7.89     0.00        1     0.00     0.00  std::_Deque_iterator<Move, Move const&, Move const*>::_M_set_node(Move**)
-  0.00      7.89     0.00        1     0.00     0.00  std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator(std::_Deque_iterator<Move, Move&, Move*> const&)
-  0.00      7.89     0.00        1     0.00     0.02  std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long)
-  0.00      7.89     0.00        1     0.00     0.00  std::array<char, 64ul>::begin()
-  0.00      7.89     0.00        1     0.00     0.00  std::deque<Move, std::allocator<Move> >::begin()
-  0.00      7.89     0.00        1     0.00     0.00  Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**)
-  0.00      7.89     0.00        1     0.00     0.00  std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
-  0.00      7.89     0.00        1     0.00     0.00  Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**)
-  0.00      7.89     0.00        1     0.00     0.00  Move** std::copy<Move**, Move**>(Move**, Move**, Move**)
-  0.00      7.89     0.00        1     0.00     0.00  void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&)
+ 40.44      2.20     2.20 130121537     0.00     0.00  Board::makeMoveHelper(Move&)
+ 12.32      2.87     0.67 130121537     0.00     0.00  Board::unmakeMoveHelper()
+ 10.48      3.44     0.57 125049325     0.00     0.00  PieceManager::isAttacked(bool, int)
+ 10.11      3.99     0.55 130121537     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  8.46      4.45     0.46  5072213     0.00     0.00  Board::generateLegalMoves()
+  6.25      4.79     0.34                             _init
+  3.68      4.99     0.20 30555581     0.00     0.00  void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
+  3.12      5.16     0.17  5072213     0.00     0.00  MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int)
+  2.39      5.29     0.13  4874531     0.00     0.00  MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
+  1.65      5.38     0.09 73074969     0.00     0.00  PieceManager::isPromoting(bool, int, int)
+  0.55      5.41     0.03        1     0.03     5.10  perft(int, Board&)
+  0.37      5.43     0.02  5072213     0.00     0.00  MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*)
+  0.18      5.44     0.01  5072212     0.00     0.00  Board::unmakeMove()
+  0.00      5.44     0.00  5072212     0.00     0.00  Board::makeMove(Move&)
+  0.00      5.44     0.00   197682     0.00     0.00  MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
+  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  0.00      5.44     0.00        1     0.00     0.00  PieceManager::PieceManager()
+  0.00      5.44     0.00        1     0.00     0.00  Board::Board()
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -160,797 +61,96 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 0.13% of 7.89 seconds
+granularity: each sample hit covers 4 byte(s) for 0.18% of 5.44 seconds
 
 index % time    self  children    called     name
-                0.00    0.17  206604/5294191     Board::printHistory() [26]
-                0.05    4.19 5087587/5294191     Board::isValidMove(int, int, int) [3]
-[1]     56.0    0.05    4.37 5294191         MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [1]
-                3.12    1.19 5294191/5294192     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-                0.06    0.00 5294191/5500795     std::stack<Move, std::deque<Move, std::allocator<Move> > >::size() const [37]
+                                                 <spontaneous>
+[1]     93.8    0.00    5.10                 main [1]
+                0.03    5.07       1/1           perft(int, Board&) [2]
+                0.00    0.00       1/1           Board::Board() [29]
 -----------------------------------------------
-[2]     54.6    3.12    1.19 5294192+184979906 <cycle 3 as a whole> [2]
-                2.30    1.19 31765147             __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-                0.55    0.00 84666961             MoveList::addQueenSideCastling(bool) <cycle 3> [12]
-                0.27    0.00 73841990             MoveList::addKingSideCastling(bool) <cycle 3> [18]
+                             5072212             perft(int, Board&) [2]
+                0.03    5.07       1/1           main [1]
+[2]     93.8    0.03    5.07       1+5072212 perft(int, Board&) [2]
+                0.46    4.46 5072213/5072213     Board::generateLegalMoves() [3]
+                0.00    0.11 5072212/5072212     Board::makeMove(Move&) [12]
+                0.03    0.00 5072212/130121537     Board::unmakeMoveHelper() [5]
+                0.01    0.00 5072212/5072212     Board::unmakeMove() [15]
+                             5072212             perft(int, Board&) [2]
+-----------------------------------------------
+                0.46    4.46 5072213/5072213     perft(int, Board&) [2]
+[3]     90.5    0.46    4.46 5072213         Board::generateLegalMoves() [3]
+                2.11    0.62 125049325/130121537     Board::makeMoveHelper(Move&) [4]
+                0.64    0.00 125049325/130121537     Board::unmakeMoveHelper() [5]
+                0.57    0.00 125049325/125049325     PieceManager::isAttacked(bool, int) [6]
+                0.17    0.13 5072213/5072213     MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
+                0.20    0.00 30555581/30555581     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [10]
+                0.02    0.00 5072213/5072213     MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [14]
+-----------------------------------------------
+                0.09    0.02 5072212/130121537     Board::makeMove(Move&) [12]
+                2.11    0.62 125049325/130121537     Board::generateLegalMoves() [3]
+[4]     52.2    2.20    0.64 130121537         Board::makeMoveHelper(Move&) [4]
+                0.55    0.00 130121537/130121537     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [7]
+                0.09    0.00 73074969/73074969     PieceManager::isPromoting(bool, int, int) [13]
+-----------------------------------------------
+                0.03    0.00 5072212/130121537     perft(int, Board&) [2]
+                0.64    0.00 125049325/130121537     Board::generateLegalMoves() [3]
+[5]     12.3    0.67    0.00 130121537         Board::unmakeMoveHelper() [5]
+-----------------------------------------------
+                0.57    0.00 125049325/125049325     Board::generateLegalMoves() [3]
+[6]     10.5    0.57    0.00 125049325         PieceManager::isAttacked(bool, int) [6]
+-----------------------------------------------
+                0.55    0.00 130121537/130121537     Board::makeMoveHelper(Move&) [4]
+[7]     10.1    0.55    0.00 130121537         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [7]
 -----------------------------------------------
                                                  <spontaneous>
-[3]     54.6    0.04    4.27                 Board::isValidMove(int, int, int) [3]
-                0.05    4.19 5087587/5294191     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [1]
-                0.01    0.00 10175174/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.01    0.00 5087587/5294191     Board::whiteQueenSideCastle() [73]
+[8]      6.2    0.34    0.00                 _init [8]
 -----------------------------------------------
-                             26470955             MoveList::addKingSideCastling(bool) <cycle 3> [18]
-                0.00    0.00       1/5294192     _fini [93]
-                3.12    1.19 5294191/5294192     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [1]
-[4]     44.2    2.30    1.19 31765147         __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-                0.62    0.14 150742347/171851786     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
-                0.19    0.04 134864803/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.20    0.00 31759501/44494814     __static_initialization_and_destruction_0(int, int) [17]
-                0.00    0.00      40/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                             84666961             MoveList::addQueenSideCastling(bool) <cycle 3> [12]
+                0.17    0.13 5072213/5072213     Board::generateLegalMoves() [3]
+[9]      5.5    0.17    0.13 5072213         MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
+                0.13    0.00 4874531/4874531     MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [11]
+                0.00    0.00  197682/197682      MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [23]
 -----------------------------------------------
-                                                 <spontaneous>
-[5]     28.0    0.00    2.21                 main [5]
-                0.08    1.90       1/1           perft(int, Board*) [6]
-                0.00    0.22       1/1           __gnu_cxx::char_traits<char>::eq(char const&, char const&) [22]
-                0.00    0.00       1/1           Board::Board(PieceArgs) [96]
+                0.20    0.00 30555581/30555581     Board::generateLegalMoves() [3]
+[10]     3.7    0.20    0.00 30555581         void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [10]
 -----------------------------------------------
-                             5072212             perft(int, Board*) [6]
-                0.08    1.90       1/1           main [5]
-[6]     25.1    0.08    1.90       1+5072212 perft(int, Board*) [6]
-                0.27    0.53  206604/206604      Board::printBoard() [8]
-                0.14    0.61 5087587/5087588     Board::makeMove[abi:cxx11](Move&) [10]
-                0.08    0.22 5087587/13052829     Board::unmakeMove[abi:cxx11]() [9]
-                0.02    0.00 5087587/171851786     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.01    0.00  206604/206604      MoveList::getMoves() [76]
-                0.01    0.00 5087587/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.00    0.00  206604/206604      Board::getTurn() [140]
-                0.00    0.00  206604/206604      std::stack<Move, std::deque<Move, std::allocator<Move> > >::~stack() [141]
-                             5072212             perft(int, Board*) [6]
+                0.13    0.00 4874531/4874531     MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
+[11]     2.4    0.13    0.00 4874531         MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [11]
 -----------------------------------------------
-[7]     11.0    0.71    0.16 171851786+5087588 <cycle 1 as a whole> [7]
-                0.65    0.00 166011717             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
-                0.06    0.16 10927657             __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
+                0.00    0.11 5072212/5072212     perft(int, Board&) [2]
+[12]     2.0    0.00    0.11 5072212         Board::makeMove(Move&) [12]
+                0.09    0.02 5072212/130121537     Board::makeMoveHelper(Move&) [4]
 -----------------------------------------------
-                0.27    0.53  206604/206604      perft(int, Board*) [6]
-[8]     10.2    0.27    0.53  206604         Board::printBoard() [8]
-                0.08    0.22 5087587/13052829     Board::unmakeMove[abi:cxx11]() [9]
-                0.11    0.00 10175174/25437935     std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&) [19]
-                0.03    0.01 5087587/15262761     std::deque<Move, std::allocator<Move> >::pop_back() [29]
-                0.04    0.00 30523974/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.02    0.00 5087587/171851786     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
-                0.01    0.00 5087587/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.00    0.00   84243/18309678     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.00    0.00   84243/171851786     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
+                0.09    0.00 73074969/73074969     Board::makeMoveHelper(Move&) [4]
+[13]     1.7    0.09    0.00 73074969         PieceManager::isPromoting(bool, int, int) [13]
 -----------------------------------------------
-                0.05    0.13 2877655/13052829     Board::makeMove[abi:cxx11](Move&) [10]
-                0.08    0.22 5087587/13052829     perft(int, Board*) [6]
-                0.08    0.22 5087587/13052829     Board::printBoard() [8]
-[9]      9.9    0.21    0.57 13052829         Board::unmakeMove[abi:cxx11]() [9]
-                0.04    0.12 10175174/10175174     void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [27]
-                0.13    0.03 5172088/18309678     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.05    0.00 5087587/25437935     std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&) [19]
-                0.04    0.01 5087587/10175174     std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&) [31]
-                0.03    0.01 5087587/15262761     std::deque<Move, std::allocator<Move> >::pop_back() [29]
-                0.01    0.01 5087587/5087587     std::_Deque_base<Move, std::allocator<Move> >::_M_initialize_map(unsigned long) [53]
-                0.02    0.00 5087587/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                0.02    0.00 5087587/10175174     Move::getTo() const [39]
-                0.01    0.00 10175174/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.01    0.00 5087587/10175174     std::stack<Move, std::deque<Move, std::allocator<Move> > >::push(Move const&) [55]
-                0.01    0.00 5087587/10175174     std::array<char, 6ul>::operator[](unsigned long) [54]
-                0.00    0.00 2877655/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.00    0.00 5087587/10175174     Move::getFrom() const [136]
+                0.02    0.00 5072213/5072213     Board::generateLegalMoves() [3]
+[14]     0.4    0.02    0.00 5072213         MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [14]
 -----------------------------------------------
-                0.00    0.00       1/5087588     Board::Board(PieceArgs) [96]
-                0.14    0.61 5087587/5087588     perft(int, Board*) [6]
-[10]     9.5    0.14    0.61 5087588         Board::makeMove[abi:cxx11](Move&) [10]
-                0.20    0.04 7965244/18309678     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.05    0.13 2877655/13052829     Board::unmakeMove[abi:cxx11]() [9]
-                0.04    0.01 5087587/10175174     std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&) [31]
-                0.03    0.01 5087587/15262761     std::deque<Move, std::allocator<Move> >::pop_back() [29]
-                0.02    0.01 5755826/171851786     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.02    0.00 5087587/10175174     Move::getTo() const [39]
-                0.01    0.00 10175174/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.02    0.00 2560136/44494814     __static_initialization_and_destruction_0(int, int) [17]
-                0.01    0.00 5087587/10175174     std::array<char, 6ul>::operator[](unsigned long) [54]
-                0.01    0.00 5087587/10175174     std::stack<Move, std::deque<Move, std::allocator<Move> > >::push(Move const&) [55]
-                0.00    0.00 2560136/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.00    0.00  132652/5426843     Board::updateToCaptureFlag(int) [72]
-                0.00    0.00 5087587/10175174     Move::getFrom() const [136]
-                0.00    0.00  132652/132652      Board::enPassantBlack(int, int) [142]
-                0.00    0.00  132652/132652      Board::isWhiteEnPassantMove(int) [143]
-                0.00    0.00  132652/132652      Board::isInCheck(bool) [144]
+                0.01    0.00 5072212/5072212     perft(int, Board&) [2]
+[15]     0.2    0.01    0.00 5072212         Board::unmakeMove() [15]
 -----------------------------------------------
-                             5087587             __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.00    0.00     256/171851786     std::__array_traits<char, 64ul>::_S_ref(char const (&) [64], unsigned long) [92]
-                0.00    0.00    6353/171851786     __gnu_cxx::__alloc_traits<std::allocator<Move>, Move>::_S_select_on_copy(std::allocator<Move> const&) [90]
-                0.02    0.00 5087587/171851786     Board::printBoard() [8]
-                0.02    0.00 5087587/171851786     Move** std::__niter_base<Move**>(Move**) [50]
-                0.62    0.14 150742347/171851786     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-[11]     8.2    0.65    0.00 166011717         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
-                                   1             __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
+                0.00    0.00  197682/197682      MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
+[23]     0.0    0.00    0.00  197682         MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [23]
 -----------------------------------------------
-                             84666961             __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-[12]     7.0    0.55    0.00 84666961         MoveList::addQueenSideCastling(bool) <cycle 3> [12]
-                             73841990             MoveList::addKingSideCastling(bool) <cycle 3> [18]
+                0.00    0.00      64/64          _GLOBAL__sub_I__Z7p_perftiR5Board [30]
+[24]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [24]
 -----------------------------------------------
-[13]     6.9    0.45    0.09 18309678+20519351 <cycle 2 as a whole> [13]
-                0.39    0.09 18309679+20350348     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.06    0.00 20519350             MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) <cycle 2> [36]
+                0.00    0.00      64/64          _GLOBAL__sub_I__ZN5BoardC2Ev [32]
+[25]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [25]
 -----------------------------------------------
-                             20350348             __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                                   1             MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) <cycle 2> [36]
-                0.00    0.00   84243/18309678     Board::printBoard() [8]
-                0.13    0.03 5088103/18309678     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.13    0.03 5172088/18309678     Board::unmakeMove[abi:cxx11]() [9]
-                0.20    0.04 7965244/18309678     Board::makeMove[abi:cxx11](Move&) [10]
-[14]     6.1    0.39    0.09 18309679+20350348 __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.06    0.00 10175174/44494814     __static_initialization_and_destruction_0(int, int) [17]
-                0.03    0.00 20519350/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.00    0.00      43/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                             20519350             MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) <cycle 2> [36]
-                             20350348             __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
+                0.00    0.00      64/64          _GLOBAL__sub_I__ZN12PieceManagerC2Ev [31]
+[26]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [26]
 -----------------------------------------------
-                0.10    0.11       1/2           Board::~Board() [21]
-                0.10    0.11       1/2           __gnu_cxx::char_traits<char>::length(char const*) [24]
-[15]     5.4    0.21    0.21       2         std::deque<Move, std::allocator<Move> >::~deque() [15]
-                0.21    0.00 139958743/170484265     std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [20]
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::begin() [122]
-                0.00    0.00       1/1           std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base() [160]
-                0.00    0.00       1/1           std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::~_Deque_impl() [158]
-                0.00    0.00       1/5087589     void std::_Destroy<Move*>(Move*, Move*) [137]
+                0.00    0.00      64/64          _GLOBAL__sub_I__ZN7MoveGen13generateMovesEbPK7PieceBBmP8MoveListi [33]
+[27]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [27]
 -----------------------------------------------
-                0.00    0.00    6353/170484265     std::allocator<Move>::allocator() [91]
-                0.01    0.00 5087587/170484265     perft(int, Board*) [6]
-                0.01    0.00 5087587/170484265     Board::generateMoves() [49]
-                0.01    0.00 5087587/170484265     Board::printBoard() [8]
-                0.01    0.00 10175174/170484265     Board::makeMove[abi:cxx11](Move&) [10]
-                0.01    0.00 10175174/170484265     Board::unmakeMove[abi:cxx11]() [9]
-                0.19    0.04 134864803/170484265     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-[16]     3.6    0.24    0.05 170484265         std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.05    0.00 30525522/170484265     std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [20]
+                0.00    0.00       1/1           Board::Board() [29]
+[28]     0.0    0.00    0.00       1         PieceManager::PieceManager() [28]
 -----------------------------------------------
-                0.00    0.00       1/44494814     Board::Board(PieceArgs) [96]
-                0.00    0.00       2/44494814     utils::generateMagicIndex(unsigned long, unsigned long, int, int) [100]
-                0.02    0.00 2560136/44494814     Board::makeMove[abi:cxx11](Move&) [10]
-                0.06    0.00 10175174/44494814     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.20    0.00 31759501/44494814     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-[17]     3.5    0.28    0.00 44494814         __static_initialization_and_destruction_0(int, int) [17]
-                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                             73841990             MoveList::addQueenSideCastling(bool) <cycle 3> [12]
-[18]     3.4    0.27    0.00 73841990         MoveList::addKingSideCastling(bool) <cycle 3> [18]
-                             26470955             __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
------------------------------------------------
-                0.05    0.00 5087587/25437935     Board::unmakeMove[abi:cxx11]() [9]
-                0.11    0.00 10175174/25437935     Board::printBoard() [8]
-                0.11    0.00 10175174/25437935     Board::addEnPassantRights() [25]
-[19]     3.4    0.27    0.00 25437935         std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&) [19]
------------------------------------------------
-                0.05    0.00 30525522/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.21    0.00 139958743/170484265     std::deque<Move, std::allocator<Move> >::~deque() [15]
-[20]     3.3    0.26    0.00 170484265         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [20]
------------------------------------------------
-                0.01    0.21       1/1           __gnu_cxx::char_traits<char>::eq(char const&, char const&) [22]
-[21]     2.8    0.01    0.21       1         Board::~Board() [21]
-                0.10    0.11       1/2           std::deque<Move, std::allocator<Move> >::~deque() [15]
------------------------------------------------
-                0.00    0.22       1/1           main [5]
-[22]     2.8    0.00    0.22       1         __gnu_cxx::char_traits<char>::eq(char const&, char const&) [22]
-                0.01    0.21       1/1           Board::~Board() [21]
------------------------------------------------
-                                   1             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
-                0.00    0.00   84243/171851786     Board::printBoard() [8]
-                0.02    0.00 5087587/171851786     perft(int, Board*) [6]
-                0.02    0.01 5755826/171851786     Board::makeMove[abi:cxx11](Move&) [10]
-[23]     2.8    0.06    0.16 10927657         __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.13    0.03 5088103/18309678     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.01    0.00 5087845/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
-                0.00    0.00      61/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                0.00    0.00    5248/211852      std::_Deque_base<Move, std::allocator<Move> >::_Deque_base() [138]
-                             5087587             std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
------------------------------------------------
-                                                 <spontaneous>
-[24]     2.7    0.00    0.21                 __gnu_cxx::char_traits<char>::length(char const*) [24]
-                0.10    0.11       1/2           std::deque<Move, std::allocator<Move> >::~deque() [15]
------------------------------------------------
-                                                 <spontaneous>
-[25]     2.6    0.06    0.14                 Board::addEnPassantRights() [25]
-                0.11    0.00 10175174/25437935     std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&) [19]
-                0.03    0.00 25437935/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                                                 <spontaneous>
-[26]     2.2    0.00    0.17                 Board::printHistory() [26]
-                0.00    0.17  206604/5294191     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [1]
-                0.00    0.00  206604/5294191     Board::whiteQueenSideCastle() [73]
-                0.00    0.00  206604/5426843     Board::updateToCaptureFlag(int) [72]
-                0.00    0.00  206604/211852      std::_Deque_base<Move, std::allocator<Move> >::_Deque_base() [138]
------------------------------------------------
-                0.04    0.12 10175174/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[27]     2.1    0.04    0.12 10175174         void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [27]
-                0.03    0.05 5087587/5087587     std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [33]
-                0.03    0.00 5087587/5087587     std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**) [43]
------------------------------------------------
-                0.00    0.00  206604/99345389     Board::addMoveToHistory(Move) [89]
-                0.00    0.00  619812/99345389     Board::movePawnFifthRank(int, int) [87]
-                0.00    0.00  619812/99345389     Board::movePawnFourthRank(int, int) [88]
-                0.00    0.00  717092/99345389     Board::generateMoves() [49]
-                0.00    0.00 2560136/99345389     Board::makeMove[abi:cxx11](Move&) [10]
-                0.00    0.00 2877655/99345389     Board::unmakeMove[abi:cxx11]() [9]
-                0.01    0.00 5087845/99345389     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.01    0.00 10175174/99345389     Board::isValidMove(int, int, int) [3]
-                0.03    0.00 20519350/99345389     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.03    0.00 25437935/99345389     Board::addEnPassantRights() [25]
-                0.04    0.00 30523974/99345389     Board::printBoard() [8]
-[28]     1.7    0.14    0.00 99345389         std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                0.03    0.01 5087587/15262761     Board::makeMove[abi:cxx11](Move&) [10]
-                0.03    0.01 5087587/15262761     Board::printBoard() [8]
-                0.03    0.01 5087587/15262761     Board::unmakeMove[abi:cxx11]() [9]
-[29]     1.6    0.09    0.03 15262761         std::deque<Move, std::allocator<Move> >::pop_back() [29]
-                0.03    0.00 10175174/10175176     void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&) [42]
------------------------------------------------
-                                                 <spontaneous>
-[30]     1.4    0.11    0.00                 std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [30]
------------------------------------------------
-                0.04    0.01 5087587/10175174     Board::makeMove[abi:cxx11](Move&) [10]
-                0.04    0.01 5087587/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[31]     1.4    0.09    0.02 10175174         std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&) [31]
-                0.01    0.00 10175174/10175174     std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl(std::allocator<Move> const&) [71]
-                0.01    0.00 10175174/15263081     std::char_traits<char>::length(char const*) [68]
------------------------------------------------
-                                                 <spontaneous>
-[32]     1.3    0.10    0.00                 std::stack<Move, std::deque<Move, std::allocator<Move> > >::pop() [32]
------------------------------------------------
-                0.03    0.05 5087587/5087587     void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [27]
-[33]     1.1    0.03    0.05 5087587         std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [33]
-                0.00    0.04 5087587/5087588     std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [41]
-                0.01    0.00 5087587/5087587     std::_Deque_iterator<Move, Move&, Move*>::operator++() [75]
-                0.00    0.00 5087587/10175174     __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [82]
------------------------------------------------
-                                                 <spontaneous>
-[34]     1.0    0.02    0.06                 std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [34]
-                0.04    0.02 5087907/5087907     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
------------------------------------------------
-                                                 <spontaneous>
-[35]     1.0    0.08    0.00                 _init [35]
------------------------------------------------
-                             20519350             __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-[36]     0.8    0.06    0.00 20519350         MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) <cycle 2> [36]
-                                   1             __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
------------------------------------------------
-                0.00    0.00  206604/5500795     Board::movePawnFifthRank(int, int) [87]
-                0.06    0.00 5294191/5500795     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [1]
-[37]     0.8    0.06    0.00 5500795         std::stack<Move, std::deque<Move, std::allocator<Move> > >::size() const [37]
------------------------------------------------
-                             5087907             void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-                0.04    0.02 5087907/5087907     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [34]
-[38]     0.8    0.04    0.02 5087907+5087907 void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-                0.02    0.00 5087907/5087907     std::_Deque_base<Move, std::allocator<Move> >::_M_destroy_nodes(Move**, Move**) [56]
-                0.00    0.00 10175814/10175817     std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long) [135]
-                0.00    0.00       1/5087589     void std::_Destroy<Move*>(Move*, Move*) [137]
-                0.00    0.00       1/2           std::deque<Move, std::allocator<Move> >::end() [150]
-                             5087907             void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
------------------------------------------------
-                0.02    0.00 5087587/10175174     Board::makeMove[abi:cxx11](Move&) [10]
-                0.02    0.00 5087587/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[39]     0.5    0.04    0.00 10175174         Move::getTo() const [39]
------------------------------------------------
-                0.00    0.00       1/5087589     std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [103]
-                0.04    0.00 5087588/5087589     std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [41]
-[40]     0.5    0.04    0.00 5087589         std::allocator_traits<std::allocator<Move*> >::deallocate(std::allocator<Move*>&, Move**, unsigned long) [40]
------------------------------------------------
-                0.00    0.00       1/5087588     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [104]
-                0.00    0.04 5087587/5087588     std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [33]
-[41]     0.5    0.00    0.04 5087588         std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [41]
-                0.04    0.00 5087588/5087589     std::allocator_traits<std::allocator<Move*> >::deallocate(std::allocator<Move*>&, Move**, unsigned long) [40]
------------------------------------------------
-                0.00    0.00       1/10175176     std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
-                0.00    0.00       1/10175176     std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [124]
-                0.03    0.00 10175174/10175176     std::deque<Move, std::allocator<Move> >::pop_back() [29]
-[42]     0.4    0.04    0.00 10175176         void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&) [42]
-                0.00    0.00       2/2           std::_Deque_iterator<Move, Move&, Move*>::_M_set_node(Move**) [149]
------------------------------------------------
-                0.03    0.00 5087587/5087587     void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [27]
-[43]     0.4    0.03    0.00 5087587         std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**) [43]
-                0.00    0.00 5087587/10175174     __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [82]
-                0.00    0.00 5087587/5087589     void std::_Destroy<Move*>(Move*, Move*) [137]
------------------------------------------------
-                                                 <spontaneous>
-[44]     0.4    0.03    0.00                 void __gnu_cxx::new_allocator<Move>::destroy<Move>(Move*) [44]
------------------------------------------------
-                                                 <spontaneous>
-[45]     0.4    0.03    0.00                 Move::getFlag() const [45]
------------------------------------------------
-                                                 <spontaneous>
-[46]     0.4    0.03    0.00                 std::deque<Move, std::allocator<Move> >::empty() const [46]
------------------------------------------------
-                                                 <spontaneous>
-[47]     0.4    0.03    0.00                 std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long) [47]
------------------------------------------------
-                                                 <spontaneous>
-[48]     0.4    0.03    0.00                 std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) [48]
------------------------------------------------
-                                                 <spontaneous>
-[49]     0.4    0.02    0.01                 Board::generateMoves() [49]
-                0.01    0.00 5087587/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
-                0.00    0.00  717092/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                                                 <spontaneous>
-[50]     0.3    0.00    0.03                 Move** std::__niter_base<Move**>(Move**) [50]
-                0.02    0.00 5087587/171851786     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
------------------------------------------------
-                                                 <spontaneous>
-[51]     0.3    0.03    0.00                 std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [51]
------------------------------------------------
-                0.00    0.00       1/5087907     _GLOBAL__sub_I__ZN5BoardC2Ev [109]
-                0.00    0.00       1/5087907     utils::countr_zero(unsigned long) [116]
-                0.00    0.00       1/5087907     unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&) [117]
-                0.00    0.00       1/5087907     PieceManager::setSidePiecesBB(unsigned long, bool) [115]
-                0.00    0.00       1/5087907     PieceManager::setKingPosBB(unsigned long, bool) [110]
-                0.00    0.00       1/5087907     PieceManager::setQueensPosBB(unsigned long, bool) [113]
-                0.00    0.00       1/5087907     PieceManager::setPawnsPosBB(unsigned long, bool) [111]
-                0.00    0.00       1/5087907     PieceManager::setBishopsPosBB(unsigned long, bool) [114]
-                0.00    0.00       1/5087907     PieceManager::setRooksPosBB(unsigned long, bool) [112]
-                0.00    0.00       2/5087907     PieceManager::setAnyPosBB(bool, int, unsigned long) [101]
-                0.00    0.00       2/5087907     PieceManager::setKnightsPosBB(unsigned long, bool) [102]
-                0.00    0.00       3/5087907     MoveList::isPromoting(bool, int, int) [98]
-                0.00    0.00       3/5087907     MoveList::addPossibleMove(int, unsigned long, bool, piece_bb_types) [99]
-                0.00    0.00       5/5087907     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [97]
-                0.00    0.00      24/5087907     _fini [93]
-                0.00    0.00      40/5087907     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-                0.00    0.00      43/5087907     __static_initialization_and_destruction_0(int, int) <cycle 2> [14]
-                0.00    0.00      61/5087907     __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [94]
-                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [17]
-                0.02    0.00 5087587/5087907     Board::unmakeMove[abi:cxx11]() [9]
-[52]     0.3    0.02    0.00 5087907         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                0.00    0.00 5087907/15263081     std::char_traits<char>::length(char const*) [68]
------------------------------------------------
-                0.01    0.01 5087587/5087587     Board::unmakeMove[abi:cxx11]() [9]
-[53]     0.3    0.01    0.01 5087587         std::_Deque_base<Move, std::allocator<Move> >::_M_initialize_map(unsigned long) [53]
-                0.01    0.00 5087587/5087587     std::_Deque_iterator<Move, Move&, Move*> std::uninitialized_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>) [65]
------------------------------------------------
-                0.01    0.00 5087587/10175174     Board::makeMove[abi:cxx11](Move&) [10]
-                0.01    0.00 5087587/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[54]     0.3    0.02    0.00 10175174         std::array<char, 6ul>::operator[](unsigned long) [54]
------------------------------------------------
-                0.01    0.00 5087587/10175174     Board::makeMove[abi:cxx11](Move&) [10]
-                0.01    0.00 5087587/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[55]     0.3    0.02    0.00 10175174         std::stack<Move, std::deque<Move, std::allocator<Move> > >::push(Move const&) [55]
------------------------------------------------
-                0.02    0.00 5087907/5087907     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-[56]     0.3    0.02    0.00 5087907         std::_Deque_base<Move, std::allocator<Move> >::_M_destroy_nodes(Move**, Move**) [56]
------------------------------------------------
-                0.02    0.00       1/1           __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long) [58]
-[57]     0.3    0.02    0.00       1         __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long) [57]
------------------------------------------------
-                0.00    0.02       1/1           std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [59]
-[58]     0.3    0.00    0.02       1         __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long) [58]
-                0.02    0.00       1/1           __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long) [57]
-                0.00    0.00       1/206610      std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                0.00    0.02       1/1           std::deque<Move, std::allocator<Move> >::_M_destroy_data(std::_Deque_iterator<Move, Move&, Move*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move> const&) [62]
-[59]     0.3    0.00    0.02       1         std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [59]
-                0.00    0.02       1/1           __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long) [58]
------------------------------------------------
-                                                 <spontaneous>
-[60]     0.3    0.02    0.00                 std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl() [60]
------------------------------------------------
-                                                 <spontaneous>
-[61]     0.3    0.02    0.00                 std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [61]
------------------------------------------------
-                                                 <spontaneous>
-[62]     0.3    0.00    0.02                 std::deque<Move, std::allocator<Move> >::_M_destroy_data(std::_Deque_iterator<Move, Move&, Move*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move> const&) [62]
-                0.00    0.02       1/1           std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [59]
-                0.00    0.00       1/1           std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_node(Move*) [159]
------------------------------------------------
-                                                 <spontaneous>
-[63]     0.3    0.02    0.00                 std::deque<Move, std::allocator<Move> >::back() [63]
------------------------------------------------
-                                                 <spontaneous>
-[64]     0.2    0.01    0.01                 Board::isCastlingMove(int, int) [64]
-                0.01    0.00 5087587/5426843     Board::updateToCaptureFlag(int) [72]
------------------------------------------------
-                0.01    0.00 5087587/5087587     std::_Deque_base<Move, std::allocator<Move> >::_M_initialize_map(unsigned long) [53]
-[65]     0.2    0.01    0.00 5087587         std::_Deque_iterator<Move, Move&, Move*> std::uninitialized_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>) [65]
-                0.00    0.00 5087587/5087587     std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator() [84]
------------------------------------------------
-                                                 <spontaneous>
-[66]     0.1    0.01    0.00                 Board::blackKingSideCastle() [66]
-                0.00    0.00    6353/6353        __gnu_cxx::__alloc_traits<std::allocator<Move>, Move>::_S_select_on_copy(std::allocator<Move> const&) [90]
------------------------------------------------
-                                                 <spontaneous>
-[67]     0.1    0.01    0.00                 std::deque<Move, std::allocator<Move> >::end() const [67]
-                0.00    0.00       1/3           std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
------------------------------------------------
-                0.00    0.00 5087907/15263081     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
-                0.01    0.00 10175174/15263081     std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&) [31]
-[68]     0.1    0.01    0.00 15263081         std::char_traits<char>::length(char const*) [68]
------------------------------------------------
-                0.00    0.00 5087587/15262761     std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator() [84]
-                0.00    0.00 5087587/15262761     std::allocator_traits<std::allocator<Move*> >::allocate(std::allocator<Move*>&, unsigned long) [86]
-                0.00    0.00 5087587/15262761     std::_Deque_iterator<Move, Move const&, Move const*>::_S_buffer_size() [85]
-[69]     0.1    0.01    0.00 15262761         Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**) [69]
------------------------------------------------
-                0.01    0.00 10175174/10175174     std::_Deque_iterator<Move, Move const&, Move const*>::_Deque_iterator<std::_Deque_iterator<Move, Move&, Move*>, void>(std::_Deque_iterator<Move, Move&, Move*> const&) [79]
-[70]     0.1    0.01    0.00 10175174         __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [70]
------------------------------------------------
-                0.01    0.00 10175174/10175174     std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&) [31]
-[71]     0.1    0.01    0.00 10175174         std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl(std::allocator<Move> const&) [71]
------------------------------------------------
-                0.00    0.00  132652/5426843     Board::makeMove[abi:cxx11](Move&) [10]
-                0.00    0.00  206604/5426843     Board::printHistory() [26]
-                0.01    0.00 5087587/5426843     Board::isCastlingMove(int, int) [64]
-[72]     0.1    0.01    0.00 5426843         Board::updateToCaptureFlag(int) [72]
------------------------------------------------
-                0.00    0.00  206604/5294191     Board::printHistory() [26]
-                0.01    0.00 5087587/5294191     Board::isValidMove(int, int, int) [3]
-[73]     0.1    0.01    0.00 5294191         Board::whiteQueenSideCastle() [73]
------------------------------------------------
-                0.00    0.00       1/5087590     Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**) [129]
-                0.00    0.00       2/5087590     Move** std::copy<Move**, Move**>(Move**, Move**, Move**) [118]
-                0.01    0.00 5087587/5087590     __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [82]
-[74]     0.1    0.01    0.00 5087590         PieceManager::PieceManager() [74]
-                0.00    0.00       1/2           PieceManager::canKingSideCastle(bool) [145]
------------------------------------------------
-                0.01    0.00 5087587/5087587     std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [33]
-[75]     0.1    0.01    0.00 5087587         std::_Deque_iterator<Move, Move&, Move*>::operator++() [75]
------------------------------------------------
-                0.01    0.00  206604/206604      perft(int, Board*) [6]
-[76]     0.1    0.01    0.00  206604         MoveList::getMoves() [76]
------------------------------------------------
-                                                 <spontaneous>
-[77]     0.1    0.01    0.00                 std::_Deque_iterator<Move, Move const&, Move const*>::operator*() const [77]
------------------------------------------------
-                                                 <spontaneous>
-[78]     0.1    0.01    0.00                 std::allocator<Move*>::~allocator() [78]
------------------------------------------------
-                                                 <spontaneous>
-[79]     0.1    0.00    0.01                 std::_Deque_iterator<Move, Move const&, Move const*>::_Deque_iterator<std::_Deque_iterator<Move, Move&, Move*>, void>(std::_Deque_iterator<Move, Move&, Move*> const&) [79]
-                0.01    0.00 10175174/10175174     __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [70]
------------------------------------------------
-                                                 <spontaneous>
-[80]     0.1    0.01    0.00                 std::allocator_traits<std::allocator<Move> >::select_on_container_copy_construction(std::allocator<Move> const&) [80]
------------------------------------------------
-                                                 <spontaneous>
-[81]     0.1    0.01    0.00                 Move** std::__copy_move_a1<false, Move**, Move**>(Move**, Move**, Move**) [81]
------------------------------------------------
-                0.00    0.00 5087587/10175174     std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [33]
-                0.00    0.00 5087587/10175174     std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**) [43]
-[82]     0.1    0.00    0.01 10175174         __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [82]
-                0.01    0.00 5087587/5087590     PieceManager::PieceManager() [74]
------------------------------------------------
-                                                 <spontaneous>
-[83]     0.1    0.01    0.00                 std::__array_traits<Move, 256ul>::_S_ref(Move const (&) [256], unsigned long) [83]
------------------------------------------------
-                0.00    0.00 5087587/5087587     std::_Deque_iterator<Move, Move&, Move*> std::uninitialized_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>) [65]
-[84]     0.0    0.00    0.00 5087587         std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator() [84]
-                0.00    0.00 5087587/15262761     Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**) [69]
------------------------------------------------
-                                                 <spontaneous>
-[85]     0.0    0.00    0.00                 std::_Deque_iterator<Move, Move const&, Move const*>::_S_buffer_size() [85]
-                0.00    0.00 5087587/15262761     Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**) [69]
------------------------------------------------
-                                                 <spontaneous>
-[86]     0.0    0.00    0.00                 std::allocator_traits<std::allocator<Move*> >::allocate(std::allocator<Move*>&, unsigned long) [86]
-                0.00    0.00 5087587/15262761     Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**) [69]
------------------------------------------------
-                                                 <spontaneous>
-[87]     0.0    0.00    0.00                 Board::movePawnFifthRank(int, int) [87]
-                0.00    0.00  206604/5500795     std::stack<Move, std::deque<Move, std::allocator<Move> > >::size() const [37]
-                0.00    0.00  619812/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                                                 <spontaneous>
-[88]     0.0    0.00    0.00                 Board::movePawnFourthRank(int, int) [88]
-                0.00    0.00  619812/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                                                 <spontaneous>
-[89]     0.0    0.00    0.00                 Board::addMoveToHistory(Move) [89]
-                0.00    0.00  206604/99345389     std::stack<Move, std::deque<Move, std::allocator<Move> > >::top() [28]
------------------------------------------------
-                0.00    0.00    6353/6353        Board::blackKingSideCastle() [66]
-[90]     0.0    0.00    0.00    6353         __gnu_cxx::__alloc_traits<std::allocator<Move>, Move>::_S_select_on_copy(std::allocator<Move> const&) [90]
-                0.00    0.00    6353/171851786     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
------------------------------------------------
-                                                 <spontaneous>
-[91]     0.0    0.00    0.00                 std::allocator<Move>::allocator() [91]
-                0.00    0.00    6353/170484265     std::vector<Move, std::allocator<Move> >::~vector() [16]
------------------------------------------------
-                                                 <spontaneous>
-[92]     0.0    0.00    0.00                 std::__array_traits<char, 64ul>::_S_ref(char const (&) [64], unsigned long) [92]
-                0.00    0.00     256/171851786     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) <cycle 1> [11]
------------------------------------------------
-                                                 <spontaneous>
-[93]     0.0    0.00    0.00                 _fini [93]
-                0.00    0.00       1/5294192     __static_initialization_and_destruction_0(int, int) <cycle 3> [4]
-                0.00    0.00      24/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                0.00    0.00       1/1           _GLOBAL__sub_I__Z6divideiP5Board [95]
-[94]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [94]
-                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[95]     0.0    0.00    0.00                 _GLOBAL__sub_I__Z6divideiP5Board [95]
-                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [94]
------------------------------------------------
-                0.00    0.00       1/1           main [5]
-[96]     0.0    0.00    0.00       1         Board::Board(PieceArgs) [96]
-                0.00    0.00       1/5087588     Board::makeMove[abi:cxx11](Move&) [10]
-                0.00    0.00       1/44494814     __static_initialization_and_destruction_0(int, int) [17]
-                0.00    0.00       1/3           std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
-                0.00    0.00       1/1           PieceManager::isAttacked(bool, int) [154]
-                0.00    0.00       1/2           void std::__fill_a<char*, char>(char*, char*, char const&) [153]
-                0.00    0.00       1/2           std::deque<Move, std::allocator<Move> >::push_back(Move const&) [151]
------------------------------------------------
-                                                 <spontaneous>
-[97]     0.0    0.00    0.00                 MoveList::generateMoves(bool, PieceBB const*, unsigned long) [97]
-                0.00    0.00       5/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[98]     0.0    0.00    0.00                 MoveList::isPromoting(bool, int, int) [98]
-                0.00    0.00       3/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[99]     0.0    0.00    0.00                 MoveList::addPossibleMove(int, unsigned long, bool, piece_bb_types) [99]
-                0.00    0.00       3/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                0.00    0.00       2/5           std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [108]
-                0.00    0.00       3/5           utils::getRankMask(unsigned long) [105]
-[100]    0.0    0.00    0.00       5         utils::generateMagicIndex(unsigned long, unsigned long, int, int) [100]
-                0.00    0.00       2/44494814     __static_initialization_and_destruction_0(int, int) [17]
------------------------------------------------
-                                                 <spontaneous>
-[101]    0.0    0.00    0.00                 PieceManager::setAnyPosBB(bool, int, unsigned long) [101]
-                0.00    0.00       2/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[102]    0.0    0.00    0.00                 PieceManager::setKnightsPosBB(unsigned long, bool) [102]
-                0.00    0.00       2/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[103]    0.0    0.00    0.00                 std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [103]
-                0.00    0.00       1/5087589     std::allocator_traits<std::allocator<Move*> >::deallocate(std::allocator<Move*>&, Move**, unsigned long) [40]
------------------------------------------------
-                                                 <spontaneous>
-[104]    0.0    0.00    0.00                 std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [104]
-                0.00    0.00       1/5087588     std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [41]
-                0.00    0.00       1/1           std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [162]
------------------------------------------------
-                0.00    0.00       1/2           std::_Deque_base<Move, std::allocator<Move> >::_M_get_map_allocator() const [107]
-                0.00    0.00       1/2           std::allocator<Move*>::allocator<Move>(std::allocator<Move> const&) [120]
-[105]    0.0    0.00    0.00       2         utils::getRankMask(unsigned long) [105]
-                0.00    0.00       3/5           utils::generateMagicIndex(unsigned long, unsigned long, int, int) [100]
------------------------------------------------
-                0.00    0.00       1/3           Board::Board(PieceArgs) [96]
-                0.00    0.00       1/3           std::array<char, 64ul>::end() [127]
-                0.00    0.00       1/3           std::deque<Move, std::allocator<Move> >::end() const [67]
-[106]    0.0    0.00    0.00       3         std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
-                0.00    0.00       2/2           std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&) [123]
-                0.00    0.00       1/10175176     void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&) [42]
------------------------------------------------
-                                                 <spontaneous>
-[107]    0.0    0.00    0.00                 std::_Deque_base<Move, std::allocator<Move> >::_M_get_map_allocator() const [107]
-                0.00    0.00       1/2           utils::getRankMask(unsigned long) [105]
-                0.00    0.00       2/4           std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [108]
------------------------------------------------
-                0.00    0.00       2/4           std::_Deque_base<Move, std::allocator<Move> >::_M_get_map_allocator() const [107]
-                0.00    0.00       2/4           Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**) [125]
-[108]    0.0    0.00    0.00       4         std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [108]
-                0.00    0.00       2/5           utils::generateMagicIndex(unsigned long, unsigned long, int, int) [100]
-                0.00    0.00       2/2           utils::count_ones(unsigned long long) [146]
------------------------------------------------
-                                                 <spontaneous>
-[109]    0.0    0.00    0.00                 _GLOBAL__sub_I__ZN5BoardC2Ev [109]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[110]    0.0    0.00    0.00                 PieceManager::setKingPosBB(unsigned long, bool) [110]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[111]    0.0    0.00    0.00                 PieceManager::setPawnsPosBB(unsigned long, bool) [111]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[112]    0.0    0.00    0.00                 PieceManager::setRooksPosBB(unsigned long, bool) [112]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[113]    0.0    0.00    0.00                 PieceManager::setQueensPosBB(unsigned long, bool) [113]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[114]    0.0    0.00    0.00                 PieceManager::setBishopsPosBB(unsigned long, bool) [114]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[115]    0.0    0.00    0.00                 PieceManager::setSidePiecesBB(unsigned long, bool) [115]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[116]    0.0    0.00    0.00                 utils::countr_zero(unsigned long) [116]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                                                 <spontaneous>
-[117]    0.0    0.00    0.00                 unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&) [117]
-                0.00    0.00       1/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [52]
------------------------------------------------
-                0.00    0.00       1/1           Move const& std::forward<Move const&>(std::remove_reference<Move const&>::type&) [119]
-[118]    0.0    0.00    0.00       1         Move** std::copy<Move**, Move**>(Move**, Move**, Move**) [118]
-                0.00    0.00       2/5087590     PieceManager::PieceManager() [74]
------------------------------------------------
-                                                 <spontaneous>
-[119]    0.0    0.00    0.00                 Move const& std::forward<Move const&>(std::remove_reference<Move const&>::type&) [119]
-                0.00    0.00       1/1           Move** std::copy<Move**, Move**>(Move**, Move**, Move**) [118]
------------------------------------------------
-                0.00    0.00       1/1           std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator(std::_Deque_iterator<Move, Move&, Move*> const&) [121]
-[120]    0.0    0.00    0.00       1         std::allocator<Move*>::allocator<Move>(std::allocator<Move> const&) [120]
-                0.00    0.00       1/2           utils::getRankMask(unsigned long) [105]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::begin() [122]
-[121]    0.0    0.00    0.00       1         std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator(std::_Deque_iterator<Move, Move&, Move*> const&) [121]
-                0.00    0.00       1/1           std::allocator<Move*>::allocator<Move>(std::allocator<Move> const&) [120]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::~deque() [15]
-[122]    0.0    0.00    0.00       1         std::deque<Move, std::allocator<Move> >::begin() [122]
-                0.00    0.00       1/1           std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator(std::_Deque_iterator<Move, Move&, Move*> const&) [121]
------------------------------------------------
-                0.00    0.00       2/2           std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
-[123]    0.0    0.00    0.00       2         std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&) [123]
-                0.00    0.00       1/1           std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [124]
-                0.00    0.00       1/1           void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [157]
------------------------------------------------
-                0.00    0.00       1/1           std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&) [123]
-[124]    0.0    0.00    0.00       1         std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [124]
-                0.00    0.00       1/10175176     void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&) [42]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::_M_reserve_map_at_back(unsigned long) [126]
-[125]    0.0    0.00    0.00       1         Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**) [125]
-                0.00    0.00       2/4           std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [108]
-                0.00    0.00       1/1           PieceManager::PieceManager(PieceArgs) [156]
------------------------------------------------
-                                                 <spontaneous>
-[126]    0.0    0.00    0.00                 std::deque<Move, std::allocator<Move> >::_M_reserve_map_at_back(unsigned long) [126]
-                0.00    0.00       1/1           Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**) [125]
------------------------------------------------
-                                                 <spontaneous>
-[127]    0.0    0.00    0.00                 std::array<char, 64ul>::end() [127]
-                0.00    0.00       1/3           std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [106]
------------------------------------------------
-                0.00    0.00       1/1           std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_node() [130]
-[128]    0.0    0.00    0.00       1         std::_Deque_iterator<Move, Move const&, Move const*>::_M_set_node(Move**) [128]
-                0.00    0.00       1/1           Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**) [129]
------------------------------------------------
-                0.00    0.00       1/1           std::_Deque_iterator<Move, Move const&, Move const*>::_M_set_node(Move**) [128]
-[129]    0.0    0.00    0.00       1         Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**) [129]
-                0.00    0.00       1/5087590     PieceManager::PieceManager() [74]
-                0.00    0.00       1/206610      std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                                                 <spontaneous>
-[130]    0.0    0.00    0.00                 std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_node() [130]
-                0.00    0.00       1/1           std::_Deque_iterator<Move, Move const&, Move const*>::_M_set_node(Move**) [128]
-                0.00    0.00       1/2           Move** std::__copy_move_a<false, Move**, Move**>(Move**, Move**, Move**) [152]
------------------------------------------------
-                0.00    0.00       1/10175817     std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base() [160]
-                0.00    0.00       2/10175817     void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&) [163]
-                0.00    0.00 10175814/10175817     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-[135]    0.0    0.00    0.00 10175817         std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long) [135]
------------------------------------------------
-                0.00    0.00 5087587/10175174     Board::makeMove[abi:cxx11](Move&) [10]
-                0.00    0.00 5087587/10175174     Board::unmakeMove[abi:cxx11]() [9]
-[136]    0.0    0.00    0.00 10175174         Move::getFrom() const [136]
------------------------------------------------
-                0.00    0.00       1/5087589     std::deque<Move, std::allocator<Move> >::~deque() [15]
-                0.00    0.00       1/5087589     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-                0.00    0.00 5087587/5087589     std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**) [43]
-[137]    0.0    0.00    0.00 5087589         void std::_Destroy<Move*>(Move*, Move*) [137]
------------------------------------------------
-                0.00    0.00    5248/211852      __static_initialization_and_destruction_0(int, int) <cycle 1> [23]
-                0.00    0.00  206604/211852      Board::printHistory() [26]
-[138]    0.0    0.00    0.00  211852         std::_Deque_base<Move, std::allocator<Move> >::_Deque_base() [138]
------------------------------------------------
-                0.00    0.00       1/206610      __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long) [58]
-                0.00    0.00       1/206610      void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [157]
-                0.00    0.00       1/206610      std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy<false>::__uninit_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>) [238]
-                0.00    0.00       1/206610      Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**) [129]
-                0.00    0.00       2/206610      Move** std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<Move*>(Move* const*, Move* const*, Move**) [147]
-                0.00    0.00  206604/206610      std::stack<Move, std::deque<Move, std::allocator<Move> > >::~stack() [141]
-[139]    0.0    0.00    0.00  206610         std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                0.00    0.00  206604/206604      perft(int, Board*) [6]
-[140]    0.0    0.00    0.00  206604         Board::getTurn() [140]
------------------------------------------------
-                0.00    0.00  206604/206604      perft(int, Board*) [6]
-[141]    0.0    0.00    0.00  206604         std::stack<Move, std::deque<Move, std::allocator<Move> > >::~stack() [141]
-                0.00    0.00  206604/206610      std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                0.00    0.00  132652/132652      Board::makeMove[abi:cxx11](Move&) [10]
-[142]    0.0    0.00    0.00  132652         Board::enPassantBlack(int, int) [142]
------------------------------------------------
-                0.00    0.00  132652/132652      Board::makeMove[abi:cxx11](Move&) [10]
-[143]    0.0    0.00    0.00  132652         Board::isWhiteEnPassantMove(int) [143]
------------------------------------------------
-                0.00    0.00  132652/132652      Board::makeMove[abi:cxx11](Move&) [10]
-[144]    0.0    0.00    0.00  132652         Board::isInCheck(bool) [144]
------------------------------------------------
-                                   1             PieceManager::canKingSideCastle(bool) [145]
-                0.00    0.00       1/2           PieceManager::PieceManager() [74]
-                0.00    0.00       1/2           PieceManager::PieceManager(PieceArgs) [156]
-[145]    0.0    0.00    0.00       2+1       PieceManager::canKingSideCastle(bool) [145]
-                0.00    0.00       1/1           PieceManager::isPromoting(bool, int, int) [155]
-                                   1             PieceManager::canKingSideCastle(bool) [145]
------------------------------------------------
-                0.00    0.00       2/2           std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [108]
-[146]    0.0    0.00    0.00       2         utils::count_ones(unsigned long long) [146]
------------------------------------------------
-                0.00    0.00       2/2           Move** std::__copy_move_a<false, Move**, Move**>(Move**, Move**, Move**) [152]
-[147]    0.0    0.00    0.00       2         Move** std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<Move*>(Move* const*, Move* const*, Move**) [147]
-                0.00    0.00       2/206610      std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                0.00    0.00       1/2           std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::~_Deque_impl() [158]
-                0.00    0.00       1/2           std::deque<Move, std::allocator<Move> >::end() [150]
-[148]    0.0    0.00    0.00       2         std::_Vector_base<Move, std::allocator<Move> >::_M_get_Tp_allocator() [148]
------------------------------------------------
-                0.00    0.00       2/2           void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&) [42]
-[149]    0.0    0.00    0.00       2         std::_Deque_iterator<Move, Move&, Move*>::_M_set_node(Move**) [149]
------------------------------------------------
-                0.00    0.00       1/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [38]
-                0.00    0.00       1/2           bool __gnu_cxx::__is_null_pointer<char const>(char const*) [208]
-[150]    0.0    0.00    0.00       2         std::deque<Move, std::allocator<Move> >::end() [150]
-                0.00    0.00       1/2           std::_Vector_base<Move, std::allocator<Move> >::_M_get_Tp_allocator() [148]
------------------------------------------------
-                0.00    0.00       1/2           Board::Board(PieceArgs) [96]
-                0.00    0.00       1/2           std::deque<Move, std::allocator<Move> >::max_size() const [219]
-[151]    0.0    0.00    0.00       2         std::deque<Move, std::allocator<Move> >::push_back(Move const&) [151]
-                0.00    0.00       1/2           void std::__fill_a<char*, char>(char*, char*, char const&) [153]
------------------------------------------------
-                0.00    0.00       1/2           std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_node() [130]
-                0.00    0.00       1/2           std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy<false>::__uninit_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>) [238]
-[152]    0.0    0.00    0.00       2         Move** std::__copy_move_a<false, Move**, Move**>(Move**, Move**, Move**) [152]
-                0.00    0.00       2/2           Move** std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<Move*>(Move* const*, Move* const*, Move**) [147]
------------------------------------------------
-                0.00    0.00       1/2           Board::Board(PieceArgs) [96]
-                0.00    0.00       1/2           std::deque<Move, std::allocator<Move> >::push_back(Move const&) [151]
-[153]    0.0    0.00    0.00       2         void std::__fill_a<char*, char>(char*, char*, char const&) [153]
-                0.00    0.00       1/1           std::array<char, 64ul>::begin() [161]
------------------------------------------------
-                0.00    0.00       1/1           Board::Board(PieceArgs) [96]
-[154]    0.0    0.00    0.00       1         PieceManager::isAttacked(bool, int) [154]
------------------------------------------------
-                0.00    0.00       1/1           PieceManager::canKingSideCastle(bool) [145]
-[155]    0.0    0.00    0.00       1         PieceManager::isPromoting(bool, int, int) [155]
------------------------------------------------
-                0.00    0.00       1/1           Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**) [125]
-[156]    0.0    0.00    0.00       1         PieceManager::PieceManager(PieceArgs) [156]
-                0.00    0.00       1/2           PieceManager::canKingSideCastle(bool) [145]
------------------------------------------------
-                0.00    0.00       1/1           std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&) [123]
-[157]    0.0    0.00    0.00       1         void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [157]
-                0.00    0.00       1/206610      std::__deque_buf_size(unsigned long) [139]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::~deque() [15]
-[158]    0.0    0.00    0.00       1         std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::~_Deque_impl() [158]
-                0.00    0.00       1/2           std::_Vector_base<Move, std::allocator<Move> >::_M_get_Tp_allocator() [148]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::_M_destroy_data(std::_Deque_iterator<Move, Move&, Move*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move> const&) [62]
-[159]    0.0    0.00    0.00       1         std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_node(Move*) [159]
------------------------------------------------
-                0.00    0.00       1/1           std::deque<Move, std::allocator<Move> >::~deque() [15]
-[160]    0.0    0.00    0.00       1         std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base() [160]
-                0.00    0.00       1/10175817     std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long) [135]
-                0.00    0.00       1/1           void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&) [163]
------------------------------------------------
-                0.00    0.00       1/1           void std::__fill_a<char*, char>(char*, char*, char const&) [153]
-[161]    0.0    0.00    0.00       1         std::array<char, 64ul>::begin() [161]
------------------------------------------------
-                0.00    0.00       1/1           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [104]
-[162]    0.0    0.00    0.00       1         std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [162]
------------------------------------------------
-                0.00    0.00       1/1           std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base() [160]
-[163]    0.0    0.00    0.00       1         void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&) [163]
-                0.00    0.00       2/10175817     std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long) [135]
+                0.00    0.00       1/1           main [1]
+[29]     0.0    0.00    0.00       1         Board::Board() [29]
+                0.00    0.00       1/1           PieceManager::PieceManager() [28]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -1043,44 +243,10 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [94] __static_initialization_and_destruction_0(int, int) [58] __gnu_cxx::new_allocator<Move*>::deallocate(Move**, unsigned long) [27] void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&)
-  [17] __static_initialization_and_destruction_0(int, int) [90] __gnu_cxx::__alloc_traits<std::allocator<Move>, Move>::_S_select_on_copy(std::allocator<Move> const&) [40] std::allocator_traits<std::allocator<Move*> >::deallocate(std::allocator<Move*>&, Move**, unsigned long)
-  [23] __static_initialization_and_destruction_0(int, int) [39] Move::getTo() const [108] std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array()
-  [14] __static_initialization_and_destruction_0(int, int) [45] Move::getFlag() const [161] std::array<char, 64ul>::begin()
-   [4] __static_initialization_and_destruction_0(int, int) [136] Move::getFrom() const [54] std::array<char, 6ul>::operator[](unsigned long)
-   [6] perft(int, Board*)     [77] std::_Deque_iterator<Move, Move const&, Move const*>::operator*() const [42] void std::deque<Move, std::allocator<Move> >::_M_push_back_aux<Move const&>(Move const&)
- [154] PieceManager::isAttacked(bool, int) [34] std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [150] std::deque<Move, std::allocator<Move> >::end()
- [155] PieceManager::isPromoting(bool, int, int) [67] std::deque<Move, std::allocator<Move> >::end() const [63] std::deque<Move, std::allocator<Move> >::back()
- [145] PieceManager::canKingSideCastle(bool) [46] std::deque<Move, std::allocator<Move> >::empty() const [122] std::deque<Move, std::allocator<Move> >::begin()
- [156] PieceManager::PieceManager(PieceArgs) [37] std::stack<Move, std::deque<Move, std::allocator<Move> > >::size() const [29] std::deque<Move, std::allocator<Move> >::pop_back()
-  [74] PieceManager::PieceManager() [120] std::allocator<Move*>::allocator<Move>(std::allocator<Move> const&) [151] std::deque<Move, std::allocator<Move> >::push_back(Move const&)
-   [8] Board::printBoard()    [78] std::allocator<Move*>::~allocator() [19] std::deque<Move, std::allocator<Move> >::deque(std::deque<Move, std::allocator<Move> > const&)
-   [9] Board::unmakeMove[abi:cxx11]() [60] std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl() [15] std::deque<Move, std::allocator<Move> >::~deque()
-   [3] Board::isValidMove(int, int, int) [71] std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::_Deque_impl(std::allocator<Move> const&) [32] std::stack<Move, std::deque<Move, std::allocator<Move> > >::pop()
-  [49] Board::generateMoves() [158] std::_Deque_base<Move, std::allocator<Move> >::_Deque_impl::~_Deque_impl() [28] std::stack<Move, std::deque<Move, std::allocator<Move> > >::top()
- [142] Board::enPassantBlack(int, int) [33] std::_Deque_base<Move, std::allocator<Move> >::_M_allocate_map(unsigned long) [55] std::stack<Move, std::deque<Move, std::allocator<Move> > >::push(Move const&)
-  [64] Board::isCastlingMove(int, int) [43] std::_Deque_base<Move, std::allocator<Move> >::_M_create_nodes(Move**, Move**) [141] std::stack<Move, std::deque<Move, std::allocator<Move> > >::~stack()
-  [25] Board::addEnPassantRights() [56] std::_Deque_base<Move, std::allocator<Move> >::_M_destroy_nodes(Move**, Move**) [16] std::vector<Move, std::allocator<Move> >::~vector()
-  [66] Board::blackKingSideCastle() [135] std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_map(Move**, unsigned long) [38] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
-  [72] Board::updateToCaptureFlag(int) [53] std::_Deque_base<Move, std::allocator<Move> >::_M_initialize_map(unsigned long) [52] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
- [143] Board::isWhiteEnPassantMove(int) [159] std::_Deque_base<Move, std::allocator<Move> >::_M_deallocate_node(Move*) [152] Move** std::__copy_move_a<false, Move**, Move**>(Move**, Move**, Move**)
-  [73] Board::whiteQueenSideCastle() [106] std::_Deque_base<Move, std::allocator<Move> >::_Deque_base(std::allocator<Move> const&, unsigned long) [125] Move** std::copy_backward<Move**, Move**>(Move**, Move**, Move**)
- [140] Board::getTurn()      [138] std::_Deque_base<Move, std::allocator<Move> >::_Deque_base() [81] Move** std::__copy_move_a1<false, Move**, Move**>(Move**, Move**, Move**)
-  [10] Board::makeMove[abi:cxx11](Move&) [160] std::_Deque_base<Move, std::allocator<Move> >::~_Deque_base() [139] std::__deque_buf_size(unsigned long)
- [144] Board::isInCheck(bool) [147] Move** std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<Move*>(Move* const*, Move* const*, Move**) [65] std::_Deque_iterator<Move, Move&, Move*> std::uninitialized_copy<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*> >(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>)
-  [96] Board::Board(PieceArgs) [68] std::char_traits<char>::length(char const*) [162] std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
-  [21] Board::~Board()        [61] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [69] Move** std::__copy_move_backward_a<false, Move**, Move**>(Move**, Move**, Move**)
- [146] utils::count_ones(unsigned long long) [41] std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [31] std::_Deque_iterator<Move, Move&, Move*> std::__uninitialized_copy_a<std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, Move>(std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move const&, Move const*>, std::_Deque_iterator<Move, Move&, Move*>, std::allocator<Move>&)
- [105] utils::getRankMask(unsigned long) [148] std::_Vector_base<Move, std::allocator<Move> >::_M_get_Tp_allocator() [129] Move** std::__copy_move_backward_a2<false, Move**, Move**>(Move**, Move**, Move**)
- [100] utils::generateMagicIndex(unsigned long, unsigned long, int, int) [20] std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [118] Move** std::copy<Move**, Move**>(Move**, Move**, Move**)
-   [1] MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [83] std::__array_traits<Move, 256ul>::_S_ref(Move const (&) [256], unsigned long) [48] std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
-  [18] MoveList::addKingSideCastling(bool) [51] std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [137] void std::_Destroy<Move*>(Move*, Move*)
-  [36] MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [124] std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [163] void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&)
-  [12] MoveList::addQueenSideCastling(bool) [128] std::_Deque_iterator<Move, Move const&, Move const*>::_M_set_node(Move**) [153] void std::__fill_a<char*, char>(char*, char*, char const&)
-  [76] MoveList::getMoves()  [149] std::_Deque_iterator<Move, Move&, Move*>::_M_set_node(Move**) [123] std::operator-(std::_Deque_iterator<Move, Move&, Move*> const&, std::_Deque_iterator<Move, Move&, Move*> const&)
-  [22] __gnu_cxx::char_traits<char>::eq(char const&, char const&) [84] std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator() [30] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  [57] __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long) [121] std::_Deque_iterator<Move, Move&, Move*>::_Deque_iterator(std::_Deque_iterator<Move, Move&, Move*> const&) [11] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  [44] void __gnu_cxx::new_allocator<Move>::destroy<Move>(Move*) [75] std::_Deque_iterator<Move, Move&, Move*>::operator++() [35] _init
-  [82] __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [59] std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [7] <cycle 1>
- [157] void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [80] std::allocator_traits<std::allocator<Move> >::select_on_container_copy_construction(std::allocator<Move> const&) [13] <cycle 2>
-  [70] __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [47] std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long) [2] <cycle 3>
+   [2] perft(int, Board&)      [3] Board::generateLegalMoves() [10] void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
+   [6] PieceManager::isAttacked(bool, int) [12] Board::makeMove(Move&) [24] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  [13] PieceManager::isPromoting(bool, int, int) [29] Board::Board() [25] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  [28] PieceManager::PieceManager() [9] MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [26] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+  [15] Board::unmakeMove()    [14] MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [27] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
+   [4] Board::makeMoveHelper(Move&) [11] MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [7] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+   [5] Board::unmakeMoveHelper() [23] MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [8] _init

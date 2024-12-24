@@ -1,0 +1,685 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 18.54      0.55     0.55 84666961     0.00     0.00  MoveList::addPossibleMove(int, unsigned long, bool, int)
+ 13.27      0.94     0.39  5294191     0.00     0.00  MoveList::generatePawnMoves(bool, unsigned long, unsigned long, unsigned long)
+  7.48      1.16     0.22  5087587     0.00     0.00  Board::makeMove(Move&)
+  6.46      1.34     0.19  5087587     0.00     0.00  PieceManager::isAttacked(bool, int)
+  5.10      1.50     0.15 134864795     0.00     0.00  utils::pop_lsb(unsigned long&)
+  4.76      1.64     0.14 97706517     0.00     0.00  PieceManager::getPiecesBB(bool, int)
+  3.91      1.75     0.12 20350348     0.00     0.00  PieceManager::setSidePiecesBB(bool)
+  3.40      1.85     0.10  5087587     0.00     0.00  Board::unmakeMove()
+  3.06      1.94     0.09 41934675     0.00     0.00  utils::generateMagicIndex(unsigned long, unsigned long, int, int)
+  2.72      2.02     0.08 20519350     0.00     0.00  PieceManager::setAnyPosBB(bool, int, unsigned long)
+  2.38      2.09     0.07  5294191     0.00     0.00  MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long)
+  2.38      2.16     0.07  5294191     0.00     0.00  MoveList::generateKnightMoves(bool, unsigned long, unsigned long)
+  2.21      2.23     0.07 10259675     0.00     0.00  PieceManager::addPiece(bool, int, int)
+  2.04      2.29     0.06  5294191     0.00     0.00  MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long)
+  1.87      2.34     0.06 10175174     0.00     0.00  PieceManager::movePiece(bool, int, int, int)
+  1.53      2.38     0.04 10175174     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  1.36      2.42     0.04 15262761     0.00     0.00  Move::getFrom() const
+  1.36      2.46     0.04  5294191     0.00     0.00  MoveList::generateKingMoves(bool, unsigned long, unsigned long)
+  1.36      2.50     0.04  5087907     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  1.19      2.54     0.04 10175174     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  1.02      2.57     0.03 30525522     0.00     0.00  std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const
+  1.02      2.60     0.03 15263081     0.00     0.00  std::char_traits<char>::length(char const*)
+  1.02      2.63     0.03  5294191     0.00     0.00  MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long)
+  1.02      2.66     0.03                             _init
+  0.85      2.69     0.03 10259675     0.00     0.00  PieceManager::clearPiece(bool, int, int)
+  0.85      2.71     0.03 10175174     0.00     0.00  std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&)
+  0.85      2.73     0.03  5087587     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.68      2.75     0.02 30525522     0.00     0.00  std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long)
+  0.68      2.77     0.02 10175174     0.00     0.00  Move::getFromPiece() const
+  0.68      2.79     0.02 10175174     0.00     0.00  std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+  0.68      2.81     0.02  5500795     0.00     0.00  MoveList::clearMoves()
+  0.68      2.83     0.02  5087907     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.68      2.85     0.02  5087587     0.00     0.00  Board::isInCheck(bool)
+  0.34      2.87     0.01 15262761     0.00     0.00  Move::getFlag() const
+  0.34      2.88     0.01  5294191     0.00     0.00  Board::addEnPassantRights()
+  0.34      2.88     0.01  5294191     0.00     0.00  MoveList::generateMoves(bool, PieceBB const*, unsigned long)
+  0.34      2.90     0.01  5088267     0.00     0.00  Move::Move(int, int, int, int, int)
+  0.34      2.90     0.01  5087907     0.00     0.00  std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  0.17      2.91     0.01  5087587     0.00     0.00  Move::getToPiece() const
+  0.17      2.92     0.01        1     0.01     0.01  __static_initialization_and_destruction_0(int, int)
+  0.17      2.92     0.01        1     0.01     0.01  __static_initialization_and_destruction_0(int, int)
+  0.17      2.92     0.01        1     0.01     0.01  MoveList::MoveList()
+  0.17      2.93     0.01                             utils::count_ones(unsigned long long)
+  0.17      2.94     0.01                             MoveList::isPromoting(bool, int, int)
+  0.17      2.94     0.01                             std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long)
+  0.00      2.94     0.00 15262761     0.00     0.00  Move::getTo() const
+  0.00      2.94     0.00 10175174     0.00     0.00  __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&)
+  0.00      2.94     0.00  5087907     0.00     0.00  bool __gnu_cxx::__is_null_pointer<char const>(char const*)
+  0.00      2.94     0.00  5087907     0.00     0.00  std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  0.00      2.94     0.00  5087907     0.00     0.00  std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  0.00      2.94     0.00  5087587     0.00     0.00  Board::addMoveToHistory(Move&)
+  0.00      2.94     0.00  2877913     0.00     0.00  PieceManager::isPromoting(bool, int, int)
+  0.00      2.94     0.00  2745751     0.00     0.00  Board::movePawnFourthRank(int, int)
+  0.00      2.94     0.00   206604     0.00     0.00  Board::getMoveCount()
+  0.00      2.94     0.00   206604     0.00     0.00  Board::getMovesList()
+  0.00      2.94     0.00   206604     0.00     0.00  Board::generateMoves()
+  0.00      2.94     0.00   206604     0.00     0.00  Board::getTurn()
+  0.00      2.94     0.00   206604     0.00     0.00  MoveList::getMoveCount()
+  0.00      2.94     0.00   206604     0.00     0.00  MoveList::getMoves()
+  0.00      2.94     0.00   132652     0.00     0.00  Board::isBlackKSCastlingMove(int, int)
+  0.00      2.94     0.00   132652     0.00     0.00  Board::isBlackQSCastlingMove(int, int)
+  0.00      2.94     0.00   132652     0.00     0.00  Board::isWhiteKSCastlingMove(int, int)
+  0.00      2.94     0.00   132652     0.00     0.00  Board::isWhiteQSCastlingMove(int, int)
+  0.00      2.94     0.00   131904     0.00     0.00  Board::movePawnFifthRank(int, int)
+  0.00      2.94     0.00    84243     0.00     0.00  Board::updateToCaptureFlag(int)
+  0.00      2.94     0.00      680     0.00     0.00  MoveList::addEnPassantRights(bool, int, int)
+  0.00      2.94     0.00      258     0.00     0.00  Board::enPassantWhite(int, int)
+  0.00      2.94     0.00        3     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::count() const
+  0.00      2.94     0.00        3     0.00     0.00  std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const
+  0.00      2.94     0.00        2     0.00     0.00  std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const
+  0.00      2.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      2.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      2.94     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      2.94     0.00        1     0.00     2.88  perft(int, Board&)
+  0.00      2.94     0.00        1     0.00     0.00  PieceManager::PieceManager()
+  0.00      2.94     0.00        1     0.00     0.01  Board::Board()
+  0.00      2.94     0.00        1     0.00     0.00  std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+  0.00      2.94     0.00        1     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.34% of 2.94 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     98.1    0.00    2.88                 main [1]
+                0.00    2.88       1/1           perft(int, Board&) [2]
+                0.00    0.01       1/1           Board::Board() [49]
+                0.00    0.00       2/3           std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [85]
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [94]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+-----------------------------------------------
+                             5072212             perft(int, Board&) [2]
+                0.00    2.88       1/1           main [1]
+[2]     98.0    0.00    2.88       1+5072212 perft(int, Board&) [2]
+                0.10    1.84 5087587/5087587     Board::unmakeMove() [3]
+                0.22    0.40 5087587/5087587     Board::makeMove(Move&) [7]
+                0.02    0.22 5087587/5087587     Board::isInCheck(bool) [9]
+                0.00    0.06  206604/206604      Board::generateMoves() [26]
+                0.01    0.00 5087587/15262761     Move::getFrom() const [29]
+                0.00    0.00 5087587/15262761     Move::getFlag() const [40]
+                0.00    0.00 5087587/15262761     Move::getTo() const [70]
+                0.00    0.00  206604/206604      MoveList::getMoves() [79]
+                0.00    0.00  206604/206604      Board::getMoveCount() [75]
+                0.00    0.00  206604/206604      Board::getTurn() [77]
+                             5072212             perft(int, Board&) [2]
+-----------------------------------------------
+                0.10    1.84 5087587/5087587     perft(int, Board&) [2]
+[3]     66.1    0.10    1.84 5087587         Board::unmakeMove() [3]
+                0.01    1.39 5087587/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+                0.03    0.10 5087587/10175174     PieceManager::movePiece(bool, int, int, int) [8]
+                0.02    0.06 5087587/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+                0.06    0.00 10175174/20350348     PieceManager::setSidePiecesBB(bool) [18]
+                0.05    0.00 35613109/97706517     PieceManager::getPiecesBB(bool, int) [14]
+                0.02    0.02 5087587/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [23]
+                0.02    0.01 5087587/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [25]
+                0.01    0.01 10175174/30525522     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [27]
+                0.01    0.00 5087587/15262761     Move::getFrom() const [29]
+                0.01    0.00 5087587/5294191     Board::addEnPassantRights() [39]
+                0.01    0.00 5087587/10175174     Move::getFromPiece() const [36]
+                0.01    0.00 5087587/5087587     Move::getToPiece() const [48]
+                0.00    0.00 5087587/15262761     Move::getFlag() const [40]
+                0.00    0.00   84501/10259675     PieceManager::addPiece(bool, int, int) [17]
+                0.00    0.00 5087587/15262761     Move::getTo() const [70]
+-----------------------------------------------
+                0.00    0.06  206604/5294191     Board::generateMoves() [26]
+                0.01    1.39 5087587/5294191     Board::unmakeMove() [3]
+[4]     49.4    0.01    1.44 5294191         MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+                0.39    0.35 5294191/5294191     MoveList::generatePawnMoves(bool, unsigned long, unsigned long, unsigned long) [5]
+                0.06    0.11 5294191/5294191     MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long) [11]
+                0.07    0.09 5294191/5294191     MoveList::generateKnightMoves(bool, unsigned long, unsigned long) [12]
+                0.03    0.11 5294191/5294191     MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [15]
+                0.07    0.07 5294191/5294191     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [16]
+                0.04    0.04 5294191/5294191     MoveList::generateKingMoves(bool, unsigned long, unsigned long) [20]
+                0.02    0.00 5294191/5500795     MoveList::clearMoves() [38]
+-----------------------------------------------
+                0.39    0.35 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[5]     25.1    0.39    0.35 5294191         MoveList::generatePawnMoves(bool, unsigned long, unsigned long, unsigned long) [5]
+                0.27    0.07 42322036/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+-----------------------------------------------
+                0.03    0.01 5293659/84666961     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [16]
+                0.03    0.01 5294191/84666961     MoveList::generateKingMoves(bool, unsigned long, unsigned long) [20]
+                0.07    0.02 10583885/84666961     MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [15]
+                0.07    0.02 10584892/84666961     MoveList::generateKnightMoves(bool, unsigned long, unsigned long) [12]
+                0.07    0.02 10588298/84666961     MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long) [11]
+                0.27    0.07 42322036/84666961     MoveList::generatePawnMoves(bool, unsigned long, unsigned long, unsigned long) [5]
+[6]     23.6    0.55    0.15 84666961         MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+                0.15    0.00 134864795/134864795     utils::pop_lsb(unsigned long&) [13]
+-----------------------------------------------
+                0.22    0.40 5087587/5087587     perft(int, Board&) [2]
+[7]     21.1    0.22    0.40 5087587         Board::makeMove(Move&) [7]
+                0.03    0.10 5087329/10175174     PieceManager::movePiece(bool, int, int, int) [8]
+                0.06    0.00 10175174/20350348     PieceManager::setSidePiecesBB(bool) [18]
+                0.04    0.00 30882520/97706517     PieceManager::getPiecesBB(bool, int) [14]
+                0.02    0.02 5087587/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [23]
+                0.02    0.01 20350348/30525522     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [27]
+                0.02    0.01 5087587/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [25]
+                0.03    0.00 5087587/5087587     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [34]
+                0.01    0.00 5087587/15262761     Move::getFrom() const [29]
+                0.01    0.00 5087587/10175174     Move::getFromPiece() const [36]
+                0.01    0.00 5087587/5088267     Move::Move(int, int, int, int, int) [41]
+                0.00    0.00 2745751/2745751     Board::movePawnFourthRank(int, int) [54]
+                0.00    0.00 5087587/15262761     Move::getFlag() const [40]
+                0.00    0.00   84243/10259675     PieceManager::clearPiece(bool, int, int) [24]
+                0.00    0.00  131904/131904      Board::movePawnFifthRank(int, int) [55]
+                0.00    0.00     258/258         Board::enPassantWhite(int, int) [56]
+                0.00    0.00 5087587/15262761     Move::getTo() const [70]
+                0.00    0.00 5087587/5087587     Board::addMoveToHistory(Move&) [73]
+                0.00    0.00 2877913/2877913     PieceManager::isPromoting(bool, int, int) [74]
+                0.00    0.00  132652/132652      Board::isWhiteKSCastlingMove(int, int) [82]
+                0.00    0.00  132652/132652      Board::isWhiteQSCastlingMove(int, int) [83]
+                0.00    0.00  132652/132652      Board::isBlackKSCastlingMove(int, int) [80]
+                0.00    0.00  132652/132652      Board::isBlackQSCastlingMove(int, int) [81]
+                0.00    0.00   84243/84243       Board::updateToCaptureFlag(int) [84]
+-----------------------------------------------
+                0.00    0.00     258/10175174     Board::enPassantWhite(int, int) [56]
+                0.03    0.10 5087329/10175174     Board::makeMove(Move&) [7]
+                0.03    0.10 5087587/10175174     Board::unmakeMove() [3]
+[8]      8.6    0.06    0.20 10175174         PieceManager::movePiece(bool, int, int, int) [8]
+                0.06    0.05 10175174/10259675     PieceManager::addPiece(bool, int, int) [17]
+                0.02    0.05 10175174/10259675     PieceManager::clearPiece(bool, int, int) [24]
+-----------------------------------------------
+                0.02    0.22 5087587/5087587     perft(int, Board&) [2]
+[9]      8.1    0.02    0.22 5087587         Board::isInCheck(bool) [9]
+                0.19    0.02 5087587/5087587     PieceManager::isAttacked(bool, int) [10]
+                0.01    0.00 5087587/97706517     PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.19    0.02 5087587/5087587     Board::isInCheck(bool) [9]
+[10]     7.2    0.19    0.02 5087587         PieceManager::isAttacked(bool, int) [10]
+                0.02    0.00 10175174/41934675     utils::generateMagicIndex(unsigned long, unsigned long, int, int) [19]
+-----------------------------------------------
+                0.06    0.11 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[11]     5.8    0.06    0.11 5294191         MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long) [11]
+                0.07    0.02 10588298/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+                0.02    0.00 10588298/41934675     utils::generateMagicIndex(unsigned long, unsigned long, int, int) [19]
+-----------------------------------------------
+                0.07    0.09 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[12]     5.3    0.07    0.09 5294191         MoveList::generateKnightMoves(bool, unsigned long, unsigned long) [12]
+                0.07    0.02 10584892/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+-----------------------------------------------
+                0.15    0.00 134864795/134864795     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+[13]     5.1    0.15    0.00 134864795         utils::pop_lsb(unsigned long&) [13]
+-----------------------------------------------
+                0.00    0.00  131904/97706517     Board::movePawnFifthRank(int, int) [55]
+                0.00    0.00 1280068/97706517     Board::addEnPassantRights() [39]
+                0.00    0.00 1446228/97706517     Board::generateMoves() [26]
+                0.00    0.00 2745751/97706517     Board::movePawnFourthRank(int, int) [54]
+                0.01    0.00 5087587/97706517     Board::isInCheck(bool) [9]
+                0.01    0.00 10259675/97706517     PieceManager::clearPiece(bool, int, int) [24]
+                0.01    0.00 10259675/97706517     PieceManager::addPiece(bool, int, int) [17]
+                0.04    0.00 30882520/97706517     Board::makeMove(Move&) [7]
+                0.05    0.00 35613109/97706517     Board::unmakeMove() [3]
+[14]     4.8    0.14    0.00 97706517         PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.03    0.11 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[15]     4.7    0.03    0.11 5294191         MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [15]
+                0.07    0.02 10583885/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+                0.02    0.00 10583885/41934675     utils::generateMagicIndex(unsigned long, unsigned long, int, int) [19]
+-----------------------------------------------
+                0.07    0.07 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[16]     4.6    0.07    0.07 5294191         MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [16]
+                0.03    0.01 5293659/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+                0.02    0.00 10587318/41934675     utils::generateMagicIndex(unsigned long, unsigned long, int, int) [19]
+-----------------------------------------------
+                0.00    0.00   84501/10259675     Board::unmakeMove() [3]
+                0.06    0.05 10175174/10259675     PieceManager::movePiece(bool, int, int, int) [8]
+[17]     4.1    0.07    0.05 10259675         PieceManager::addPiece(bool, int, int) [17]
+                0.04    0.00 10259675/20519350     PieceManager::setAnyPosBB(bool, int, unsigned long) [22]
+                0.01    0.00 10259675/97706517     PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.06    0.00 10175174/20350348     Board::makeMove(Move&) [7]
+                0.06    0.00 10175174/20350348     Board::unmakeMove() [3]
+[18]     3.9    0.12    0.00 20350348         PieceManager::setSidePiecesBB(bool) [18]
+-----------------------------------------------
+                0.02    0.00 10175174/41934675     PieceManager::isAttacked(bool, int) [10]
+                0.02    0.00 10583885/41934675     MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [15]
+                0.02    0.00 10587318/41934675     MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [16]
+                0.02    0.00 10588298/41934675     MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long) [11]
+[19]     3.1    0.09    0.00 41934675         utils::generateMagicIndex(unsigned long, unsigned long, int, int) [19]
+-----------------------------------------------
+                0.04    0.04 5294191/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[20]     2.8    0.04    0.04 5294191         MoveList::generateKingMoves(bool, unsigned long, unsigned long) [20]
+                0.03    0.01 5294191/84666961     MoveList::addPossibleMove(int, unsigned long, bool, int) [6]
+-----------------------------------------------
+                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [58]
+                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [44]
+                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [59]
+                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [45]
+                0.00    0.00      64/5087907     __static_initialization_and_destruction_0(int, int) [60]
+                0.02    0.06 5087587/5087907     Board::unmakeMove() [3]
+[21]     2.7    0.02    0.06 5087907         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+                0.04    0.01 5087907/5087907     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [28]
+                0.01    0.00 5087907/15263081     std::char_traits<char>::length(char const*) [30]
+-----------------------------------------------
+                0.04    0.00 10259675/20519350     PieceManager::clearPiece(bool, int, int) [24]
+                0.04    0.00 10259675/20519350     PieceManager::addPiece(bool, int, int) [17]
+[22]     2.7    0.08    0.00 20519350         PieceManager::setAnyPosBB(bool, int, unsigned long) [22]
+-----------------------------------------------
+                0.02    0.02 5087587/10175174     Board::makeMove(Move&) [7]
+                0.02    0.02 5087587/10175174     Board::unmakeMove() [3]
+[23]     2.7    0.04    0.04 10175174         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [23]
+                0.00    0.03 10175174/10175174     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [32]
+                0.02    0.00 10175174/15263081     std::char_traits<char>::length(char const*) [30]
+-----------------------------------------------
+                0.00    0.00     258/10259675     Board::enPassantWhite(int, int) [56]
+                0.00    0.00   84243/10259675     Board::makeMove(Move&) [7]
+                0.02    0.05 10175174/10259675     PieceManager::movePiece(bool, int, int, int) [8]
+[24]     2.7    0.03    0.05 10259675         PieceManager::clearPiece(bool, int, int) [24]
+                0.04    0.00 10259675/20519350     PieceManager::setAnyPosBB(bool, int, unsigned long) [22]
+                0.01    0.00 10259675/97706517     PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.02    0.01 5087587/10175174     Board::makeMove(Move&) [7]
+                0.02    0.01 5087587/10175174     Board::unmakeMove() [3]
+[25]     2.2    0.04    0.02 10175174         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [25]
+                0.02    0.00 10175174/10175174     std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) [37]
+-----------------------------------------------
+                0.00    0.06  206604/206604      perft(int, Board&) [2]
+[26]     2.0    0.00    0.06  206604         Board::generateMoves() [26]
+                0.00    0.06  206604/5294191     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+                0.00    0.00 1446228/97706517     PieceManager::getPiecesBB(bool, int) [14]
+                0.00    0.00  206604/5500795     MoveList::clearMoves() [38]
+                0.00    0.00  206604/5294191     Board::addEnPassantRights() [39]
+                0.00    0.00  206604/206604      Board::getMovesList() [76]
+-----------------------------------------------
+                0.01    0.01 10175174/30525522     Board::unmakeMove() [3]
+                0.02    0.01 20350348/30525522     Board::makeMove(Move&) [7]
+[27]     1.7    0.03    0.02 30525522         std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [27]
+                0.02    0.00 30525522/30525522     std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [35]
+-----------------------------------------------
+                0.04    0.01 5087907/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+[28]     1.7    0.04    0.01 5087907         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [28]
+                0.00    0.01 5087907/5087907     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [43]
+                0.00    0.00 5087907/5087907     bool __gnu_cxx::__is_null_pointer<char const>(char const*) [71]
+-----------------------------------------------
+                0.01    0.00 5087587/15262761     perft(int, Board&) [2]
+                0.01    0.00 5087587/15262761     Board::makeMove(Move&) [7]
+                0.01    0.00 5087587/15262761     Board::unmakeMove() [3]
+[29]     1.4    0.04    0.00 15262761         Move::getFrom() const [29]
+-----------------------------------------------
+                0.01    0.00 5087907/15263081     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+                0.02    0.00 10175174/15263081     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [23]
+[30]     1.0    0.03    0.00 15263081         std::char_traits<char>::length(char const*) [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     1.0    0.03    0.00                 _init [31]
+-----------------------------------------------
+                0.00    0.03 10175174/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [23]
+[32]     0.9    0.00    0.03 10175174         __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [32]
+                0.03    0.00 10175174/10175174     std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&) [33]
+-----------------------------------------------
+                0.03    0.00 10175174/10175174     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [32]
+[33]     0.9    0.03    0.00 10175174         std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&) [33]
+-----------------------------------------------
+                0.03    0.00 5087587/5087587     Board::makeMove(Move&) [7]
+[34]     0.9    0.03    0.00 5087587         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [34]
+-----------------------------------------------
+                0.02    0.00 30525522/30525522     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [27]
+[35]     0.7    0.02    0.00 30525522         std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [35]
+-----------------------------------------------
+                0.01    0.00 5087587/10175174     Board::makeMove(Move&) [7]
+                0.01    0.00 5087587/10175174     Board::unmakeMove() [3]
+[36]     0.7    0.02    0.00 10175174         Move::getFromPiece() const [36]
+-----------------------------------------------
+                0.02    0.00 10175174/10175174     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [25]
+[37]     0.7    0.02    0.00 10175174         std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) [37]
+-----------------------------------------------
+                0.00    0.00  206604/5500795     Board::generateMoves() [26]
+                0.02    0.00 5294191/5500795     MoveList::generateMoves(bool, PieceBB const*, unsigned long) [4]
+[38]     0.7    0.02    0.00 5500795         MoveList::clearMoves() [38]
+-----------------------------------------------
+                0.00    0.00  206604/5294191     Board::generateMoves() [26]
+                0.01    0.00 5087587/5294191     Board::unmakeMove() [3]
+[39]     0.4    0.01    0.00 5294191         Board::addEnPassantRights() [39]
+                0.00    0.00 1280068/97706517     PieceManager::getPiecesBB(bool, int) [14]
+                0.00    0.00     680/680         MoveList::addEnPassantRights(bool, int, int) [57]
+-----------------------------------------------
+                0.00    0.00 5087587/15262761     perft(int, Board&) [2]
+                0.00    0.00 5087587/15262761     Board::makeMove(Move&) [7]
+                0.00    0.00 5087587/15262761     Board::unmakeMove() [3]
+[40]     0.3    0.01    0.00 15262761         Move::getFlag() const [40]
+-----------------------------------------------
+                0.00    0.00     680/5088267     MoveList::addEnPassantRights(bool, int, int) [57]
+                0.01    0.00 5087587/5088267     Board::makeMove(Move&) [7]
+[41]     0.3    0.01    0.00 5088267         Move::Move(int, int, int, int, int) [41]
+-----------------------------------------------
+                0.01    0.00 5087907/5087907     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [43]
+[42]     0.3    0.01    0.00 5087907         std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [42]
+-----------------------------------------------
+                0.00    0.01 5087907/5087907     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [28]
+[43]     0.3    0.00    0.01 5087907         std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [43]
+                0.01    0.00 5087907/5087907     std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [42]
+                0.00    0.00 5087907/5087907     std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [72]
+-----------------------------------------------
+                0.01    0.00       1/1           _GLOBAL__sub_I__ZN5utils11getRankMaskEm [47]
+[44]     0.2    0.01    0.00       1         __static_initialization_and_destruction_0(int, int) [44]
+                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+-----------------------------------------------
+                0.01    0.00       1/1           _GLOBAL__sub_I__ZN12PieceManagerC2Ev [46]
+[45]     0.2    0.01    0.00       1         __static_initialization_and_destruction_0(int, int) [45]
+                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[46]     0.2    0.00    0.01                 _GLOBAL__sub_I__ZN12PieceManagerC2Ev [46]
+                0.01    0.00       1/1           __static_initialization_and_destruction_0(int, int) [45]
+-----------------------------------------------
+                                                 <spontaneous>
+[47]     0.2    0.00    0.01                 _GLOBAL__sub_I__ZN5utils11getRankMaskEm [47]
+                0.01    0.00       1/1           __static_initialization_and_destruction_0(int, int) [44]
+-----------------------------------------------
+                0.01    0.00 5087587/5087587     Board::unmakeMove() [3]
+[48]     0.2    0.01    0.00 5087587         Move::getToPiece() const [48]
+-----------------------------------------------
+                0.00    0.01       1/1           main [1]
+[49]     0.2    0.00    0.01       1         Board::Board() [49]
+                0.01    0.00       1/1           MoveList::MoveList() [50]
+                0.00    0.00       1/1           PieceManager::PieceManager() [88]
+-----------------------------------------------
+                0.01    0.00       1/1           Board::Board() [49]
+[50]     0.2    0.01    0.00       1         MoveList::MoveList() [50]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     0.2    0.01    0.00                 utils::count_ones(unsigned long long) [51]
+-----------------------------------------------
+                                                 <spontaneous>
+[52]     0.2    0.01    0.00                 MoveList::isPromoting(bool, int, int) [52]
+-----------------------------------------------
+                                                 <spontaneous>
+[53]     0.2    0.01    0.00                 std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long) [53]
+-----------------------------------------------
+                0.00    0.00 2745751/2745751     Board::makeMove(Move&) [7]
+[54]     0.1    0.00    0.00 2745751         Board::movePawnFourthRank(int, int) [54]
+                0.00    0.00 2745751/97706517     PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.00    0.00  131904/131904      Board::makeMove(Move&) [7]
+[55]     0.0    0.00    0.00  131904         Board::movePawnFifthRank(int, int) [55]
+                0.00    0.00  131904/97706517     PieceManager::getPiecesBB(bool, int) [14]
+-----------------------------------------------
+                0.00    0.00     258/258         Board::makeMove(Move&) [7]
+[56]     0.0    0.00    0.00     258         Board::enPassantWhite(int, int) [56]
+                0.00    0.00     258/10175174     PieceManager::movePiece(bool, int, int, int) [8]
+                0.00    0.00     258/10259675     PieceManager::clearPiece(bool, int, int) [24]
+-----------------------------------------------
+                0.00    0.00     680/680         Board::addEnPassantRights() [39]
+[57]     0.0    0.00    0.00     680         MoveList::addEnPassantRights(bool, int, int) [57]
+                0.00    0.00     680/5088267     Move::Move(int, int, int, int, int) [41]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z6divideiR5Board [61]
+[58]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [58]
+                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN5BoardC2Ev [62]
+[59]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [59]
+                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN8MoveList13generateMovesEbPK7PieceBBm [63]
+[60]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [60]
+                0.00    0.00      64/5087907     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[61]     0.0    0.00    0.00                 _GLOBAL__sub_I__Z6divideiR5Board [61]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [58]
+-----------------------------------------------
+                                                 <spontaneous>
+[62]     0.0    0.00    0.00                 _GLOBAL__sub_I__ZN5BoardC2Ev [62]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [59]
+-----------------------------------------------
+                                                 <spontaneous>
+[63]     0.0    0.00    0.00                 _GLOBAL__sub_I__ZN8MoveList13generateMovesEbPK7PieceBBm [63]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [60]
+-----------------------------------------------
+                0.00    0.00 5087587/15262761     perft(int, Board&) [2]
+                0.00    0.00 5087587/15262761     Board::makeMove(Move&) [7]
+                0.00    0.00 5087587/15262761     Board::unmakeMove() [3]
+[70]     0.0    0.00    0.00 15262761         Move::getTo() const [70]
+-----------------------------------------------
+                0.00    0.00 5087907/5087907     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [28]
+[71]     0.0    0.00    0.00 5087907         bool __gnu_cxx::__is_null_pointer<char const>(char const*) [71]
+-----------------------------------------------
+                0.00    0.00 5087907/5087907     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [43]
+[72]     0.0    0.00    0.00 5087907         std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [72]
+-----------------------------------------------
+                0.00    0.00 5087587/5087587     Board::makeMove(Move&) [7]
+[73]     0.0    0.00    0.00 5087587         Board::addMoveToHistory(Move&) [73]
+-----------------------------------------------
+                0.00    0.00 2877913/2877913     Board::makeMove(Move&) [7]
+[74]     0.0    0.00    0.00 2877913         PieceManager::isPromoting(bool, int, int) [74]
+-----------------------------------------------
+                0.00    0.00  206604/206604      perft(int, Board&) [2]
+[75]     0.0    0.00    0.00  206604         Board::getMoveCount() [75]
+                0.00    0.00  206604/206604      MoveList::getMoveCount() [78]
+-----------------------------------------------
+                0.00    0.00  206604/206604      Board::generateMoves() [26]
+[76]     0.0    0.00    0.00  206604         Board::getMovesList() [76]
+-----------------------------------------------
+                0.00    0.00  206604/206604      perft(int, Board&) [2]
+[77]     0.0    0.00    0.00  206604         Board::getTurn() [77]
+-----------------------------------------------
+                0.00    0.00  206604/206604      Board::getMoveCount() [75]
+[78]     0.0    0.00    0.00  206604         MoveList::getMoveCount() [78]
+-----------------------------------------------
+                0.00    0.00  206604/206604      perft(int, Board&) [2]
+[79]     0.0    0.00    0.00  206604         MoveList::getMoves() [79]
+-----------------------------------------------
+                0.00    0.00  132652/132652      Board::makeMove(Move&) [7]
+[80]     0.0    0.00    0.00  132652         Board::isBlackKSCastlingMove(int, int) [80]
+-----------------------------------------------
+                0.00    0.00  132652/132652      Board::makeMove(Move&) [7]
+[81]     0.0    0.00    0.00  132652         Board::isBlackQSCastlingMove(int, int) [81]
+-----------------------------------------------
+                0.00    0.00  132652/132652      Board::makeMove(Move&) [7]
+[82]     0.0    0.00    0.00  132652         Board::isWhiteKSCastlingMove(int, int) [82]
+-----------------------------------------------
+                0.00    0.00  132652/132652      Board::makeMove(Move&) [7]
+[83]     0.0    0.00    0.00  132652         Board::isWhiteQSCastlingMove(int, int) [83]
+-----------------------------------------------
+                0.00    0.00   84243/84243       Board::makeMove(Move&) [7]
+[84]     0.0    0.00    0.00   84243         Board::updateToCaptureFlag(int) [84]
+-----------------------------------------------
+                0.00    0.00       1/3           std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.00    0.00       2/3           main [1]
+[85]     0.0    0.00    0.00       3         std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [85]
+-----------------------------------------------
+                0.00    0.00       1/3           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [90]
+                0.00    0.00       2/3           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [95]
+[86]     0.0    0.00    0.00       3         std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [86]
+-----------------------------------------------
+                0.00    0.00       2/2           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [94]
+[87]     0.0    0.00    0.00       2         std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [87]
+-----------------------------------------------
+                0.00    0.00       1/1           Board::Board() [49]
+[88]     0.0    0.00    0.00       1         PieceManager::PieceManager() [88]
+-----------------------------------------------
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+[89]     0.0    0.00    0.00       1         std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [89]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [90]
+-----------------------------------------------
+                0.00    0.00       1/1           std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [89]
+[90]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [90]
+                0.00    0.00       1/3           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [86]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&) [92]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[91]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.00    0.00       1/1           std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [89]
+                0.00    0.00       1/3           std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [85]
+-----------------------------------------------
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [90]
+[92]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&) [92]
+-----------------------------------------------
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [95]
+[93]     0.0    0.00    0.00       1         std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&) [93]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[94]     0.0    0.00    0.00       1         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [94]
+                0.00    0.00       2/2           std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [87]
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [95]
+-----------------------------------------------
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [94]
+[95]     0.0    0.00    0.00       1         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [95]
+                0.00    0.00       2/3           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [86]
+                0.00    0.00       1/1           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&) [93]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [58] __static_initialization_and_destruction_0(int, int) [82] Board::isWhiteKSCastlingMove(int, int) [40] Move::getFlag() const
+  [44] __static_initialization_and_destruction_0(int, int) [83] Board::isWhiteQSCastlingMove(int, int) [29] Move::getFrom() const
+  [59] __static_initialization_and_destruction_0(int, int) [77] Board::getTurn() [27] std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const
+  [45] __static_initialization_and_destruction_0(int, int) [7] Board::makeMove(Move&) [87] std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const
+  [60] __static_initialization_and_destruction_0(int, int) [9] Board::isInCheck(bool) [85] std::chrono::duration<double, std::ratio<1l, 1l> >::count() const
+   [2] perft(int, Board&)     [49] Board::Board()         [86] std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const
+  [24] PieceManager::clearPiece(bool, int, int) [51] utils::count_ones(unsigned long long) [30] std::char_traits<char>::length(char const*)
+  [10] PieceManager::isAttacked(bool, int) [19] utils::generateMagicIndex(unsigned long, unsigned long, int, int) [35] std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long)
+  [14] PieceManager::getPiecesBB(bool, int) [13] utils::pop_lsb(unsigned long&) [53] std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long)
+  [74] PieceManager::isPromoting(bool, int, int) [38] MoveList::clearMoves() [33] std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&)
+  [22] PieceManager::setAnyPosBB(bool, int, unsigned long) [52] MoveList::isPromoting(bool, int, int) [89] std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [18] PieceManager::setSidePiecesBB(bool) [78] MoveList::getMoveCount() [90] std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [17] PieceManager::addPiece(bool, int, int) [4] MoveList::generateMoves(bool, PieceBB const*, unsigned long) [91] std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+   [8] PieceManager::movePiece(bool, int, int, int) [6] MoveList::addPossibleMove(int, unsigned long, bool, int) [92] std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&)
+  [88] PieceManager::PieceManager() [20] MoveList::generateKingMoves(bool, unsigned long, unsigned long) [93] std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&)
+  [41] Move::Move(int, int, int, int, int) [5] MoveList::generatePawnMoves(bool, unsigned long, unsigned long, unsigned long) [94] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+   [3] Board::unmakeMove()    [11] MoveList::generateRookMoves(bool, unsigned long, unsigned long, unsigned long) [95] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [75] Board::getMoveCount()  [57] MoveList::addEnPassantRights(bool, int, int) [28] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  [76] Board::getMovesList()  [16] MoveList::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long) [21] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  [26] Board::generateMoves() [15] MoveList::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long) [42] std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  [56] Board::enPassantWhite(int, int) [12] MoveList::generateKnightMoves(bool, unsigned long, unsigned long) [72] std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  [73] Board::addMoveToHistory(Move&) [79] MoveList::getMoves() [37] std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+  [55] Board::movePawnFifthRank(int, int) [50] MoveList::MoveList() [43] std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  [39] Board::addEnPassantRights() [32] __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [25] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [54] Board::movePawnFourthRank(int, int) [71] bool __gnu_cxx::__is_null_pointer<char const>(char const*) [23] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [84] Board::updateToCaptureFlag(int) [48] Move::getToPiece() const [34] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [80] Board::isBlackKSCastlingMove(int, int) [36] Move::getFromPiece() const [31] _init
+  [81] Board::isBlackQSCastlingMove(int, int) [70] Move::getTo() const
