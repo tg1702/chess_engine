@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <unordered_map>
 #include "move.h"
 
 #ifndef TYPES_H
@@ -75,6 +76,85 @@ const std::array<std::string, 64> pieceSquareNames = {
 "h8", "g8", "f8", "e8", "d8", "c8", "b8", "a8"
 };	
 
+const std::unordered_map<std::string, int> pieceSquareValues ={
+	{"h1", H1},
+	{"g1", G1},
+	{"f1", F1},
+	{"e1", E1},
+	{"d1", D1},
+	{"c1", C1},
+	{"b1", B1},
+	{"a1", A1},
+
+
+
+	{"h2", H2},
+	{"g2", G2},
+	{"f2", F2},
+	{"e2", E2},
+	{"d2", D2},
+	{"c2", C2},
+	{"b2", B2},
+	{"a2", A2},
+
+
+	{"h3", H3},
+	{"g3", G3},
+	{"f3", F3},
+	{"e3", E3},
+	{"d3", D3},
+	{"c3", C3},
+	{"b3", B3},
+	{"a3", A3},
+
+
+
+	{"h4", H4},
+	{"g4", G4},
+	{"f4", F4},
+	{"e4", E4},
+	{"d4", D4},
+	{"c4", C4},
+	{"b4", B4},
+	{"a4", A4},
+
+	{"h5", H5},
+	{"g5", G5},
+	{"f5", F5},
+	{"e5", E5},
+	{"d5", D5},
+	{"c5", C5},
+	{"b5", B5},
+	{"a5", A5},
+	
+	{"h6", H6},
+	{"g6", G6},
+	{"f6", F6},
+	{"e6", E6},
+	{"d6", D6},
+	{"c6", C6},
+	{"b6", B6},
+	{"a6", A6},
+
+	{"h7", H7},
+	{"g7", G7},
+	{"f7", F7},
+	{"e7", E7},
+	{"d7", D7},
+	{"c7", C7},
+	{"b7", B7},
+	{"a7", A7},
+
+	{"h8", H8},
+	{"g8", G8},
+	{"f8", F8},
+	{"e8", E8},
+	{"d8", D8},
+	{"c8", C8},
+	{"b8", B8},
+	{"a8", A8},
+
+};
 enum flags{
 	NORMAL,
 	QUEEN_PROMOTION,
@@ -93,12 +173,21 @@ enum flags{
 	CAPTURE_FLAG
 };
 
-constexpr std::array<int, 4> promoted_piece_codes = {
+constexpr int normal_promoted_codes[4] = {
 
 	QUEEN_PROMOTION,
 	ROOK_PROMOTION,
 	BISHOP_PROMOTION,
 	KNIGHT_PROMOTION
+
+};
+
+constexpr int capture_promoted_codes[4] = {
+
+	QUEEN_PROMOTION_CAPTURE,
+        ROOK_PROMOTION_CAPTURE,
+        BISHOP_PROMOTION_CAPTURE,
+        KNIGHT_PROMOTION_CAPTURE,
 
 };
 struct PieceArgs{

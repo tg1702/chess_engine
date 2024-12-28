@@ -13,7 +13,6 @@ class Board{
 		PieceManager pieces;	
 		MoveGen generator;	
 		MoveList* move_list = new MoveList();
-		std::array<Move, MAX_MOVES> legalMoves;
 
 		bool turn = WHITE;
 		
@@ -21,6 +20,17 @@ class Board{
 
 		int actualMoveCount = 0;
 		Move actualMoves[10];
+		
+		bool whiteKSKRMoved;
+		bool blackKSKRMoved;
+		bool whiteQSKRMoved;
+		bool blackQSKRMoved;	
+		
+		bool canWhiteKSCastle;
+		bool canWhiteQSCastle;
+		bool canBlackKSCastle;
+		bool canBlackQSCastle;
+
 		bool hasMovedWhiteKing;
 		bool hasMovedA1Rook;
 		bool hasMovedH1Rook;
@@ -28,11 +38,11 @@ class Board{
 		bool hasMovedA8Rook;
 		bool hasMovedH8Rook;
 	
-		int enPassantSquare;
+		int enPassantSquare = -1;
 
 	public:
 		Board(void);
-		Board(PieceArgs args);
+		Board(PieceArgs&, bool, bool, bool, bool, bool, int, int, int);
 		Board(std::string);
 		
 		~Board() { delete move_list; }
@@ -68,12 +78,21 @@ class Board{
 		void generateMoves(void);
 		std::vector<Move> generateLegalMoves(void);
 		std::vector<Move> generatePseudoLegalMoves(void);
+		std::vector<string> split_fen(std::string&);
+		void parsePieceFen(std::string&);
+		
+		void parseTurn(std::string&);
+		void parseEnPassantSquares(std::string&);
+		void parseCastlingRights(std::string&);
+		void parseHalfMoveClock(std::string&);
+		void parseFullMoveClock(std::string&);
+		
 		int getActualMoveCount(void);
 		void setActualMoveCount(int);
 		void printHistory(void);
 
 //inline int getLegalMoveCount() { return legalMoves.getMoveCount(); }
-inline bool getTurn() { return turn;}
+		inline bool getTurn() { return turn;}
 
 
 

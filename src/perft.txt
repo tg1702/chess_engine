@@ -3,27 +3,133 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls   s/call   s/call  name    
- 40.44      2.20     2.20 130121537     0.00     0.00  Board::makeMoveHelper(Move&)
- 12.32      2.87     0.67 130121537     0.00     0.00  Board::unmakeMoveHelper()
- 10.48      3.44     0.57 125049325     0.00     0.00  PieceManager::isAttacked(bool, int)
- 10.11      3.99     0.55 130121537     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  8.46      4.45     0.46  5072213     0.00     0.00  Board::generateLegalMoves()
-  6.25      4.79     0.34                             _init
-  3.68      4.99     0.20 30555581     0.00     0.00  void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
-  3.12      5.16     0.17  5072213     0.00     0.00  MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int)
-  2.39      5.29     0.13  4874531     0.00     0.00  MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
-  1.65      5.38     0.09 73074969     0.00     0.00  PieceManager::isPromoting(bool, int, int)
-  0.55      5.41     0.03        1     0.03     5.10  perft(int, Board&)
-  0.37      5.43     0.02  5072213     0.00     0.00  MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*)
-  0.18      5.44     0.01  5072212     0.00     0.00  Board::unmakeMove()
-  0.00      5.44     0.00  5072212     0.00     0.00  Board::makeMove(Move&)
-  0.00      5.44     0.00   197682     0.00     0.00  MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
-  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  0.00      5.44     0.00       64     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  0.00      5.44     0.00        1     0.00     0.00  PieceManager::PieceManager()
-  0.00      5.44     0.00        1     0.00     0.00  Board::Board()
+  7.39      2.30     2.30 130121537     0.00     0.00  Board::makeMoveHelper(Move&)
+  6.62      4.36     2.06 1542575091     0.00     0.00  std::vector<Move, std::allocator<Move> >::push_back(Move const&)
+  5.49      6.07     1.71        1     1.71     1.71  __static_initialization_and_destruction_0(int, int)
+  5.14      7.67     1.60 1091022245     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  4.75      9.15     1.48 520486148     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  4.72     10.62     1.47                             Board::generateMoves()
+  3.82     11.81     1.19                             decltype (({parm#1}.begin)()) std::begin<std::array<char, 64ul> >(std::array<char, 64ul>&)
+  3.31     12.84     1.03 333312279     0.00     0.00  Board::unmakeMoveHelper()
+  3.28     13.86     1.02 662997322     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  3.24     14.87     1.01 290798655     0.00     0.00  void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
+  2.92     15.78     0.91                             decltype (({parm#1}.end)()) std::end<std::array<char, 64ul> >(std::array<char, 64ul>&)
+  2.86     16.67     0.89 714790474     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&)
+  2.70     17.51     0.84 526471642     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  2.22     18.20     0.69 263235821     0.00     0.00  __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&)
+  2.09     18.85     0.65 278820653     0.00     0.00  std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&)
+  1.88     19.43     0.58                             Board::generatePseudoLegalMoves()
+  1.73     19.98     0.54 285596557     0.00     0.00  MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
+  1.70     20.50     0.53 260243075     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  1.57     21.00     0.49 260243074     0.00     0.00  void std::fill<char*, char>(char*, char*, char const&)
+  1.41     21.43     0.44                             _init
+  1.32     21.84     0.41 152777905     0.00     0.00  PieceManager::setBoard(PieceArgs&)
+  1.25     22.23     0.39 125049325     0.00     0.00  PieceManager::canQueenSideCastle(bool)
+  1.19     22.61     0.37 305555811     0.00     0.00  PieceManager::canKingSideCastle(bool)
+  1.14     22.96     0.35 263235821     0.00     0.00  std::array<char, 64ul>::operator[](unsigned long)
+  1.12     23.31     0.35 206100367     0.00     0.00  _fini
+  1.12     23.66     0.35 183333486     0.00     0.00  PieceManager::PieceManager(PieceArgs&)
+  0.96     23.96     0.30                             Board::blackKingSideCastle()
+  0.96     24.26     0.30                             std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.90     24.54     0.28 61111162     0.00     0.00  PieceManager::isPromoting(bool, int, int)
+  0.90     24.82     0.28                             Board::movePawnFifthRank(int, int)
+  0.87     25.09     0.27 130121537     0.00     0.00  Board::enPassantWhite(int, int)
+  0.82     25.34     0.26 40561084     0.00     0.00  MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int)
+  0.80     25.59     0.25 15216640     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.79     25.84     0.24                             std::array<char, 6ul>::operator[](unsigned long)
+  0.77     26.08     0.24                             MoveGen::addQueenSideCastling(bool, MoveList*)
+  0.71     26.30     0.22 124132536     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long)
+  0.71     26.52     0.22        1     0.22     0.64  void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&)
+  0.67     26.73     0.21                             Board::movePawnFourthRank(int, int)
+  0.67     26.94     0.21                             void std::__fill_a<char*, char>(char*, char*, char const&)
+  0.66     27.14     0.20  5072213     0.00     0.00  Board::generateLegalMoves()
+  0.64     27.34     0.20 128042073     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.61     27.54     0.19 124132536     0.00     0.00  std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long)
+  0.58     27.71     0.18 40577704     0.00     0.00  Board::Board(PieceArgs)
+  0.55     27.89     0.17 152533299     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.55     28.05     0.17 130121793     0.00     0.00  Board::~Board()
+  0.48     28.20     0.15                             __gnu_cxx::new_allocator<Move>::max_size() const
+  0.48     28.36     0.15                             _start
+  0.45     28.50     0.14 130121537     0.00     0.00  std::array<char, 64ul>::end()
+  0.45     28.64     0.14 30555581     0.00     0.00  std::vector<Move, std::allocator<Move> >::_S_relocate(Move*, Move*, Move*, std::allocator<Move>&)
+  0.43     28.77     0.14 10144426     0.00     0.00  MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*)
+  0.39     28.89     0.12 260243074     0.00     0.00  std::vector<Move, std::allocator<Move> >::vector()
+  0.39     29.01     0.12 130121537     0.00     0.00  std::vector<Move, std::allocator<Move> >::_M_check_len(unsigned long, char const*) const
+  0.35     29.12     0.11 73074969     0.00     0.00  PieceManager::isAttacked(bool, int)
+  0.35     29.23     0.11                             std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&)
+  0.32     29.33     0.10 122100021     0.00     0.00  Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  0.32     29.43     0.10 30555581     0.00     0.00  PieceManager::PieceManager()
+  0.32     29.53     0.10  4874531     0.00     0.00  MoveGen::addKingSideCastling(bool, MoveList*)
+  0.29     29.62     0.09                             void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&)
+  0.29     29.71     0.09                             std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+  0.29     29.80     0.09                             __gnu_cxx::__enable_if<std::__is_byte<char>::__value, void>::__type std::__fill_a1<char>(char*, char*, char const&)
+  0.26     29.88     0.08                             std::chrono::duration<double, std::ratio<1l, 1l> >::count() const
+  0.26     29.96     0.08                             std::array<char, 64ul>::begin()
+  0.22     30.03     0.07 30555581     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_copy_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data const&)
+  0.22     30.10     0.07                             Board::blackQueenSideCastle()
+  0.22     30.17     0.07                             std::vector<Move, std::allocator<Move> >::_S_max_size(std::allocator<Move> const&)
+  0.22     30.24     0.07                             std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>)
+  0.19     30.30     0.06                             Board::getTurn()
+  0.16     30.35     0.05                             std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64])
+  0.16     30.40     0.05                             std::allocator_traits<std::allocator<Move> >::max_size(std::allocator<Move> const&)
+  0.13     30.44     0.04 130121537     0.00     0.00  __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::difference_type __gnu_cxx::operator-<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&)
+  0.13     30.48     0.04 35505491     0.00     0.00  std::vector<Move, std::allocator<Move> >::end()
+  0.13     30.52     0.04  5072213     0.00     0.00  Board::printBoard()
+  0.13     30.56     0.04                             MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*)
+  0.10     30.59     0.03 30762185     0.00     0.00  std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  0.10     30.62     0.03 15216640     0.00     0.00  Board::Board()
+  0.10     30.65     0.03 10144426     0.00     0.00  std::vector<Move, std::allocator<Move> >::begin()
+  0.10     30.68     0.03   197682     0.00     0.00  MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*)
+  0.10     30.71     0.03                             Board::updateToCaptureFlag(int)
+  0.10     30.74     0.03                             std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long)
+  0.10     30.77     0.03                             std::__array_traits<char, 64ul>::_S_ref(char const (&) [64], unsigned long)
+  0.06     30.79     0.02 130121537     0.00     0.00  Move* std::__niter_base<Move*>(Move*)
+  0.06     30.81     0.02  5072213     0.00     0.00  perft(int, Board&)
+  0.06     30.83     0.02  5072213     0.00     0.00  std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const
+  0.06     30.85     0.02  5072213     0.00     0.00  std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array()
+  0.06     30.87     0.02  3461023     0.00     0.00  Board::isInCheck(bool)
+  0.06     30.89     0.02                             divide(int, Board&)
+  0.06     30.91     0.02                             __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*)
+  0.06     30.93     0.02                             __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator*() const
+  0.06     30.95     0.02                             std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long)
+  0.06     30.97     0.02                             Move const& std::forward<Move const&>(std::remove_reference<Move const&>::type&)
+  0.05     30.98     0.01 10144426     0.00     0.00  std::vector<Move, std::allocator<Move> >::_M_move_assign(std::vector<Move, std::allocator<Move> >&&, std::integral_constant<bool, true>)
+  0.03     31.00     0.01 30762185     0.00     0.00  std::vector<Move, std::allocator<Move> >::size() const
+  0.03     31.00     0.01 25361065     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+  0.03     31.02     0.01 10144427     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.03     31.02     0.01 10144426     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_base(std::allocator<Move> const&)
+  0.03     31.04     0.01  5072213     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::_Vector_impl(std::allocator<Move> const&)
+  0.03     31.05     0.01  5072213     0.00     0.00  std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long)
+  0.03     31.05     0.01                             __gnu_cxx::new_allocator<Move>::new_allocator()
+  0.03     31.07     0.01                             __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&)
+  0.03     31.07     0.01                             __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator++()
+  0.03     31.09     0.01                             __gnu_cxx::new_allocator<Move>::_M_max_size() const
+  0.03     31.09     0.01                             std::_Vector_base<Move, std::allocator<Move> >::get_allocator() const
+  0.03     31.11     0.01                             std::vector<Move, std::allocator<Move> >::max_size() const
+  0.03     31.11     0.01                             std::array<char, 64ul>::data()
+  0.03     31.12     0.01                             std::vector<Move, std::allocator<Move> >::vector(std::allocator<Move> const&)
+  0.03     31.14     0.01                             std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  0.02     31.14     0.01                             __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::__normal_iterator(Move* const&)
+  0.00     31.14     0.00 25361065     0.00     0.00  __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const
+  0.00     31.14     0.00 15216639     0.00     0.00  bool __gnu_cxx::__is_null_pointer<char const>(char const*)
+  0.00     31.14     0.00 15216639     0.00     0.00  bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&)
+  0.00     31.14     0.00 15216639     0.00     0.00  std::remove_reference<std::allocator<Move>&>::type&& std::move<std::allocator<Move>&>(std::allocator<Move>&)
+  0.00     31.14     0.00  6922046     0.00     0.00  Board::enPassantBlack(int, int)
+  0.00     31.14     0.00  5072213     0.00     0.00  std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  0.00     31.14     0.00  3461023     0.00     0.00  Board::promotePawns(bool, int, int, int)
+  0.00     31.14     0.00      512     0.00     0.00  std::allocator<Move>::allocator(std::allocator<Move> const&)
+  0.00     31.14     0.00      256     0.00     0.00  void std::_Destroy_aux<true>::__destroy<Move*>(Move*, Move*)
+  0.00     31.14     0.00      256     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long)
+  0.00     31.14     0.00      256     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_Vector_impl_data()
+  0.00     31.14     0.00      256     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base()
+  0.00     31.14     0.00        3     0.00     0.00  std::allocator<Move>::allocator()
+  0.00     31.14     0.00        3     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl()
+  0.00     31.14     0.00        2     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.00     31.14     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     31.14     0.00        1     0.00     0.64  Board::addCastlingRights()
+  0.00     31.14     0.00        1     0.00     0.00  std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const
+  0.00     31.14     0.00        1     0.00     0.00  std::_Vector_base<Move, std::allocator<Move> >::_Vector_base()
+  0.00     31.14     0.00        1     0.00     0.00  void std::__alloc_on_move<std::allocator<Move> >(std::allocator<Move>&, std::allocator<Move>&)
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -61,96 +167,708 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 0.18% of 5.44 seconds
+granularity: each sample hit covers 4 byte(s) for 0.03% of 31.14 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]     93.8    0.00    5.10                 main [1]
-                0.03    5.07       1/1           perft(int, Board&) [2]
-                0.00    0.00       1/1           Board::Board() [29]
+[1]     24.1    0.28    7.22                 Board::movePawnFifthRank(int, int) [1]
+                2.21    4.27 125049325/130121537     Board::makeMoveHelper(Move&) [2]
+                0.20    0.54 125049325/128042073     __static_initialization_and_destruction_0(int, int) [31]
 -----------------------------------------------
-                             5072212             perft(int, Board&) [2]
-                0.03    5.07       1/1           main [1]
-[2]     93.8    0.03    5.07       1+5072212 perft(int, Board&) [2]
-                0.46    4.46 5072213/5072213     Board::generateLegalMoves() [3]
-                0.00    0.11 5072212/5072212     Board::makeMove(Move&) [12]
-                0.03    0.00 5072212/130121537     Board::unmakeMoveHelper() [5]
-                0.01    0.00 5072212/5072212     Board::unmakeMove() [15]
-                             5072212             perft(int, Board&) [2]
+                             130121537             Board::makeMoveHelper(Move&) [2]
+                0.09    0.17 5072212/130121537     perft(int, Board&) [20]
+                2.21    4.27 125049325/130121537     Board::movePawnFifthRank(int, int) [1]
+[2]     21.7    2.30    4.44 130121537+130121537 Board::makeMoveHelper(Move&) [2]
+                0.24    0.89 130115773/260243074     void std::fill<char*, char>(char*, char*, char const&) [8]
+                0.90    0.21 260243074/290798655     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [21]
+                0.23    0.47 73069205/333312279     Board::unmakeMoveHelper() [6]
+                0.40    0.26 260243074/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.38    0.00 260243074/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                0.26    0.00 130121537/260243075     std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [40]
+                0.11    0.00 73074969/73074969     PieceManager::isAttacked(bool, int) [73]
+                0.06    0.00 130121537/260243074     std::vector<Move, std::allocator<Move> >::vector() [71]
+                0.02    0.00 3461023/3461023     Board::isInCheck(bool) [104]
+                0.01    0.00 4687439/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+                0.00    0.00    5764/128042073     __static_initialization_and_destruction_0(int, int) [31]
+                0.00    0.00 6922046/6922046     Board::enPassantBlack(int, int) [126]
+                0.00    0.00 3461023/3461023     Board::promotePawns(bool, int, int, int) [128]
+                             130121537             Board::makeMoveHelper(Move&) [2]
 -----------------------------------------------
-                0.46    4.46 5072213/5072213     perft(int, Board&) [2]
-[3]     90.5    0.46    4.46 5072213         Board::generateLegalMoves() [3]
-                2.11    0.62 125049325/130121537     Board::makeMoveHelper(Move&) [4]
-                0.64    0.00 125049325/130121537     Board::unmakeMoveHelper() [5]
-                0.57    0.00 125049325/125049325     PieceManager::isAttacked(bool, int) [6]
-                0.17    0.13 5072213/5072213     MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
-                0.20    0.00 30555581/30555581     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [10]
-                0.02    0.00 5072213/5072213     MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [14]
------------------------------------------------
-                0.09    0.02 5072212/130121537     Board::makeMove(Move&) [12]
-                2.11    0.62 125049325/130121537     Board::generateLegalMoves() [3]
-[4]     52.2    2.20    0.64 130121537         Board::makeMoveHelper(Move&) [4]
-                0.55    0.00 130121537/130121537     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [7]
-                0.09    0.00 73074969/73074969     PieceManager::isPromoting(bool, int, int) [13]
------------------------------------------------
-                0.03    0.00 5072212/130121537     perft(int, Board&) [2]
-                0.64    0.00 125049325/130121537     Board::generateLegalMoves() [3]
-[5]     12.3    0.67    0.00 130121537         Board::unmakeMoveHelper() [5]
------------------------------------------------
-                0.57    0.00 125049325/125049325     Board::generateLegalMoves() [3]
-[6]     10.5    0.57    0.00 125049325         PieceManager::isAttacked(bool, int) [6]
------------------------------------------------
-                0.55    0.00 130121537/130121537     Board::makeMoveHelper(Move&) [4]
-[7]     10.1    0.55    0.00 130121537         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [7]
+[3]     11.1    3.37    0.08 76853744+485837544 <cycle 2 as a whole> [3]
+                1.71    0.00       1             __static_initialization_and_destruction_0(int, int) <cycle 2> [12]
+                0.54    0.00 285596557             MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+                0.35    0.00 206100367             _fini <cycle 2> [52]
+                0.26    0.08 40561084             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+                0.25    0.00 15216640             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                0.14    0.00 10144426             MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                0.10    0.00 4874531             MoveGen::addKingSideCastling(bool, MoveList*) <cycle 2> [75]
+                0.03    0.00  197682             MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [96]
 -----------------------------------------------
                                                  <spontaneous>
-[8]      6.2    0.34    0.00                 _init [8]
+[4]     10.8    0.24    3.13                 MoveGen::addQueenSideCastling(bool, MoveList*) [4]
+                2.96    0.07 67455281/76853744     _fini <cycle 2> [52]
+                0.10    0.00 67455281/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
 -----------------------------------------------
-                0.17    0.13 5072213/5072213     Board::generateLegalMoves() [3]
-[9]      5.5    0.17    0.13 5072213         MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
-                0.13    0.00 4874531/4874531     MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [11]
-                0.00    0.00  197682/197682      MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [23]
+                                                 <spontaneous>
+[5]     10.7    1.47    1.86                 Board::generateMoves() [5]
+                1.04    0.00 777791989/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+                0.40    0.26 260243074/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.14    0.00 130121537/130121537     std::array<char, 64ul>::end() [69]
+                0.00    0.01 2986983/128042073     __static_initialization_and_destruction_0(int, int) [31]
 -----------------------------------------------
-                0.20    0.00 30555581/30555581     Board::generateLegalMoves() [3]
-[10]     3.7    0.20    0.00 30555581         void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [10]
+                0.23    0.47 73069205/333312279     Board::makeMoveHelper(Move&) [2]
+                0.40    0.84 130121537/333312279     Board::generatePseudoLegalMoves() [7]
+                0.40    0.84 130121537/333312279     Board::enPassantWhite(int, int) [16]
+[6]     10.2    1.03    2.15 333312279         Board::unmakeMoveHelper() [6]
+                0.24    0.89 130121537/260243074     void std::fill<char*, char>(char*, char*, char const&) [8]
+                0.57    0.00 390364611/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                0.26    0.00 130121537/260243075     std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [40]
+                0.10    0.00 73069205/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+                0.06    0.00 130121537/260243074     std::vector<Move, std::allocator<Move> >::vector() [71]
+                0.01    0.01 2992747/263235821     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [18]
 -----------------------------------------------
-                0.13    0.00 4874531/4874531     MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
-[11]     2.4    0.13    0.00 4874531         MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [11]
+                                                 <spontaneous>
+[7]      7.7    0.58    1.82                 Board::generatePseudoLegalMoves() [7]
+                0.40    0.84 130121537/333312279     Board::unmakeMoveHelper() [6]
+                0.37    0.00 130121537/520486148     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [17]
+                0.19    0.00 130121537/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                0.00    0.02 2986983/263235821     std::array<char, 64ul>::operator[](unsigned long) [11]
 -----------------------------------------------
-                0.00    0.11 5072212/5072212     perft(int, Board&) [2]
-[12]     2.0    0.00    0.11 5072212         Board::makeMove(Move&) [12]
-                0.09    0.02 5072212/130121537     Board::makeMoveHelper(Move&) [4]
+                0.00    0.00    5764/260243074     __static_initialization_and_destruction_0(int, int) [31]
+                0.24    0.89 130115773/260243074     Board::makeMoveHelper(Move&) [2]
+                0.24    0.89 130121537/260243074     Board::unmakeMoveHelper() [6]
+[8]      7.3    0.49    1.78 260243074         void std::fill<char*, char>(char*, char*, char const&) [8]
+                0.35    1.43 260243074/263235821     std::array<char, 64ul>::operator[](unsigned long) [11]
 -----------------------------------------------
-                0.09    0.00 73074969/73074969     Board::makeMoveHelper(Move&) [4]
-[13]     1.7    0.09    0.00 73074969         PieceManager::isPromoting(bool, int, int) [13]
+                0.01    0.00 4687439/1542575091     Board::makeMoveHelper(Move&) [2]
+                0.01    0.00 5072213/1542575091     Board::generateLegalMoves() [38]
+                0.04    0.00 30433278/1542575091     Board::printBoard() [27]
+                0.10    0.00 73069205/1542575091     Board::unmakeMoveHelper() [6]
+                0.17    0.00 125049325/1542575091     __static_initialization_and_destruction_0(int, int) [31]
+                0.35    0.00 263235821/1542575091     std::array<char, 6ul>::operator[](unsigned long) [36]
+                0.35    0.00 263235821/1542575091     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [18]
+                1.04    0.00 777791989/1542575091     Board::generateMoves() [5]
+[9]      6.6    2.06    0.00 1542575091         std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
 -----------------------------------------------
-                0.02    0.00 5072213/5072213     Board::generateLegalMoves() [3]
-[14]     0.4    0.02    0.00 5072213         MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [14]
+                                                 <spontaneous>
+[10]     5.9    0.21    1.64                 Board::movePawnFourthRank(int, int) [10]
+                0.26    1.19 125049325/130121537     Board::enPassantWhite(int, int) [16]
+                0.19    0.00 124132536/124132536     std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long) [63]
 -----------------------------------------------
-                0.01    0.00 5072212/5072212     perft(int, Board&) [2]
-[15]     0.2    0.01    0.00 5072212         Board::unmakeMove() [15]
+                0.00    0.00    5764/263235821     __static_initialization_and_destruction_0(int, int) [31]
+                0.00    0.02 2986983/263235821     Board::generatePseudoLegalMoves() [7]
+                0.35    1.43 260243074/263235821     void std::fill<char*, char>(char*, char*, char const&) [8]
+[11]     5.8    0.35    1.44 263235821         std::array<char, 64ul>::operator[](unsigned long) [11]
+                0.68    0.76 260243074/263235821     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [18]
 -----------------------------------------------
-                0.00    0.00  197682/197682      MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [9]
-[23]     0.0    0.00    0.00  197682         MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [23]
+                                   1             MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+[12]     5.5    1.71    0.00       1         __static_initialization_and_destruction_0(int, int) <cycle 2> [12]
+                0.00    0.00      64/256         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [133]
+                             250098650             MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
 -----------------------------------------------
-                0.00    0.00      64/64          _GLOBAL__sub_I__Z7p_perftiR5Board [30]
-[24]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [24]
+                0.00    0.00       1/662997322     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.02    0.01 9937821/662997322     perft(int, Board&) [20]
+                0.02    0.01 10351028/662997322     divide(int, Board&) [19]
+                0.19    0.12 122222324/662997322     PieceManager::PieceManager() [25]
+                0.40    0.26 260243074/662997322     Board::makeMoveHelper(Move&) [2]
+                0.40    0.26 260243074/662997322     Board::generateMoves() [5]
+[13]     5.4    1.02    0.66 662997322         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.66    0.00 531043780/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+                0.00    0.00       1/1           void std::__alloc_on_move<std::allocator<Move> >(std::allocator<Move>&, std::allocator<Move>&) [139]
 -----------------------------------------------
-                0.00    0.00      64/64          _GLOBAL__sub_I__ZN5BoardC2Ev [32]
-[25]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [25]
+                0.06    0.21 30555581/183333486     __gnu_cxx::__enable_if<std::__is_byte<char>::__value, void>::__type std::__fill_a1<char>(char*, char*, char const&) [47]
+                0.06    0.21 30555581/183333486     std::vector<Move, std::allocator<Move> >::max_size() const [51]
+                0.06    0.21 30555581/183333486     std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>) [44]
+                0.06    0.21 30555581/183333486     std::vector<Move, std::allocator<Move> >::_S_max_size(std::allocator<Move> const&) [48]
+                0.12    0.43 61111162/183333486     PieceManager::PieceManager() [25]
+[14]     5.2    0.35    1.28 183333486         PieceManager::PieceManager(PieceArgs&) [14]
+                1.06    0.09 91666743/91666744     PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                0.08    0.00 61111162/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+                0.05    0.00 61111162/122100021     Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
 -----------------------------------------------
-                0.00    0.00      64/64          _GLOBAL__sub_I__ZN12PieceManagerC2Ev [31]
-[26]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [26]
+                0.00    0.00    5248/1091022245     __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                0.00    0.00 2746009/1091022245     MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [59]
+                0.08    0.00 54842787/1091022245     MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+                0.09    0.00 61111162/1091022245     PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                0.10    0.00 67455281/1091022245     MoveGen::addQueenSideCastling(bool, MoveList*) [4]
+                0.18    0.00 124132536/1091022245     __gnu_cxx::new_allocator<Move>::max_size() const [55]
+                0.19    0.00 130121537/1091022245     Board::generatePseudoLegalMoves() [7]
+                0.38    0.00 260243074/1091022245     Board::makeMoveHelper(Move&) [2]
+                0.57    0.00 390364611/1091022245     Board::unmakeMoveHelper() [6]
+[15]     5.1    1.60    0.00 1091022245         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
 -----------------------------------------------
-                0.00    0.00      64/64          _GLOBAL__sub_I__ZN7MoveGen13generateMovesEbPK7PieceBBmP8MoveListi [33]
-[27]     0.0    0.00    0.00      64         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0] [27]
+                0.01    0.05 5072212/130121537     divide(int, Board&) [19]
+                0.26    1.19 125049325/130121537     Board::movePawnFourthRank(int, int) [10]
+[16]     4.8    0.27    1.24 130121537         Board::enPassantWhite(int, int) [16]
+                0.40    0.84 130121537/333312279     Board::unmakeMoveHelper() [6]
 -----------------------------------------------
-                0.00    0.00       1/1           Board::Board() [29]
-[28]     0.0    0.00    0.00       1         PieceManager::PieceManager() [28]
+                0.37    0.00 130121537/520486148     Board::generatePseudoLegalMoves() [7]
+                0.37    0.00 130121537/520486148     Board::generateLegalMoves() [38]
+                0.74    0.00 260243074/520486148     Board::blackKingSideCastle() [26]
+[17]     4.8    1.48    0.00 520486148         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [17]
 -----------------------------------------------
-                0.00    0.00       1/1           main [1]
-[29]     0.0    0.00    0.00       1         Board::Board() [29]
-                0.00    0.00       1/1           PieceManager::PieceManager() [28]
+                0.01    0.01 2992747/263235821     Board::unmakeMoveHelper() [6]
+                0.68    0.76 260243074/263235821     std::array<char, 64ul>::operator[](unsigned long) [11]
+[18]     4.7    0.69    0.77 263235821         __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [18]
+                0.42    0.00 263235821/526471642     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [30]
+                0.35    0.00 263235821/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[19]     4.6    0.02    1.40                 divide(int, Board&) [19]
+                0.02    1.27 5072212/5072213     perft(int, Board&) [20]
+                0.01    0.05 5072212/130121537     Board::enPassantWhite(int, int) [16]
+                0.00    0.03 5072213/15216639     bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+                0.02    0.01 10351028/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+-----------------------------------------------
+                0.00    0.00       1/5072213     main [33]
+                0.02    1.27 5072212/5072213     divide(int, Board&) [19]
+[20]     4.1    0.02    1.27 5072213         perft(int, Board&) [20]
+                0.04    0.87 5072213/5072213     Board::printBoard() [27]
+                0.09    0.17 5072212/130121537     Board::makeMoveHelper(Move&) [2]
+                0.00    0.03 5072213/15216639     bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+                0.02    0.01 9937821/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.00    0.02 5072213/10144427     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.02    0.00 5072213/5072213     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [103]
+                0.00    0.00  206604/30762185     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [84]
+                0.00    0.00  206604/30762185     std::vector<Move, std::allocator<Move> >::size() const [93]
+-----------------------------------------------
+                0.11    0.02 30555581/290798655     PieceManager::PieceManager() [25]
+                0.90    0.21 260243074/290798655     Board::makeMoveHelper(Move&) [2]
+[21]     4.0    1.01    0.23 290798655         void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [21]
+                0.17    0.00 130121537/130121793     Board::~Board() [66]
+                0.04    0.02 130121537/130121537     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::difference_type __gnu_cxx::operator-<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [85]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     3.8    1.19    0.00                 decltype (({parm#1}.begin)()) std::begin<std::array<char, 64ul> >(std::array<char, 64ul>&) [22]
+-----------------------------------------------
+[23]     3.7    1.06    0.09 91666744+427778134 <cycle 1 as a whole> [23]
+                0.41    0.09 152777905+122222324     PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                0.37    0.00 305555811+61111162     PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                0.28    0.00 61111162             PieceManager::isPromoting(bool, int, int) <cycle 1> [56]
+-----------------------------------------------
+                                                 <spontaneous>
+[24]     3.5    0.01    1.08                 std::array<char, 64ul>::data() [24]
+                0.10    0.98 30555581/30555581     PieceManager::PieceManager() [25]
+-----------------------------------------------
+                0.10    0.98 30555581/30555581     std::array<char, 64ul>::data() [24]
+[25]     3.5    0.10    0.98 30555581         PieceManager::PieceManager() [25]
+                0.12    0.43 61111162/183333486     PieceManager::PieceManager(PieceArgs&) [14]
+                0.19    0.12 122222324/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.11    0.02 30555581/290798655     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[26]     3.3    0.30    0.74                 Board::blackKingSideCastle() [26]
+                0.74    0.00 260243074/520486148     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [17]
+-----------------------------------------------
+                0.04    0.87 5072213/5072213     perft(int, Board&) [20]
+[27]     2.9    0.04    0.87 5072213         Board::printBoard() [27]
+                0.20    0.38 5072213/5072213     Board::generateLegalMoves() [38]
+                0.22    0.01 5072213/76853744     MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+                0.04    0.00 30433278/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+                0.00    0.02 5072213/10144427     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+-----------------------------------------------
+                                                 <spontaneous>
+[28]     2.9    0.91    0.00                 decltype (({parm#1}.end)()) std::end<std::array<char, 64ul> >(std::array<char, 64ul>&) [28]
+-----------------------------------------------
+                0.04    0.00 30555581/714790474     std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>) [44]
+                0.04    0.00 30555581/714790474     std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [78]
+                0.04    0.00 30762185/714790474     std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [53]
+                0.04    0.00 30762185/714790474     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [84]
+                0.08    0.00 61111162/714790474     PieceManager::PieceManager(PieceArgs&) [14]
+                0.66    0.00 531043780/714790474     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+[29]     2.9    0.89    0.00 714790474         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+-----------------------------------------------
+                0.42    0.00 263235821/526471642     __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [18]
+                0.42    0.00 263235821/526471642     void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [35]
+[30]     2.7    0.84    0.00 526471642         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [30]
+-----------------------------------------------
+                0.00    0.00       1/128042073     unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [116]
+                0.00    0.00    5764/128042073     Board::makeMoveHelper(Move&) [2]
+                0.00    0.01 2986983/128042073     Board::generateMoves() [5]
+                0.20    0.54 125049325/128042073     Board::movePawnFifthRank(int, int) [1]
+[31]     2.4    0.20    0.56 128042073         __static_initialization_and_destruction_0(int, int) [31]
+                0.39    0.00 125049325/125049325     PieceManager::canQueenSideCastle(bool) [49]
+                0.17    0.00 125049325/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+                0.00    0.00    5764/260243074     void std::fill<char*, char>(char*, char*, char const&) [8]
+                0.00    0.00    5764/263235821     std::array<char, 64ul>::operator[](unsigned long) [11]
+                0.00    0.00      64/256         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [133]
+-----------------------------------------------
+                             124132536             std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+                0.07    0.00 30555581/278820653     std::vector<Move, std::allocator<Move> >::max_size() const [51]
+                0.29    0.00 124132536/278820653     std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long) [41]
+                0.29    0.00 124132536/278820653     std::vector<Move, std::allocator<Move> >::_S_relocate(Move*, Move*, Move*, std::allocator<Move>&) [46]
+[32]     2.1    0.65    0.00 278820653+124132536 std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+                             124132536             std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+-----------------------------------------------
+                                                 <spontaneous>
+[33]     2.1    0.00    0.64                 main [33]
+                0.00    0.64       1/1           Board::addCastlingRights() [34]
+                0.00    0.00       1/5072213     perft(int, Board&) [20]
+                0.00    0.00       1/10144427     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.00    0.00       1/1           std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [137]
+                0.00    0.00       1/3           std::allocator<Move>::allocator() [134]
+-----------------------------------------------
+                0.00    0.64       1/1           main [33]
+[34]     2.1    0.00    0.64       1         Board::addCastlingRights() [34]
+                0.22    0.42       1/1           void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [35]
+                0.00    0.00 5072213/122100021     Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
+                0.00    0.00       1/91666744     PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                0.00    0.00 5072213/25361065     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const [123]
+-----------------------------------------------
+                0.22    0.42       1/1           Board::addCastlingRights() [34]
+[35]     2.1    0.22    0.42       1         void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [35]
+                0.42    0.00 263235821/526471642     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[36]     1.9    0.24    0.35                 std::array<char, 6ul>::operator[](unsigned long) [36]
+                0.35    0.00 263235821/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[37]     1.9    0.09    0.50                 void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [37]
+                0.14    0.29 30555581/30555581     std::vector<Move, std::allocator<Move> >::_S_relocate(Move*, Move*, Move*, std::allocator<Move>&) [46]
+                0.03    0.04 30555581/30762185     std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [84]
+-----------------------------------------------
+                0.20    0.38 5072213/5072213     Board::printBoard() [27]
+[38]     1.9    0.20    0.38 5072213         Board::generateLegalMoves() [38]
+                0.37    0.00 130121537/520486148     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [17]
+                0.01    0.00 5072213/1542575091     std::vector<Move, std::allocator<Move> >::push_back(Move const&) [9]
+-----------------------------------------------
+                             30425694             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                             250098650             __static_initialization_and_destruction_0(int, int) <cycle 2> [12]
+                0.22    0.01 5072213/76853744     Board::printBoard() [27]
+[39]     1.7    0.54    0.00 285596557         MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+                             5072213             MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                                   1             __static_initialization_and_destruction_0(int, int) <cycle 2> [12]
+-----------------------------------------------
+                0.00    0.00       1/260243075     __static_initialization_and_destruction_0(int, int) [117]
+                0.26    0.00 130121537/260243075     Board::makeMoveHelper(Move&) [2]
+                0.26    0.00 130121537/260243075     Board::unmakeMoveHelper() [6]
+[40]     1.7    0.53    0.00 260243075         std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [40]
+-----------------------------------------------
+                0.05    0.07 30555581/124132536     std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long) [68]
+                0.17    0.22 93576955/124132536     std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&) [43]
+[41]     1.6    0.22    0.29 124132536         std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long) [41]
+                0.29    0.00 124132536/278820653     std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+-----------------------------------------------
+                             122222324             PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                             61111162             PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                1.06    0.09 91666743/91666744     PieceManager::PieceManager(PieceArgs&) [14]
+[42]     1.6    0.41    0.09 152777905+122222324 PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                0.09    0.00 61111162/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                             61111162             PieceManager::isPromoting(bool, int, int) <cycle 1> [56]
+                             61111162             PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                             122222324             PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+-----------------------------------------------
+                                                 <spontaneous>
+[43]     1.6    0.11    0.38                 std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&) [43]
+                0.17    0.22 93576955/124132536     std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long) [41]
+-----------------------------------------------
+                                                 <spontaneous>
+[44]     1.6    0.07    0.42                 std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>) [44]
+                0.06    0.21 30555581/183333486     PieceManager::PieceManager(PieceArgs&) [14]
+                0.07    0.04 61111162/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+                0.04    0.00 30555581/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+-----------------------------------------------
+                                                 <spontaneous>
+[45]     1.4    0.44    0.00                 _init [45]
+-----------------------------------------------
+                0.14    0.29 30555581/30555581     void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [37]
+[46]     1.4    0.14    0.29 30555581         std::vector<Move, std::allocator<Move> >::_S_relocate(Move*, Move*, Move*, std::allocator<Move>&) [46]
+                0.29    0.00 124132536/278820653     std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+-----------------------------------------------
+                                                 <spontaneous>
+[47]     1.3    0.09    0.31                 __gnu_cxx::__enable_if<std::__is_byte<char>::__value, void>::__type std::__fill_a1<char>(char*, char*, char const&) [47]
+                0.06    0.21 30555581/183333486     PieceManager::PieceManager(PieceArgs&) [14]
+                0.01    0.03 30555581/30762185     std::vector<Move, std::allocator<Move> >::size() const [93]
+-----------------------------------------------
+                                                 <spontaneous>
+[48]     1.3    0.07    0.32                 std::vector<Move, std::allocator<Move> >::_S_max_size(std::allocator<Move> const&) [48]
+                0.06    0.21 30555581/183333486     PieceManager::PieceManager(PieceArgs&) [14]
+                0.03    0.02 30555581/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+-----------------------------------------------
+                0.39    0.00 125049325/125049325     __static_initialization_and_destruction_0(int, int) [31]
+[49]     1.3    0.39    0.00 125049325         PieceManager::canQueenSideCastle(bool) [49]
+-----------------------------------------------
+                             61111162             PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                             61111162             PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                             244444648             PieceManager::isPromoting(bool, int, int) <cycle 1> [56]
+                0.00    0.00       1/91666744     Board::addCastlingRights() [34]
+[50]     1.2    0.37    0.00 305555811+61111162 PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+                             61111162             PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+                             61111162             PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     1.1    0.01    0.34                 std::vector<Move, std::allocator<Move> >::max_size() const [51]
+                0.06    0.21 30555581/183333486     PieceManager::PieceManager(PieceArgs&) [14]
+                0.07    0.00 30555581/278820653     std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&) [32]
+-----------------------------------------------
+                             15206587             MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                             25359745             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                             38909717             MoveGen::addKingSideCastling(bool, MoveList*) <cycle 2> [75]
+                             54842787             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+                0.19    0.00 4326250/76853744     MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [59]
+                2.96    0.07 67455281/76853744     MoveGen::addQueenSideCastling(bool, MoveList*) [4]
+[52]     1.1    0.35    0.00 206100367         _fini <cycle 2> [52]
+                                   1             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+-----------------------------------------------
+                                                 <spontaneous>
+[53]     1.1    0.30    0.04                 std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [53]
+                0.04    0.00 30762185/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+-----------------------------------------------
+                             5072213             MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                             10134374             MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [96]
+                             25354497             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+[54]     1.1    0.26    0.08 40561084         MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+                0.08    0.00 54842787/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                             54842787             _fini <cycle 2> [52]
+                             15216639             __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                             5072213             MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                             4874531             MoveGen::addKingSideCastling(bool, MoveList*) <cycle 2> [75]
+                              197682             MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [96]
+-----------------------------------------------
+                                                 <spontaneous>
+[55]     1.1    0.15    0.18                 __gnu_cxx::new_allocator<Move>::max_size() const [55]
+                0.18    0.00 124132536/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+-----------------------------------------------
+                             61111162             PieceManager::setBoard(PieceArgs&) <cycle 1> [42]
+[56]     0.9    0.28    0.00 61111162         PieceManager::isPromoting(bool, int, int) <cycle 1> [56]
+                             244444648             PieceManager::canKingSideCastle(bool) <cycle 1> [50]
+-----------------------------------------------
+                0.01    0.01 10144426/152533299     std::_Vector_base<Move, std::allocator<Move> >::get_allocator() const [60]
+                0.02    0.01 15216639/152533299     bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+                0.02    0.01 15216639/152533299     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator++() [94]
+                0.02    0.01 20288852/152533299     std::vector<Move, std::allocator<Move> >::end() [82]
+                0.03    0.02 30555581/152533299     std::vector<Move, std::allocator<Move> >::_S_max_size(std::allocator<Move> const&) [48]
+                0.07    0.04 61111162/152533299     std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>) [44]
+[57]     0.9    0.17    0.10 152533299         std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+                0.07    0.03 30555581/30555581     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_copy_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data const&) [76]
+-----------------------------------------------
+                                   1             _fini <cycle 2> [52]
+                             15216639             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+[58]     0.8    0.25    0.00 15216640         __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+                0.00    0.00    5248/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+                0.00    0.00      64/256         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [133]
+                             30425694             MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+                             25359745             _fini <cycle 2> [52]
+                             25354497             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+-----------------------------------------------
+                                                 <spontaneous>
+[59]     0.8    0.04    0.20                 MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [59]
+                0.19    0.00 4326250/76853744     _fini <cycle 2> [52]
+                0.00    0.00 2746009/1091022245     std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[60]     0.7    0.01    0.21                 std::_Vector_base<Move, std::allocator<Move> >::get_allocator() const [60]
+                0.03    0.16 15216639/15216640     Board::Board() [64]
+                0.01    0.01 10144426/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[61]     0.7    0.21    0.00                 void std::__fill_a<char*, char>(char*, char*, char const&) [61]
+-----------------------------------------------
+                                                 <spontaneous>
+[62]     0.6    0.08    0.12                 std::array<char, 64ul>::begin() [62]
+                0.12    0.00 130121537/130121537     std::vector<Move, std::allocator<Move> >::_M_check_len(unsigned long, char const*) const [72]
+-----------------------------------------------
+                0.19    0.00 124132536/124132536     Board::movePawnFourthRank(int, int) [10]
+[63]     0.6    0.19    0.00 124132536         std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long) [63]
+-----------------------------------------------
+                0.00    0.00       1/15216640     __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long) [115]
+                0.03    0.16 15216639/15216640     std::_Vector_base<Move, std::allocator<Move> >::get_allocator() const [60]
+[64]     0.6    0.03    0.16 15216640         Board::Board() [64]
+                0.16    0.00 35505491/40577704     Board::Board(PieceArgs) [65]
+                0.00    0.00 10144426/25361065     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const [123]
+-----------------------------------------------
+                             15216639             Board::Board(PieceArgs) [65]
+                0.02    0.00 5072213/40577704     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [92]
+                0.16    0.00 35505491/40577704     Board::Board() [64]
+[65]     0.6    0.18    0.00 40577704+15216639 Board::Board(PieceArgs) [65]
+                             15216639             Board::Board(PieceArgs) [65]
+-----------------------------------------------
+                0.00    0.00     256/130121793     std::vector<Move, std::allocator<Move> >::~vector() [114]
+                0.17    0.00 130121537/130121793     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [21]
+[66]     0.5    0.17    0.00 130121793         Board::~Board() [66]
+-----------------------------------------------
+                                                 <spontaneous>
+[67]     0.5    0.15    0.00                 _start [67]
+-----------------------------------------------
+                                                 <spontaneous>
+[68]     0.5    0.02    0.13                 std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long) [68]
+                0.05    0.07 30555581/124132536     std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long) [41]
+-----------------------------------------------
+                0.14    0.00 130121537/130121537     Board::generateMoves() [5]
+[69]     0.4    0.14    0.00 130121537         std::array<char, 64ul>::end() [69]
+-----------------------------------------------
+                             5072213             MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [39]
+                             5072213             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+[70]     0.4    0.14    0.00 10144426         MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [70]
+                             15206587             _fini <cycle 2> [52]
+                             5072213             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+-----------------------------------------------
+                0.06    0.00 130121537/260243074     Board::makeMoveHelper(Move&) [2]
+                0.06    0.00 130121537/260243074     Board::unmakeMoveHelper() [6]
+[71]     0.4    0.12    0.00 260243074         std::vector<Move, std::allocator<Move> >::vector() [71]
+-----------------------------------------------
+                0.12    0.00 130121537/130121537     std::array<char, 64ul>::begin() [62]
+[72]     0.4    0.12    0.00 130121537         std::vector<Move, std::allocator<Move> >::_M_check_len(unsigned long, char const*) const [72]
+-----------------------------------------------
+                0.11    0.00 73074969/73074969     Board::makeMoveHelper(Move&) [2]
+[73]     0.4    0.11    0.00 73074969         PieceManager::isAttacked(bool, int) [73]
+-----------------------------------------------
+                0.00    0.00 5072213/122100021     Board::addCastlingRights() [34]
+                0.01    0.00 10144426/122100021     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::_Vector_impl(std::allocator<Move> const&) [107]
+                0.01    0.00 15216639/122100021     __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [101]
+                0.03    0.00 30555581/122100021     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_copy_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data const&) [76]
+                0.05    0.00 61111162/122100021     PieceManager::PieceManager(PieceArgs&) [14]
+[74]     0.3    0.10    0.00 122100021         Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
+-----------------------------------------------
+                             4874531             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+[75]     0.3    0.10    0.00 4874531         MoveGen::addKingSideCastling(bool, MoveList*) <cycle 2> [75]
+                             38909717             _fini <cycle 2> [52]
+-----------------------------------------------
+                0.07    0.03 30555581/30555581     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+[76]     0.3    0.07    0.03 30555581         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_copy_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data const&) [76]
+                0.03    0.00 30555581/122100021     Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
+-----------------------------------------------
+                                                 <spontaneous>
+[77]     0.3    0.09    0.00                 std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) [77]
+-----------------------------------------------
+                                                 <spontaneous>
+[78]     0.3    0.05    0.04                 std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [78]
+                0.04    0.00 30555581/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+-----------------------------------------------
+                0.00    0.03 10144426/25361065     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.01    0.05 15216639/25361065     bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+[79]     0.3    0.01    0.08 25361065         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [79]
+                0.03    0.01 10144426/10144426     std::vector<Move, std::allocator<Move> >::begin() [90]
+                0.02    0.02 15216639/35505491     std::vector<Move, std::allocator<Move> >::end() [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[80]     0.3    0.08    0.00                 std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [80]
+-----------------------------------------------
+                0.00    0.03 5072213/15216639     perft(int, Board&) [20]
+                0.00    0.03 5072213/15216639     divide(int, Board&) [19]
+                0.00    0.03 5072213/15216639     std::vector<Move, std::allocator<Move> >::vector(std::allocator<Move> const&) [95]
+[81]     0.3    0.00    0.08 15216639         bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+                0.01    0.05 15216639/25361065     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [79]
+                0.02    0.01 15216639/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+-----------------------------------------------
+                0.01    0.01 5072213/35505491     void std::_Destroy<Move*>(Move*, Move*) [87]
+                0.02    0.02 15216639/35505491     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [79]
+                0.02    0.02 15216639/35505491     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator*() const [88]
+[82]     0.2    0.04    0.04 35505491         std::vector<Move, std::allocator<Move> >::end() [82]
+                0.02    0.01 20288852/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+-----------------------------------------------
+                                                 <spontaneous>
+[83]     0.2    0.07    0.00                 Board::blackQueenSideCastle() [83]
+-----------------------------------------------
+                0.00    0.00  206604/30762185     perft(int, Board&) [20]
+                0.03    0.04 30555581/30762185     void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [37]
+[84]     0.2    0.03    0.04 30762185         std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [84]
+                0.04    0.00 30762185/714790474     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [29]
+-----------------------------------------------
+                0.04    0.02 130121537/130121537     void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&) [21]
+[85]     0.2    0.04    0.02 130121537         __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::difference_type __gnu_cxx::operator-<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [85]
+                0.02    0.00 130121537/130121537     Move* std::__niter_base<Move*>(Move*) [102]
+-----------------------------------------------
+                                                 <spontaneous>
+[86]     0.2    0.06    0.00                 Board::getTurn() [86]
+-----------------------------------------------
+                                                 <spontaneous>
+[87]     0.2    0.00    0.05                 void std::_Destroy<Move*>(Move*, Move*) [87]
+                0.02    0.02 5072213/5072213     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [92]
+                0.01    0.01 5072213/35505491     std::vector<Move, std::allocator<Move> >::end() [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[88]     0.2    0.02    0.03                 __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator*() const [88]
+                0.02    0.02 15216639/35505491     std::vector<Move, std::allocator<Move> >::end() [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[89]     0.2    0.05    0.00                 std::allocator_traits<std::allocator<Move> >::max_size(std::allocator<Move> const&) [89]
+-----------------------------------------------
+                0.03    0.01 10144426/10144426     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [79]
+[90]     0.1    0.03    0.01 10144426         std::vector<Move, std::allocator<Move> >::begin() [90]
+                0.01    0.00 10144426/10144426     std::vector<Move, std::allocator<Move> >::_M_move_assign(std::vector<Move, std::allocator<Move> >&&, std::integral_constant<bool, true>) [108]
+                0.00    0.00 10144426/25361065     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const [123]
+-----------------------------------------------
+                0.00    0.00       1/10144427     main [33]
+                0.00    0.02 5072213/10144427     perft(int, Board&) [20]
+                0.00    0.02 5072213/10144427     Board::printBoard() [27]
+[91]     0.1    0.01    0.03 10144427         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+                0.00    0.03 10144426/25361065     std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [79]
+                0.00    0.00       1/662997322     void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+                0.00    0.00       1/3           std::allocator<Move>::allocator() [134]
+-----------------------------------------------
+                0.02    0.02 5072213/5072213     void std::_Destroy<Move*>(Move*, Move*) [87]
+[92]     0.1    0.02    0.02 5072213         std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [92]
+                0.02    0.00 5072213/40577704     Board::Board(PieceArgs) [65]
+-----------------------------------------------
+                0.00    0.00  206604/30762185     perft(int, Board&) [20]
+                0.01    0.03 30555581/30762185     __gnu_cxx::__enable_if<std::__is_byte<char>::__value, void>::__type std::__fill_a1<char>(char*, char*, char const&) [47]
+[93]     0.1    0.01    0.03 30762185         std::vector<Move, std::allocator<Move> >::size() const [93]
+                0.01    0.02 5072213/5072213     std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [100]
+-----------------------------------------------
+                                                 <spontaneous>
+[94]     0.1    0.01    0.03                 __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator++() [94]
+                0.02    0.01 15216639/152533299     std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [57]
+                0.00    0.00 15216639/15216639     bool __gnu_cxx::__is_null_pointer<char const>(char const*) [124]
+-----------------------------------------------
+                                                 <spontaneous>
+[95]     0.1    0.01    0.03                 std::vector<Move, std::allocator<Move> >::vector(std::allocator<Move> const&) [95]
+                0.00    0.03 5072213/15216639     bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [81]
+-----------------------------------------------
+                              197682             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+[96]     0.1    0.03    0.00  197682         MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) <cycle 2> [96]
+                             10134374             MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) <cycle 2> [54]
+-----------------------------------------------
+                                                 <spontaneous>
+[97]     0.1    0.03    0.00                 Board::updateToCaptureFlag(int) [97]
+-----------------------------------------------
+                                                 <spontaneous>
+[98]     0.1    0.03    0.00                 std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [98]
+-----------------------------------------------
+                                                 <spontaneous>
+[99]     0.1    0.03    0.00                 std::__array_traits<char, 64ul>::_S_ref(char const (&) [64], unsigned long) [99]
+-----------------------------------------------
+                0.01    0.02 5072213/5072213     std::vector<Move, std::allocator<Move> >::size() const [93]
+[100]    0.1    0.01    0.02 5072213         std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [100]
+                0.01    0.01 5072213/5072213     std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::_Vector_impl(std::allocator<Move> const&) [107]
+-----------------------------------------------
+                                                 <spontaneous>
+[101]    0.1    0.01    0.01                 __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [101]
+                0.01    0.00 15216639/122100021     Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
+-----------------------------------------------
+                0.02    0.00 130121537/130121537     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::difference_type __gnu_cxx::operator-<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [85]
+[102]    0.1    0.02    0.00 130121537         Move* std::__niter_base<Move*>(Move*) [102]
+-----------------------------------------------
+                0.02    0.00 5072213/5072213     perft(int, Board&) [20]
+[103]    0.1    0.02    0.00 5072213         std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [103]
+                0.00    0.00 5072213/5072213     std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [127]
+-----------------------------------------------
+                0.02    0.00 3461023/3461023     Board::makeMoveHelper(Move&) [2]
+[104]    0.1    0.02    0.00 3461023         Board::isInCheck(bool) [104]
+-----------------------------------------------
+                                                 <spontaneous>
+[105]    0.1    0.02    0.00                 __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [105]
+-----------------------------------------------
+                                                 <spontaneous>
+[106]    0.1    0.02    0.00                 Move const& std::forward<Move const&>(std::remove_reference<Move const&>::type&) [106]
+-----------------------------------------------
+                0.01    0.01 5072213/5072213     std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [100]
+[107]    0.1    0.01    0.01 5072213         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::_Vector_impl(std::allocator<Move> const&) [107]
+                0.01    0.00 10144426/122100021     Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [74]
+-----------------------------------------------
+                0.01    0.00 10144426/10144426     std::vector<Move, std::allocator<Move> >::begin() [90]
+[108]    0.0    0.01    0.00 10144426         std::vector<Move, std::allocator<Move> >::_M_move_assign(std::vector<Move, std::allocator<Move> >&&, std::integral_constant<bool, true>) [108]
+-----------------------------------------------
+                                                 <spontaneous>
+[109]    0.0    0.01    0.01                 __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::__normal_iterator(Move* const&) [109]
+                0.01    0.00 10144426/10144426     std::_Vector_base<Move, std::allocator<Move> >::_Vector_base(std::allocator<Move> const&) [110]
+-----------------------------------------------
+                0.01    0.00 10144426/10144426     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::__normal_iterator(Move* const&) [109]
+[110]    0.0    0.01    0.00 10144426         std::_Vector_base<Move, std::allocator<Move> >::_Vector_base(std::allocator<Move> const&) [110]
+-----------------------------------------------
+                                                 <spontaneous>
+[111]    0.0    0.01    0.00                 __gnu_cxx::new_allocator<Move>::new_allocator() [111]
+-----------------------------------------------
+                                                 <spontaneous>
+[112]    0.0    0.01    0.00                 __gnu_cxx::new_allocator<Move>::_M_max_size() const [112]
+-----------------------------------------------
+                                                 <spontaneous>
+[113]    0.0    0.01    0.00                 std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [113]
+                0.00    0.00 15216639/15216639     std::remove_reference<std::allocator<Move>&>::type&& std::move<std::allocator<Move>&>(std::allocator<Move>&) [125]
+-----------------------------------------------
+                                                 <spontaneous>
+[114]    0.0    0.00    0.00                 std::vector<Move, std::allocator<Move> >::~vector() [114]
+                0.00    0.00     256/130121793     Board::~Board() [66]
+-----------------------------------------------
+                                                 <spontaneous>
+[115]    0.0    0.00    0.00                 __gnu_cxx::new_allocator<Move>::deallocate(Move*, unsigned long) [115]
+                0.00    0.00       1/15216640     Board::Board() [64]
+-----------------------------------------------
+                                                 <spontaneous>
+[116]    0.0    0.00    0.00                 unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [116]
+                0.00    0.00       1/128042073     __static_initialization_and_destruction_0(int, int) [31]
+-----------------------------------------------
+                0.00    0.00       1/1           Move::getTo() const [118]
+[117]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [117]
+                0.00    0.00       1/260243075     std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [40]
+                0.00    0.00      64/256         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [133]
+                0.00    0.00       1/3           std::allocator<Move>::allocator() [134]
+-----------------------------------------------
+                                                 <spontaneous>
+[118]    0.0    0.00    0.00                 Move::getTo() const [118]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [117]
+-----------------------------------------------
+                0.00    0.00 5072213/25361065     Board::addCastlingRights() [34]
+                0.00    0.00 10144426/25361065     std::vector<Move, std::allocator<Move> >::begin() [90]
+                0.00    0.00 10144426/25361065     Board::Board() [64]
+[123]    0.0    0.00    0.00 25361065         __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const [123]
+-----------------------------------------------
+                0.00    0.00 15216639/15216639     __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator++() [94]
+[124]    0.0    0.00    0.00 15216639         bool __gnu_cxx::__is_null_pointer<char const>(char const*) [124]
+-----------------------------------------------
+                0.00    0.00 15216639/15216639     std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [113]
+[125]    0.0    0.00    0.00 15216639         std::remove_reference<std::allocator<Move>&>::type&& std::move<std::allocator<Move>&>(std::allocator<Move>&) [125]
+-----------------------------------------------
+                0.00    0.00 6922046/6922046     Board::makeMoveHelper(Move&) [2]
+[126]    0.0    0.00    0.00 6922046         Board::enPassantBlack(int, int) [126]
+-----------------------------------------------
+                0.00    0.00 5072213/5072213     std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [103]
+[127]    0.0    0.00    0.00 5072213         std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [127]
+-----------------------------------------------
+                0.00    0.00 3461023/3461023     Board::makeMoveHelper(Move&) [2]
+[128]    0.0    0.00    0.00 3461023         Board::promotePawns(bool, int, int, int) [128]
+-----------------------------------------------
+                0.00    0.00     512/512         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_Vector_impl_data() [132]
+[129]    0.0    0.00    0.00     512         std::allocator<Move>::allocator(std::allocator<Move> const&) [129]
+-----------------------------------------------
+                0.00    0.00     256/256         std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [131]
+[130]    0.0    0.00    0.00     256         void std::_Destroy_aux<true>::__destroy<Move*>(Move*, Move*) [130]
+-----------------------------------------------
+                0.00    0.00     256/256         std::vector<Move, std::allocator<Move> >::operator=(std::vector<Move, std::allocator<Move> >&&) [190]
+[131]    0.0    0.00    0.00     256         std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [131]
+                0.00    0.00     256/256         void std::_Destroy_aux<true>::__destroy<Move*>(Move*, Move*) [130]
+-----------------------------------------------
+                0.00    0.00     256/256         void std::_Destroy<Move*, Move>(Move*, Move*, std::allocator<Move>&) [195]
+[132]    0.0    0.00    0.00     256         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_Vector_impl_data() [132]
+                0.00    0.00     512/512         std::allocator<Move>::allocator(std::allocator<Move> const&) [129]
+-----------------------------------------------
+                0.00    0.00      64/256         __static_initialization_and_destruction_0(int, int) [117]
+                0.00    0.00      64/256         __static_initialization_and_destruction_0(int, int) [31]
+                0.00    0.00      64/256         __static_initialization_and_destruction_0(int, int) <cycle 2> [12]
+                0.00    0.00      64/256         __static_initialization_and_destruction_0(int, int) <cycle 2> [58]
+[133]    0.0    0.00    0.00     256         std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [133]
+-----------------------------------------------
+                0.00    0.00       1/3           main [33]
+                0.00    0.00       1/3           __static_initialization_and_destruction_0(int, int) [117]
+                0.00    0.00       1/3           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [91]
+[134]    0.0    0.00    0.00       3         std::allocator<Move>::allocator() [134]
+-----------------------------------------------
+                0.00    0.00       1/3           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_Alloc_hider::~_Alloc_hider() [191]
+                0.00    0.00       1/3           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [136]
+                0.00    0.00       1/3           void std::__alloc_on_move<std::allocator<Move> >(std::allocator<Move>&, std::allocator<Move>&) [139]
+[135]    0.0    0.00    0.00       3         std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [135]
+-----------------------------------------------
+                0.00    0.00       1/2           __gnu_cxx::char_traits<char>::eq(char const&, char const&) [175]
+                0.00    0.00       1/2           __gnu_cxx::char_traits<char>::length(char const*) [176]
+[136]    0.0    0.00    0.00       2         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [136]
+                0.00    0.00       1/3           std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [135]
+                0.00    0.00       1/1           std::_Vector_base<Move, std::allocator<Move> >::_Vector_base() [138]
+-----------------------------------------------
+                0.00    0.00       1/1           main [33]
+[137]    0.0    0.00    0.00       1         std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [137]
+-----------------------------------------------
+                0.00    0.00       1/1           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [136]
+[138]    0.0    0.00    0.00       1         std::_Vector_base<Move, std::allocator<Move> >::_Vector_base() [138]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [13]
+[139]    0.0    0.00    0.00       1         void std::__alloc_on_move<std::allocator<Move> >(std::allocator<Move>&, std::allocator<Move>&) [139]
+                0.00    0.00       1/3           std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [135]
+-----------------------------------------------
+                                   1             __gnu_cxx::char_traits<char>::length(char const*) [176]
+[176]    0.0    0.00    0.00       0+1       __gnu_cxx::char_traits<char>::length(char const*) [176]
+                0.00    0.00       1/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [136]
+                                   1             __gnu_cxx::char_traits<char>::length(char const*) [176]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -243,10 +961,46 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [2] perft(int, Board&)      [3] Board::generateLegalMoves() [10] void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
-   [6] PieceManager::isAttacked(bool, int) [12] Board::makeMove(Move&) [24] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  [13] PieceManager::isPromoting(bool, int, int) [29] Board::Board() [25] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  [28] PieceManager::PieceManager() [9] MoveGen::generateMoves(bool, PieceBB const*, unsigned long, MoveList*, int) [26] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-  [15] Board::unmakeMove()    [14] MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [27] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]
-   [4] Board::makeMoveHelper(Move&) [11] MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [7] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-   [5] Board::unmakeMoveHelper() [23] MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [8] _init
+ [117] __static_initialization_and_destruction_0(int, int) [111] __gnu_cxx::new_allocator<Move>::new_allocator() [24] std::array<char, 64ul>::data()
+  [31] __static_initialization_and_destruction_0(int, int) [101] __gnu_cxx::new_allocator<Move>::new_allocator(__gnu_cxx::new_allocator<Move> const&) [62] std::array<char, 64ul>::begin()
+  [12] __static_initialization_and_destruction_0(int, int) [18] __gnu_cxx::__alloc_traits<std::allocator<char>, char>::_S_select_on_copy(std::allocator<char> const&) [11] std::array<char, 64ul>::operator[](unsigned long)
+  [58] __static_initialization_and_destruction_0(int, int) [124] bool __gnu_cxx::__is_null_pointer<char const>(char const*) [36] std::array<char, 6ul>::operator[](unsigned long)
+  [20] perft(int, Board&)    [109] __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::__normal_iterator(Move* const&) [53] std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [19] divide(int, Board&)    [94] __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator++() [57] std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [73] PieceManager::isAttacked(bool, int) [85] __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::difference_type __gnu_cxx::operator-<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [40] std::chrono::duration<double, std::ratio<1l, 1l> >::duration<long, std::ratio<1l, 1000000000l>, void>(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [56] PieceManager::isPromoting(bool, int, int) [81] bool __gnu_cxx::operator!=<Move*, std::vector<Move, std::allocator<Move> > >(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&, __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > > const&) [79] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+  [50] PieceManager::canKingSideCastle(bool) [112] __gnu_cxx::new_allocator<Move>::_M_max_size() const [91] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [49] PieceManager::canQueenSideCastle(bool) [55] __gnu_cxx::new_allocator<Move>::max_size() const [48] std::vector<Move, std::allocator<Move> >::_S_max_size(std::allocator<Move> const&)
+  [42] PieceManager::setBoard(PieceArgs&) [123] __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::base() const [46] std::vector<Move, std::allocator<Move> >::_S_relocate(Move*, Move*, Move*, std::allocator<Move>&)
+  [25] PieceManager::PieceManager() [88] __gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >::operator*() const [108] std::vector<Move, std::allocator<Move> >::_M_move_assign(std::vector<Move, std::allocator<Move> >&&, std::integral_constant<bool, true>)
+  [14] PieceManager::PieceManager(PieceArgs&) [60] std::_Vector_base<Move, std::allocator<Move> >::get_allocator() const [44] std::vector<Move, std::allocator<Move> >::_S_do_relocate(Move*, Move*, Move*, std::allocator<Move>&, std::integral_constant<bool, true>)
+  [27] Board::printBoard()   [103] std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::operator[](unsigned long) const [21] void std::vector<Move, std::allocator<Move> >::_M_realloc_insert<Move const&>(__gnu_cxx::__normal_iterator<Move*, std::vector<Move, std::allocator<Move> > >, Move const&)
+ [128] Board::promotePawns(bool, int, int, int) [137] std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [82] std::vector<Move, std::allocator<Move> >::end()
+   [5] Board::generateMoves() [80] std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [90] std::vector<Move, std::allocator<Move> >::begin()
+ [126] Board::enPassantBlack(int, int) [72] std::vector<Move, std::allocator<Move> >::_M_check_len(unsigned long, char const*) const [9] std::vector<Move, std::allocator<Move> >::push_back(Move const&)
+  [16] Board::enPassantWhite(int, int) [93] std::vector<Move, std::allocator<Move> >::size() const [95] std::vector<Move, std::allocator<Move> >::vector(std::allocator<Move> const&)
+   [2] Board::makeMoveHelper(Move&) [51] std::vector<Move, std::allocator<Move> >::max_size() const [71] std::vector<Move, std::allocator<Move> >::vector()
+   [6] Board::unmakeMoveHelper() [129] std::allocator<Move>::allocator(std::allocator<Move> const&) [13] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  [34] Board::addCastlingRights() [134] std::allocator<Move>::allocator() [136] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+   [1] Board::movePawnFifthRank(int, int) [130] void std::_Destroy_aux<true>::__destroy<Move*>(Move*, Move*) [127] std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  [38] Board::generateLegalMoves() [41] std::_Vector_base<Move, std::allocator<Move> >::_M_allocate(unsigned long) [102] Move* std::__niter_base<Move*>(Move*)
+  [10] Board::movePawnFourthRank(int, int) [107] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::_Vector_impl(std::allocator<Move> const&) [32] std::enable_if<std::__is_bitwise_relocatable<Move, void>::value, Move*>::type std::__relocate_a_1<Move, Move>(Move*, Move*, Move*, std::allocator<Move>&)
+  [26] Board::blackKingSideCastle() [135] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl::~_Vector_impl() [139] void std::__alloc_on_move<std::allocator<Move> >(std::allocator<Move>&, std::allocator<Move>&)
+  [97] Board::updateToCaptureFlag(int) [131] std::_Vector_base<Move, std::allocator<Move> >::_M_deallocate(Move*, unsigned long) [113] std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  [83] Board::blackQueenSideCastle() [76] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_copy_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data const&) [28] decltype (({parm#1}.end)()) std::end<std::array<char, 64ul> >(std::array<char, 64ul>&)
+   [7] Board::generatePseudoLegalMoves() [29] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_M_swap_data(std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data&) [8] void std::fill<char*, char>(char*, char*, char const&)
+  [86] Board::getTurn()      [132] std::_Vector_base<Move, std::allocator<Move> >::_Vector_impl_data::_Vector_impl_data() [77] std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+ [104] Board::isInCheck(bool) [110] std::_Vector_base<Move, std::allocator<Move> >::_Vector_base(std::allocator<Move> const&) [125] std::remove_reference<std::allocator<Move>&>::type&& std::move<std::allocator<Move>&>(std::allocator<Move>&)
+  [65] Board::Board(PieceArgs) [138] std::_Vector_base<Move, std::allocator<Move> >::_Vector_base() [22] decltype (({parm#1}.begin)()) std::begin<std::array<char, 64ul> >(std::array<char, 64ul>&)
+  [64] Board::Board()        [133] std::_Vector_base<Move, std::allocator<Move> >::~_Vector_base() [106] Move const& std::forward<Move const&>(std::remove_reference<Move const&>::type&)
+  [74] Board::Board(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [98] std::__array_traits<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::_S_ref(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const (&) [64], unsigned long) [61] void std::__fill_a<char*, char>(char*, char*, char const&)
+  [66] Board::~Board()        [78] std::__array_traits<char, 64ul>::_S_ptr(char const (&) [64]) [84] std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  [70] MoveGen::generateRookMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [99] std::__array_traits<char, 64ul>::_S_ref(char const (&) [64], unsigned long) [47] __gnu_cxx::__enable_if<std::__is_byte<char>::__value, void>::__type std::__fill_a1<char>(char*, char*, char const&)
+  [59] MoveGen::generateQueenMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [63] std::__array_traits<char, 6ul>::_S_ref(char const (&) [6], unsigned long) [30] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [75] MoveGen::addKingSideCastling(bool, MoveList*) [100] std::allocator_traits<std::allocator<Move> >::deallocate(std::allocator<Move>&, Move*, unsigned long) [15] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [96] MoveGen::generateBishopMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*) [68] std::allocator_traits<std::allocator<Move> >::allocate(std::allocator<Move>&, unsigned long) [17] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+   [4] MoveGen::addQueenSideCastling(bool, MoveList*) [89] std::allocator_traits<std::allocator<Move> >::max_size(std::allocator<Move> const&) [52] _fini
+  [54] MoveGen::generateBlackPawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [35] void std::allocator_traits<std::allocator<Move> >::construct<Move, Move const&>(std::allocator<Move>&, Move*, Move const&) [45] _init
+  [39] MoveGen::generateWhitePawnMoves(bool, unsigned long, unsigned long, unsigned long, MoveList*, int) [43] std::allocator_traits<std::allocator<char> >::select_on_container_copy_construction(std::allocator<char> const&) [67] _start
+ [105] __gnu_cxx::new_allocator<Move>::allocate(unsigned long, void const*) [92] std::array<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, 64ul>::~array() [23] <cycle 1>
+  [37] void __gnu_cxx::new_allocator<Move>::construct<Move, Move const&>(Move*, Move const&) [69] std::array<char, 64ul>::end() [3] <cycle 2>
