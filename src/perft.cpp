@@ -126,10 +126,12 @@ uint64_t divide(int depth, Board& board){
 int main(){
 	//PieceArgs p{};
 	//
-	std::array<std::string, 3> fens = {
+	std::array<std::string, 5> fens = {
 		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
 		"rnbqkbnr/ppp3pp/8/3pppP1/8/5N2/PPPPPP1P/RNBQKB1R w KQkq e6 0 4",
-		"rnbqkbnr/ppp2ppp/8/3pp1P1/8/5N2/PPPPPP1P/RNBQKB1R b KQkq - 1 3"
+		"rnbqkbnr/ppp2ppp/8/3pp1P1/8/5N2/PPPPPP1P/RNBQKB1R b KQkq - 1 3",
+		"rnbqkbnr/ppp2p1p/8/3pp1pP/8/2N5/PPPPPPP1/R1BQKBNR w KQkq g6 0 4",
+		"rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1"
 	};
 	Board board = Board(fens[0]);
 	board.printBoard();
@@ -138,7 +140,7 @@ int main(){
 	board.printBoard();
 
 	const auto start{std::chrono::steady_clock::now()};
-	const auto perft_result{p_divide(DEPTH, board)};	
+	const auto perft_result{p_perft(DEPTH, board)};	
 	const auto end{std::chrono::steady_clock::now()};
 	const std::chrono::duration<double> elapsed_seconds{end - start};
 	std::cout << "Perft completed with " << perft_result << " total nodes" << '\n';

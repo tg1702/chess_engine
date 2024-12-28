@@ -167,7 +167,9 @@ void Board::makeMove(Move& m){
 }
 
 void Board::makeMoveHelper(Move& m){
-
+	
+	enPassantSquare = -1;
+	
 	int from = m.getFrom();
 	int to = m.getTo();
 	int special = m.getFlag();
@@ -181,7 +183,6 @@ void Board::makeMoveHelper(Move& m){
 	std::string moveMessage = "Invalid move " + pieceSquareNames[from] + pieceSquareNames[to];	
 
 			if (special == NORMAL) {
-				//special = NORMAL;
 
 				if (turn == BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
 				
@@ -311,7 +312,6 @@ void Board::generateMoves(){
 
 	
 	
-	enPassantSquare = -1;
 }
 
 
@@ -445,7 +445,6 @@ void Board::unmakeMoveHelper(){
 	
 		pieces.movePiece(turn, PAWN, to, from);
 		pieces.addPiece(!turn, PAWN, target);
-
 	}	
 	else if (flag == W_KS_CASTLE_FLAG){
 
@@ -507,8 +506,6 @@ void Board::unmakeMoveHelper(){
                 pieces.addPiece(!turn, capturedPieceType, to);
         }	
 	
-	//if (undoMessage.find("Invalid") != std::string::npos)
-		//return undoMessage;
 
 	whiteKSKRMoved = false;
 	whiteQSKRMoved = false;
@@ -529,43 +526,9 @@ void Board::unmakeMoveHelper(){
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
 
-	/*
-	canWhiteKSCastle = (turn == WHITE) && !whiteKSKRMoved && pieces.canKingSideCastle(WHITE);
-	canWhiteQSCastle = (turn == WHITE) && !whiteQSKRMoved && pieces.canQueenSideCastle(WHITE);
-	canBlackKSCastle = (turn == BLACK) && !blackKSKRMoved && pieces.canKingSideCastle(BLACK);
-	canBlackQSCastle= (turn == BLACK) && !blackQSKRMoved && pieces.canQueenSideCastle(BLACK);
-	*/
-	
-	enPassantSquare = -1;	
-	//return undoMessage;	
+	enPassantSquare = -1;
 }
-/*
-void Board::addEnPassantRights(){
-	if (enPassantSquare == -1) return;
 
-	uint64_t rank = (turn == WHITE) ? RANK_5 : RANK_4;
-	
-	uint64_t candidates = pieces.getPiecesBB(turn, PAWN) & rank & ( bitset((enPassantSquare - 1)) | bitset((enPassantSquare + 1))) ;
-
-	
-	while (candidates != 0ULL){	
-		int from = utils::pop_lsb(candidates);
-
-		
-		if (turn == WHITE){
-			generator.addEnPassantRights(WHITE, from , enPassantSquare+8, move_list); 
-		}	
-		else{ 	
-			generator.addEnPassantRights(BLACK,  from , enPassantSquare-8, move_list); 
-		}	
-	
-	}
-
-}
-*/
-bool Board::isValidMove(int pieceType, int from, int to){
-	return ((pieces.getPiecesBB(turn, pieceType) & bitset(from)));
-}
 
 bool Board::isCastlingMove(int from, int to){
 	return isWhiteKSCastlingMove(from, to) || isWhiteQSCastlingMove(from, to) || isBlackKSCastlingMove(from, to) || isBlackQSCastlingMove(from, to);  
@@ -640,23 +603,16 @@ void Board::promotePawns(bool side, int from, int to, int special){
 }
 
 void Board::enPassantWhite(int from, int to){
-			//std::cout << "ep ing " << from << to << endl;
 		
-	//		std::cout << "trying to ep as white" << pieceSquareNames[from] << pieceSquareNames[to] << '\n';	
 		
 			pieces.movePiece(WHITE, PAWN, from, to);	
 			pieces.clearPiece(BLACK, PAWN, to-8);
 
 
 
-			//cout << pieces.getPiecesBB(WHITE, ALL) << endl;
-			//cout << pieces.getPiecesBB(BLACK, ALL) << endl;
-			
-			//cout << "-------------------------------" << endl;
 }
 
 void Board::enPassantBlack(int from, int to){	
-			//std::cout << "trying to ep " << pieceSquareNames[from] << pieceSquareNames[to] << '\n';	
 			pieces.movePiece(BLACK, PAWN, from, to);
                         pieces.clearPiece(WHITE, PAWN, to+8);
 

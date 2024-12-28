@@ -106,8 +106,8 @@ void MoveGen::generateWhitePawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 	while (normal_moves != 0ULL){
                 int from = utils::pop_lsb(normal_moves);
 
-		uint64_t single_pawn_pushes = pawnLookups[side][from] & empty & ~RANK_7;
-                
+		uint64_t single_pawn_pushes = pawnLookups[side][from] & empty;
+               
 		uint64_t shift = single_pawn_pushes<<8;
 		uint64_t double_pawn_pushes = shift & empty & RANK_4;
 
@@ -123,17 +123,12 @@ void MoveGen::generateWhitePawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 
         }
 
-	static int eps = 0;
 
 	while (ep_squares != 0ULL){	
 		int from = utils::pop_lsb(ep_squares);
 		move_list->moves[move_list->count] = Move(EN_PASSANT_FLAG, from, enPassantSquare, PAWN, PAWN);
 		move_list->count++;
 
-		//eps++;
-
-		//if (eps > 5248)
-			//std::cout << from << enPassantSquare + 8 << '\n';	
 	}
 
 /*	
