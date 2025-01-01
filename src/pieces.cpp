@@ -117,13 +117,13 @@ bool PieceManager::isAttacked(bool side, int square){
 	bool opponent = !side;	
 	int bishopIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 	 	
-	//int rookIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & rookOccupancyMasks[square], rookMagics[square], square, 0);
+	int rookIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & rookOccupancyMasks[square], rookMagics[square], square, 0);
 	return (kingLookups[square] & this->Pieces[opponent][KING]) ||
 	       (knightLookups[square] & this->Pieces[opponent][KNIGHT]) ||
 		(pawnAttackLookups[side][square] & this->Pieces[opponent][PAWN]) ||
-		(calcLegalRookMoves(square, this->Pieces[opponent][ALL]  | this->Pieces[side][ALL]) & this->Pieces[opponent][ROOK]) ||
+		(rookMoveList[square][rookIndex] & this->Pieces[opponent][ROOK]) ||
 		(bishopMoveList[square][bishopIndex] & this->Pieces[opponent][BISHOP]) ||
-		((bishopMoveList[square][bishopIndex] | calcLegalRookMoves(square, this->Pieces[opponent][ALL] | this->Pieces[side][ALL])) & this->Pieces[opponent][QUEEN]);
+		((bishopMoveList[square][bishopIndex] | rookMoveList[square][rookIndex]) & this->Pieces[opponent][QUEEN]);
 }
 
 bool PieceManager::canQueenSideCastle(bool side){

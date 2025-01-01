@@ -1,6 +1,5 @@
 #include <iostream>
 #include "magic.h"
-#include "lookup.h"
 #include "move.h"
 #include "pieces.h"
 #include "types.h"
@@ -225,11 +224,12 @@ void MoveGen::generateRookMoves(bool side, uint64_t rookbb, uint64_t myBlockers,
 
                 int index = utils::generateMagicIndex( all & rookOccupancyMasks[from], rookMagics[from], from, 0);
 	
-		uint64_t legalMove = calcLegalRookMoves(from, all & rookOccupancyMasks[from]) & ~(myBlockers); 
+		uint64_t legalMove = rookMoveList[from][index] & ~(myBlockers); 
 
 		addPossibleMove(from, legalMove, side, ROOK, move_list);
 
         }
+	
 /*
         int index = utils::generateMagicIndex( all & rookOccupancyMasks[2], rookMagics[2], 2, 0);
 	std::cout << all << '\n';
@@ -252,8 +252,8 @@ void MoveGen::generateBishopMoves(bool side, uint64_t bishopbb, uint64_t myBlock
 		uint64_t legalMove = bishopMoveList[from][index] & ~(myBlockers); 
 
                 addPossibleMove(from, legalMove, side, BISHOP, move_list);
-        }
 
+        }
 
 }
 
@@ -269,7 +269,7 @@ void MoveGen::generateQueenMoves(bool side, uint64_t queenbb, uint64_t myBlocker
 
 
 		uint64_t legalBishopMoves = bishopMoveList[from][bishopIndex] & ~(myBlockers);
-                uint64_t legalRookMoves = calcLegalRookMoves(from, all & rookOccupancyMasks[from]) & ~(myBlockers);
+                uint64_t legalRookMoves = rookMoveList[from][rookIndex] & ~(myBlockers);
 
 		uint64_t legalQueenMoves = legalRookMoves | legalBishopMoves;
                 addPossibleMove(from, (legalQueenMoves) , side, QUEEN, move_list);

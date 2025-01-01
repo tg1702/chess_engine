@@ -323,11 +323,11 @@ void Board::generateMoves(){
 	};
 
 	
+	
 	canWhiteKSCastle = (turn == WHITE) && !whiteKSKRMoved && pieces.canKingSideCastle(WHITE);
 	canWhiteQSCastle = (turn == WHITE) && !whiteQSKRMoved && pieces.canQueenSideCastle(WHITE);
 	canBlackKSCastle = (turn == BLACK) && !blackKSKRMoved && pieces.canKingSideCastle(BLACK);
 	canBlackQSCastle = (turn == BLACK) && !blackQSKRMoved && pieces.canQueenSideCastle(BLACK);
-	
 
 	generator.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL), move_list, enPassantSquare, canWhiteKSCastle, canWhiteQSCastle, canBlackKSCastle, canBlackQSCastle);
 

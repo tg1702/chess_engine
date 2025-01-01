@@ -98,7 +98,6 @@ for (int i = 7; i <= 49; i+= 7){
 
 constexpr uint64_t calcLegalBishopMoves(int plain_square, uint64_t occupancy){
 	
- uint64_t square = bitset(plain_square);
  uint64_t upLeftDirection = 0Ull;
  uint64_t downLeftDirection = 0Ull;
  uint64_t upRightDirection = 0Ull;
@@ -107,33 +106,36 @@ constexpr uint64_t calcLegalBishopMoves(int plain_square, uint64_t occupancy){
  int curRank = plain_square / 8;
  int curFile = plain_square % 8;
 
- for (int rank = curRank+1; rank <= 7; rank++){ 
+ int rank=0ULL, file=0ULL;
+
+ // Up left
+ for (rank = curRank+1, file = curFile-1; rank <= 7 && file >= 0; rank++, file--){ 
 	 
-	upRightDirection |= (1ULL << (curFile + rank*8));
+	upLeftDirection |= (1ULL << (file + rank*8));
   
-	if (occupancy & (1ULL << (curFile + rank*8))) break;
+	if (occupancy & (1ULL << (file + rank*8))) break;
  }
 
- for (int rank = curRank-1; rank >= 0; rank--){
+ // Up right
+ for (rank = curRank+1, file = curFile+1; rank <= 7 && file <= 7; rank++, file++){
  	 
-	downRightDirection |= (1ULL << (curFile + rank*8));
+	upRightDirection |= (1ULL << (file + rank*8));
 	
-	if (occupancy & (1ULL << (curFile + rank*8))) break;
+	if (occupancy & (1ULL << (file + rank*8))) break;
 	
  }
  
 
- for (int file = curFile+1; file <= 7; file++){
+ for (rank = curRank-1, file = curFile+1; rank >=0 && file <= 7; rank--, file++){
 	
-	upLeftDirection |= (1ULL << (file + curRank*8));
+	downLeftDirection |= (1ULL << (file + rank*8));
 	
-	if (occupancy & (1ULL << (file + curRank*8))) break;
+	if (occupancy & (1ULL << (file + rank*8))) break;
  } 
 
-for (int file = curFile-1; file >= 0; file--){
-	downLeftDirection |= (1ULL << (file + curRank*8));
-
-	if (occupancy & (1ULL << (file + curRank*8))) break;	
+for (rank = curRank-1 , file = curFile-1; rank >= 0 && file >= 0; rank--, file--){
+	downRightDirection |= (1ULL << (file + rank*8));
+	if (occupancy & (1ULL << (file + rank*8))) break;	
 } 
 
  return (upLeftDirection | downLeftDirection | upRightDirection | downRightDirection);
@@ -223,9 +225,7 @@ constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, in
 		
 		int i=0;
 		for (i = 0; i < MAX_PATTERNS; i++){
-                        int index = utils::generateMagicIndex(occupancyCombos[i], magicNumber, square, 0);
-                        lookupTable[index] = calcLegalRookMoves(square, occupancyCombos[i]);
-            /*            
+                        int index = utils::generateMagicIndex(occupancyCombos[i], magicNumber, square, ROOK_MOVES); 
 			uint64_t legalMoves=0ULL;
 				
 			switch(type) {
@@ -236,67 +236,86 @@ constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, in
 					legalMoves = calcLegalBishopMoves(square, occupancyCombos[i]);
 					break;
 			}		
-			*/
+		
 
-            /*
+            
 			if (lookupTable[index] == 0ULL){
                                 lookupTable[index] = legalMoves;
-				//std::cout << legalMoves << '\n';	
 			}
                         else if (lookupTable[index] != legalMoves){
-				
 				break;
                         }
-*/
                 }
 
 		
                 
 		if (i == MAX_PATTERNS ) {	
 			return true;
-        }
+        	}
 		return false;
 }
 
 static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){ 
 	
-	std::array<uint64_t, TABLE_SIZE> lookupTable{};
-
-	int MAX_PATTERNS=0;
-	uint64_t attackCombos=0ULL;	
+	int MAX_PATTERNS;
+	uint64_t attackCombos;	
 
 	switch(type){
 		case ROOK_MOVES:
 			MAX_PATTERNS = 1 << (64 - rookShifts[square]);    
 			blockers = blockers & rookOccupancyMasks[square];
-			attackCombos = rookOccupancyMasks[square];
+			attackCombos = generateWhiteRookMask(square);
 			break;
 		case BISHOP_MOVES:	
 			MAX_PATTERNS = 1 << (64 - bishopShifts[square]);
 			blockers = blockers & bishopOccupancyMasks[square];
-			attackCombos = bishopOccupancyMasks[square];
+			attackCombos = generateWhiteBishopMask(square);
 			break;
 	}
-		
-	std::array<uint64_t, TABLE_SIZE> occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
-	
 
+	std::array<uint64_t, TABLE_SIZE> occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
+
+	std::array<uint64_t, TABLE_SIZE> lookupTable = {0ULL};
     	uint64_t magicNumber = 0;
      
        			
-	while (true){ 
+		while (true){ 
                 magicNumber = random_uint64_fewbits();
-                
-		if(__builtin_popcountll((magicNumber * calcLegalRookMoves(square, occupancyCombos[square])) & 0xFF00000000000000ULL) < 6) continue;
-	
+                 
+		if(__builtin_popcountll((magicNumber * attackCombos) & 0xFF00000000000000ULL) < 6) continue;
+		
 		std::fill(lookupTable.begin(), lookupTable.end(), 0);
 		
-		bool filled = fillLookupTable(lookupTable, MAX_PATTERNS, attackCombos, occupancyCombos, square, type, magicNumber);	
-		if (filled) break;
-	}
+		int i;
+		for (i = 0; i < MAX_PATTERNS; i++){
+                        int index = utils::generateMagicIndex(occupancyCombos[i], magicNumber, square, type);
+			uint64_t legalMoves;
+				
+			switch(type) {
+				case ROOK_MOVES:
+					legalMoves = calcLegalRookMoves(square, occupancyCombos[i]);
+					break;
+				case BISHOP_MOVES:
+					legalMoves = calcLegalBishopMoves(square, occupancyCombos[i]);
+					break;
+			}		
+			
+			if (lookupTable[index] == 0ULL){
+                                lookupTable[index] = legalMoves;
+				
+			}
+                        else if (lookupTable[index] != legalMoves){
+				
+				break;
+                        }
 
+                }
+		if (i == MAX_PATTERNS ) {	
+			break;
+		}
+	       }	
 
-        return magicNumber;
+    return magicNumber;
 
 }
 

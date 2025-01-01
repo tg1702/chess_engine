@@ -17,17 +17,16 @@ int main(){
 
 	for(size_t square = 0; square < 64; square++){
 
-		int index = utils::generateMagicIndex(rookOccupancyMasks[square], rookMagics[square], square, ROOK_MOVES);
+		int index = utils::generateMagicIndex(bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 
 		std::array<std::array<uint64_t, TABLE_SIZE>, 64> result{};
 	
 		int MAX_PATTERNS = 1 << (64 - rookShifts[square]);   
-		result[square] = createBlockedBoards(rookOccupancyMasks[square], MAX_PATTERNS);		
+		result[square] = createBlockedBoards(bishopOccupancyMasks[square], MAX_PATTERNS);		
 
 	
-	  std::cout << result[square][index]<< '\n';
+	std::cout << result[square][index]<< '\n';
     std::cout << rookMoveList[square][index] << '\n';
-    writeToTextFile(rookMoveList[square]);
     std::cout << "------------------------\n";
   }
 
