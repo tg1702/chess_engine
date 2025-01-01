@@ -7,8 +7,8 @@
 #pragma once
 
 namespace utils{
-	inline int pop_lsb(uint64_t& bb) {int x = __builtin_ctzll(bb); bb &= (bb - 1ULL); return x;}	
-	inline int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int type){
+	constexpr int pop_lsb(uint64_t& bb) {int x = __builtin_ctzll(bb); bb &= (bb - 1ULL); return x;}	
+	constexpr int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int type){
         if (type == ROOK_MOVES)
                 return (int)((bitboard * magicNumber) >> rookShifts[square]);
         else

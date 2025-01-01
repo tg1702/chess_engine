@@ -1,12 +1,14 @@
 #include <iostream>
 #include <array>
 #include <chrono>
+#include <sstream>
 
 #include "../src/board.h"
 #include "../src/move.h"
 #include "../src/types.h"
 
-#define DEPTH 7
+int DEPTH = 0;
+static uint64_t node_count = 0ULL;	
 
 uint64_t p_perft(int depth, Board& board){
 	
@@ -40,13 +42,13 @@ uint64_t p_perft(int depth, Board& board){
 	return nodes;
 }
 uint64_t p_divide(int depth, Board& board){
-	
 	uint64_t level_count = 0ULL;
 
 	std::vector<Move> move_list;
 	
 	if (depth == 0)
 	{
+//		board.printBoard();
 		return 1ULL;
 	}
 
@@ -64,7 +66,8 @@ uint64_t p_divide(int depth, Board& board){
 
 		
 		if (depth == DEPTH){
-			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << endl;
+			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << '\n';
+			node_count += level_count;
 			level_count = 0;
 		}
 
@@ -72,7 +75,6 @@ uint64_t p_divide(int depth, Board& board){
 		board.unmakeMove();	
 	}
 
-		
 	return level_count;
 }
 
@@ -116,39 +118,68 @@ uint64_t divide(int depth, Board& board){
 	 	 board.unmakeMove();
 
 		 if (depth == DEPTH){
-			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << endl;	
+			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << '\n';	
 			level_count = 0;
 		 }
 	 }	
 	
 	return level_count;
 }
-int main(){
-	//PieceArgs p{};
+int main(){	//PieceArgs p{};
+	std::string word;
+	std::string w;
+	char split_char = ' ';
+
+
 	//
 	std::array<std::string, 5> fens = {
 		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-		"rnbqkbnr/ppp3pp/8/3pppP1/8/5N2/PPPPPP1P/RNBQKB1R w KQkq e6 0 4",
-		"rnbqkbnr/ppp2ppp/8/3pp1P1/8/5N2/PPPPPP1P/RNBQKB1R b KQkq - 1 3",
-		"rnbqkbnr/ppp2p1p/8/3pp1pP/8/2N5/PPPPPPP1/R1BQKBNR w KQkq g6 0 4",
-		"rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1"
+		"r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 5 9",
+		"r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3KR2 b kq - 1 1", // kiwipete debug depth 3
+		//"rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8"		
+	
 	};
-	Board board = Board(fens[0]);
-	board.printBoard();
 
-
-	board.printBoard();
-
-	const auto start{std::chrono::steady_clock::now()};
-	const auto perft_result{p_perft(DEPTH, board)};	
-	const auto end{std::chrono::steady_clock::now()};
-	const std::chrono::duration<double> elapsed_seconds{end - start};
-	std::cout << "Perft completed with " << perft_result << " total nodes" << '\n';
-	std::cout << "Nodes per second= " << (perft_result / elapsed_seconds.count()) << '\n';
-	std::cout << "Total time : " << elapsed_seconds.count() << "s" << '\n';
+	std::vector<std::string> words;
 	
+	std::string s;	
 
+	Board board = Board();
+
+	while ( std::getline(std::cin, s) ){
+		if (s == "quit")
+			break;
+		words.clear();
 	
+		std::stringstream ss(s);	
+		
+		while ( std::getline(ss, w, split_char)) {
+			words.push_back(w);
+		}	
+		
+		if ((words.size() == 8) && words[0] == "position" && words[1] == "fen"){
+			std::string fen = words[2] + " " + words[3] + " " + words[4] + " " + words[5] + " " + words[6] + " " + words[7];
+
+			board.setFEN(fen);
+			board.printBoard();
+
+		}
+
+		if ((words.size() == 3) && words[0] == "go" && words[1] == "perft"){
+			const int depth = words[2][0] - '0';
+			DEPTH = depth;
+			node_count = 0ULL;
+			
+			const auto start{std::chrono::steady_clock::now()};
+			const auto perft_result{p_divide(depth, board)};	
+			const auto end{std::chrono::steady_clock::now()};
+			const std::chrono::duration<double> elapsed_seconds{end - start};
+			std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
+			std::cout << "Nodes per second= " << (node_count / elapsed_seconds.count()) << '\n';
+			std::cout << "Total time : " << elapsed_seconds.count() << "s" << '\n' << '\n';
+		}
 	
+		
+	}	
 	return 0;
 }

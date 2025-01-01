@@ -2,6 +2,7 @@
 #include "pieces.h"
 #include "types.h"
 #include "movegen.h"
+#include <string>
 #include <cctype>
 #include <algorithm>
 #include <vector>
@@ -53,19 +54,11 @@ class Board{
 		void unmakeMove();
 		void unmakeMoveHelper();
 		void printBoard(void);
-		void addCastlingRights(void);
 		void addMoveToHistory(Move&);
 		bool movePawnFifthRank(int, int);
 	       	bool movePawnFourthRank(int, int);
-		bool isValidMove(int, int, int);	
-		void addEnPassantRights(void);
-		void removeEnPassantRights(void);
-
-		bool isCastlingMove(int, int);
-		bool isWhiteKSCastlingMove(int, int);
-		bool isWhiteQSCastlingMove(int, int);
-		bool isBlackKSCastlingMove(int, int );
-		bool isBlackQSCastlingMove(int, int);
+		
+		void setFEN(std::string);
 		void whiteKingSideCastle(void);
 		void whiteQueenSideCastle(void);
 		void blackKingSideCastle(void);
@@ -78,7 +71,7 @@ class Board{
 		void generateMoves(void);
 		std::vector<Move> generateLegalMoves(void);
 		std::vector<Move> generatePseudoLegalMoves(void);
-		std::vector<string> split_fen(std::string&);
+		std::vector<std::string> split_fen(std::string&);
 		void parsePieceFen(std::string&);
 		
 		void parseTurn(std::string&);

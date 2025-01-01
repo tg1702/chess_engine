@@ -21,7 +21,7 @@ Board::Board(){
 	
 			
 
-			}
+}
 
 void Board::parsePieceFen(std::string &fen){
 
@@ -106,7 +106,29 @@ void Board::parseEnPassantSquares(std::string &fen){
 }
 
 void Board::parseCastlingRights(std::string &fen){
+	
+	if (fen == "-")
+	{
 
+		whiteKSKRMoved = true;
+		blackKSKRMoved = true;
+		whiteQSKRMoved = true;
+		blackQSKRMoved = true;	
+	}
+	else 
+	{
+		
+		for(const char& f: fen){
+			if (f == 'K')
+				whiteKSKRMoved = false;
+			if (f == 'Q')
+				whiteQSKRMoved = false;
+			if (f == 'k')
+				blackKSKRMoved = false;
+			if (f == 'q')
+				blackQSKRMoved = false;
+		}
+	}
 }
 
 void Board::parseHalfMoveClock(std::string &fen){
@@ -117,29 +139,16 @@ void Board::parseFullMoveClock(std::string &fen){
 
 }
 
-std::vector<string> Board::split_fen(std::string &fen){
+std::vector<std::string> Board::split_fen(std::string &fen){
 	std::stringstream ss(fen);
 	std::istream_iterator<std::string> begin(ss), end;
 	return std::vector<std::string> (begin, end);
 }
 
 Board::Board(std::string fen){
-	std::vector<string> splitFen = split_fen(fen);
-	
-	if (splitFen.size() != 6) return;
-	
-	parsePieceFen(splitFen[0]);
-	parseTurn(splitFen[1]);
-	parseCastlingRights(splitFen[2]);
-	parseEnPassantSquares(splitFen[3]);
-	parseHalfMoveClock(splitFen[4]);
-	parseFullMoveClock(splitFen[5]);
-	
-	whiteKSKRMoved = false;
-	blackKSKRMoved = false;
-	whiteQSKRMoved = false;
-	blackQSKRMoved = false;	
+	setFEN(fen);		
 }
+
 
 Board::Board(PieceArgs &args, bool turn, bool whiteKSCastle, bool whiteQSCastle, bool blackKSCastle, bool blackQSCastle, int epSquare, int halfmove, int fullmove){
 			pieces.setBoard(args);
@@ -161,6 +170,19 @@ Board::Board(PieceArgs &args, bool turn, bool whiteKSCastle, bool whiteQSCastle,
 */
 }
 
+void Board::setFEN(std::string fen){
+
+	std::vector<std::string> splitFen = split_fen(fen);
+	
+	if (splitFen.size() != 6) return;
+	
+	parsePieceFen(splitFen[0]);
+	parseTurn(splitFen[1]);
+	parseCastlingRights(splitFen[2]);
+	parseEnPassantSquares(splitFen[3]);
+	parseHalfMoveClock(splitFen[4]);
+	parseFullMoveClock(splitFen[5]);
+}
 void Board::makeMove(Move& m){
 	makeMoveHelper(m);
 	turn = !turn;
@@ -212,7 +234,6 @@ void Board::makeMoveHelper(Move& m){
 			else if (pieceType == KING && special == W_KS_CASTLE_FLAG)
 			{
 
-				special = W_KS_CASTLE_FLAG;	
 				whiteKingSideCastle();	
 			}
 
@@ -530,29 +551,11 @@ void Board::unmakeMoveHelper(){
 }
 
 
-bool Board::isCastlingMove(int from, int to){
-	return isWhiteKSCastlingMove(from, to) || isWhiteQSCastlingMove(from, to) || isBlackKSCastlingMove(from, to) || isBlackQSCastlingMove(from, to);  
-}
-
-bool Board::isWhiteKSCastlingMove(int from, int to){
-	return (turn == WHITE && from == E1 && to == G1); 
-}
 void Board::unmakeMove(){
 	turn = !turn;
 	unmakeMoveHelper();
 }
 
-bool Board::isWhiteQSCastlingMove(int from, int to){
-	return (turn == WHITE && from == E1 && to == C1);
-}
-
-bool Board::isBlackKSCastlingMove(int from, int to){
-        return (turn == BLACK && from == E8 && to == G8);
-}
-
-bool Board::isBlackQSCastlingMove(int from, int to){
-        return (turn == BLACK && from == E8 && to == C8);
-}
 
 void Board::whiteKingSideCastle(){
 

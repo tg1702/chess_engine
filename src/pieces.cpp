@@ -1,11 +1,10 @@
 
 #include <iostream>
-#include "lookup.h"
 #include "pieces.h"
 #include "types.h"
-#include "move.h"
-#include <vector>
-#include <algorithm>
+#include "lookup.h"
+#include "utils.h"
+#include "magic.h"
 
 PieceManager::PieceManager(){
 			
@@ -118,13 +117,13 @@ bool PieceManager::isAttacked(bool side, int square){
 	bool opponent = !side;	
 	int bishopIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 	 	
-	int rookIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & rookOccupancyMasks[square], rookMagics[square], square, 0);
+	//int rookIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & rookOccupancyMasks[square], rookMagics[square], square, 0);
 	return (kingLookups[square] & this->Pieces[opponent][KING]) ||
 	       (knightLookups[square] & this->Pieces[opponent][KNIGHT]) ||
 		(pawnAttackLookups[side][square] & this->Pieces[opponent][PAWN]) ||
-		(rookMoveList[square][rookIndex] & this->Pieces[opponent][ROOK]) ||
+		(calcLegalRookMoves(square, this->Pieces[opponent][ALL]  | this->Pieces[side][ALL]) & this->Pieces[opponent][ROOK]) ||
 		(bishopMoveList[square][bishopIndex] & this->Pieces[opponent][BISHOP]) ||
-		((bishopMoveList[square][bishopIndex] | rookMoveList[square][rookIndex]) & this->Pieces[opponent][QUEEN]);
+		((bishopMoveList[square][bishopIndex] | calcLegalRookMoves(square, this->Pieces[opponent][ALL] | this->Pieces[side][ALL])) & this->Pieces[opponent][QUEEN]);
 }
 
 bool PieceManager::canQueenSideCastle(bool side){
@@ -133,8 +132,7 @@ bool PieceManager::canQueenSideCastle(bool side){
 			(Pieces[side][ROOK] & bitset(A1)) && 
 			((1ULL << B1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
 			((1ULL << C1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
-			((1ULL << D1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) && 
-			!isAttacked(side, B1) && 
+			((1ULL << D1) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&  
 			!isAttacked(side, C1) && 
 			!isAttacked(side, D1) && 
 			!isAttacked(side, E1);
@@ -144,7 +142,6 @@ bool PieceManager::canQueenSideCastle(bool side){
                         ((1ULL << B8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
                         ((1ULL << C8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
                         ((1ULL << D8) & ~(Pieces[WHITE][ALL] | Pieces[BLACK][ALL])) &&
-                        !isAttacked(side, B8) &&
                         !isAttacked(side, C8) &&
                         !isAttacked(side, D8) &&
                         !isAttacked(side, E8);

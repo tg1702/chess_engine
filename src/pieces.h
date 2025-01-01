@@ -1,11 +1,7 @@
 
 #include <iostream>
 #include "types.h"
-#include "magic.h"
 #include "utils.h"
-#include "lookup.h"
-#include "move.h"
-#include <vector>
 
 #define SIDES 2
 #define MAX_PIECE_TYPES 7

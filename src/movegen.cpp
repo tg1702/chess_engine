@@ -1,5 +1,6 @@
 #include <iostream>
-#include <vector>
+#include "magic.h"
+#include "lookup.h"
 #include "move.h"
 #include "pieces.h"
 #include "types.h"
@@ -56,11 +57,11 @@ void MoveGen::generateKingMoves(bool side, uint64_t kingbb, uint64_t blockers, M
        		 
 	}
 
+	static int castleCount = 0;
 	if (canWhiteKSCastle)
 	{
 		move_list->moves[move_list->count] = Move(W_KS_CASTLE_FLAG, E1, G1, KING);
 		move_list->count++;
-
 	}
 
 	if (canWhiteQSCastle)
@@ -69,7 +70,7 @@ void MoveGen::generateKingMoves(bool side, uint64_t kingbb, uint64_t blockers, M
 		move_list->count++;
 	}	
 
-/*	if (canBlackKSCastle)
+	if (canBlackKSCastle)
 	{
 		move_list->moves[move_list->count] = Move(B_KS_CASTLE_FLAG, E8, G8, KING);
 		move_list->count++;
@@ -79,7 +80,6 @@ void MoveGen::generateKingMoves(bool side, uint64_t kingbb, uint64_t blockers, M
 		move_list->moves[move_list->count] = Move(B_QS_CASTLE_FLAG, E8, C8, KING);
 		move_list->count++;
 	}
-*/
 }
 
 void MoveGen::generateKnightMoves(bool side, uint64_t knightbb, uint64_t sameSidePieces, MoveList* move_list){
@@ -168,7 +168,7 @@ void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 	while (normal_moves != 0ULL){
                 int from = utils::pop_lsb(normal_moves);
 
-                uint64_t single_pawn_pushes = pawnLookups[side][from] & empty & ~RANK_2;
+                uint64_t single_pawn_pushes = pawnLookups[side][from] & empty;
 
                 uint64_t shift = single_pawn_pushes>>8;
                 uint64_t double_pawn_pushes = shift & empty & RANK_5;
@@ -218,19 +218,26 @@ void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 void MoveGen::generateRookMoves(bool side, uint64_t rookbb, uint64_t myBlockers, uint64_t oppBlockers, MoveList* move_list){
 	uint64_t all = oppBlockers | myBlockers;
 
-        while (rookbb != 0ULL){
+        
+	while (rookbb != 0ULL){
                 int from = utils::pop_lsb(rookbb);
 
 
                 int index = utils::generateMagicIndex( all & rookOccupancyMasks[from], rookMagics[from], from, 0);
-
-		uint64_t legalMove = rookMoveList[from][index] & ~(myBlockers); 
+	
+		uint64_t legalMove = calcLegalRookMoves(from, all & rookOccupancyMasks[from]) & ~(myBlockers); 
 
 		addPossibleMove(from, legalMove, side, ROOK, move_list);
 
         }
-
-
+/*
+        int index = utils::generateMagicIndex( all & rookOccupancyMasks[2], rookMagics[2], 2, 0);
+	std::cout << all << '\n';
+	std::cout << (rookOccupancyMasks[2]) << '\n';	
+	std::cout << index << '\n';	
+	for (int i = index; i < index + 5; i++)
+		std::cout << rookMoveList[2][i] << '\n';
+*/
 }
 void MoveGen::generateBishopMoves(bool side, uint64_t bishopbb, uint64_t myBlockers, uint64_t oppBlockers, MoveList* move_list){
 	uint64_t all = myBlockers | oppBlockers;
@@ -262,7 +269,7 @@ void MoveGen::generateQueenMoves(bool side, uint64_t queenbb, uint64_t myBlocker
 
 
 		uint64_t legalBishopMoves = bishopMoveList[from][bishopIndex] & ~(myBlockers);
-                uint64_t legalRookMoves = rookMoveList[from][rookIndex] & ~(myBlockers);
+                uint64_t legalRookMoves = calcLegalRookMoves(from, all & rookOccupancyMasks[from]) & ~(myBlockers);
 
 		uint64_t legalQueenMoves = legalRookMoves | legalBishopMoves;
                 addPossibleMove(from, (legalQueenMoves) , side, QUEEN, move_list);
