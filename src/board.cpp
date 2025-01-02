@@ -110,25 +110,29 @@ void Board::parseCastlingRights(std::string &fen){
 	if (fen == "-")
 	{
 
-		whiteKSKRMoved = true;
-		blackKSKRMoved = true;
-		whiteQSKRMoved = true;
-		blackQSKRMoved = true;	
+		canWhiteKSCastle = false;
+		canWhiteQSCastle = false;
+		canBlackKSCastle = false;
+		canBlackKSCastle = false;
+
+			
 	}
 	else 
 	{
 		
 		for(const char& f: fen){
 			if (f == 'K')
-				whiteKSKRMoved = false;
+				canWhiteKSCastle = true;
 			if (f == 'Q')
-				whiteQSKRMoved = false;
+				canWhiteQSCastle = true;
 			if (f == 'k')
-				blackKSKRMoved = false;
+				canBlackKSCastle = true;
 			if (f == 'q')
-				blackQSKRMoved = false;
+				canBlackQSCastle = true;
 		}
+
 	}
+	
 }
 
 void Board::parseHalfMoveClock(std::string &fen){
@@ -215,18 +219,7 @@ void Board::makeMoveHelper(Move& m){
 					enPassantSquare = to - 8;
 				}
 				
-
-
-
-				if (pieceType == KING && turn == WHITE) {whiteQSKRMoved = true; whiteKSKRMoved = true;}
-				if (pieceType == KING && turn == BLACK) {blackQSKRMoved = true; blackKSKRMoved = true;}
-				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(A1))	&& turn == WHITE) whiteQSKRMoved = true;
-				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(H1))	&& turn == WHITE) whiteKSKRMoved = true;
-			
-				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(A8))	&& turn == BLACK) blackQSKRMoved = true;
-				if (pieceType == ROOK && (pieces.getPiecesBB(turn, ROOK) & bitset(H8))	&& turn == BLACK) blackKSKRMoved = true;	
-
-				
+	
 				pieces.movePiece(turn, pieceType, from, to);
 				validCapture = true;
 			}
@@ -290,6 +283,7 @@ void Board::makeMoveHelper(Move& m){
 
 		
 	
+	
 	Move temp = Move(special, from, to, toPieceType, capturedPieceType);	
 	addMoveToHistory(temp);	
 
@@ -312,26 +306,13 @@ void Board::generateMoves(){
 		.pawn_bb = pieces.getPiecesBB(turn, PAWN)
 	};
 
-
-	PieceBB enemy {
-		.king_bb = pieces.getPiecesBB(!turn, KING), 
-		.queen_bb = pieces.getPiecesBB(!turn, QUEEN), 
-		.rook_bb = pieces.getPiecesBB(!turn, ROOK),  
-		.bishop_bb = pieces.getPiecesBB(!turn, BISHOP), 
-		.knight_bb = pieces.getPiecesBB(!turn, KNIGHT), 
-		.pawn_bb = pieces.getPiecesBB(!turn, PAWN)
-	};
-
+	//canWhiteQSCastle = canWhiteQSCastle && (turn == WHITE);
+	//canWhiteKSCastle = canWhiteKSCastle && (turn == WHITE);
+	//canBlackQSCastle = canBlackQSCastle && (turn == BLACK);
+	//canBlackKSCastle = canBlackKSCastle && (turn == BLACK);	
 	
-	
-	canWhiteKSCastle = (turn == WHITE) && !whiteKSKRMoved && pieces.canKingSideCastle(WHITE);
-	canWhiteQSCastle = (turn == WHITE) && !whiteQSKRMoved && pieces.canQueenSideCastle(WHITE);
-	canBlackKSCastle = (turn == BLACK) && !blackKSKRMoved && pieces.canKingSideCastle(BLACK);
-	canBlackQSCastle = (turn == BLACK) && !blackQSKRMoved && pieces.canQueenSideCastle(BLACK);
+	generator.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL), move_list, enPassantSquare, canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE), canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE), canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK), canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK));
 
-	generator.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL), move_list, enPassantSquare, canWhiteKSCastle, canWhiteQSCastle, canBlackKSCastle, canBlackQSCastle);
-
-	
 	
 }
 
@@ -527,26 +508,27 @@ void Board::unmakeMoveHelper(){
                 pieces.addPiece(!turn, capturedPieceType, to);
         }	
 	
-
-	whiteKSKRMoved = false;
-	whiteQSKRMoved = false;
-	blackKSKRMoved = false;
-	blackQSKRMoved = false;
-
-	for (int i = 0; i < actualMoveCount; i++){
-		int formerPiece = actualMoves[i].getFromPiece();
-
-		if (formerPiece == KING && (i % 2) == WHITE) {whiteQSKRMoved = true; whiteKSKRMoved = true;}
-		if (formerPiece == KING && (i % 2) == BLACK) {blackQSKRMoved = true; blackKSKRMoved = true;}
-		if (formerPiece == ROOK &&  (bitset(from) & bitset(A1)) && (i % 2) == WHITE) whiteQSKRMoved = true;
-		if (formerPiece == ROOK && (bitset(from) & bitset(H1)) && (i % 2) == WHITE) whiteKSKRMoved = true;	
-		if (formerPiece == ROOK && (bitset(from) & bitset(A8)) && (i % 2) == BLACK) blackQSKRMoved = true;
-		if (formerPiece == ROOK && (bitset(from) & bitset(H8)) && (i % 2) == BLACK) blackKSKRMoved = true;	
-	}
+	canWhiteQSCastle = true;
+	canWhiteKSCastle = true;
+	canBlackQSCastle = true;
+	canBlackKSCastle = true;	
 
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
 
+
+	for (int i = 0; i < actualMoveCount; i++){
+		int formerPiece = actualMoves[i].getFromPiece();
+
+		if (formerPiece == KING && (i % 2) == WHITE) {canWhiteQSCastle = false; canWhiteKSCastle = false;}
+		if (formerPiece == KING && (i % 2) == BLACK) {canBlackQSCastle = false; canBlackKSCastle = false;}
+		if (formerPiece == ROOK &&  (bitset(from) & bitset(A1)) && (i % 2) == WHITE) canWhiteQSCastle = false;
+		if (formerPiece == ROOK && (bitset(from) & bitset(H1)) && (i % 2) == WHITE) canWhiteKSCastle = false;	
+		if (formerPiece == ROOK && (bitset(from) & bitset(A8)) && (i % 2) == BLACK) canBlackQSCastle = false;
+		if (formerPiece == ROOK && (bitset(from) & bitset(H8)) && (i % 2) == BLACK) canBlackKSCastle = false;	
+	}	
+
+	
 	enPassantSquare = -1;
 }
 
