@@ -309,10 +309,6 @@ void Board::makeMoveHelper(Move& m){
 
 	}
 
-		canWhiteKSCastle = true;
-		canWhiteQSCastle = true;
-		canBlackKSCastle = true;
-		canBlackQSCastle = true;
 
 		if (pieceType == KING && turn == WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
 		if (pieceType == KING && turn == BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
@@ -321,14 +317,15 @@ void Board::makeMoveHelper(Move& m){
 			
 		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == BLACK) canBlackQSCastle = false;
 		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == BLACK) canBlackKSCastle = false;			
-		castlingRights[0][actualMoveCount] = canWhiteKSCastle;
-		castlingRights[1][actualMoveCount] = canWhiteQSCastle;
-		castlingRights[2][actualMoveCount] = canBlackKSCastle;
-		castlingRights[3][actualMoveCount] = canBlackQSCastle;
 
 	Move temp = Move(special, from, to, toPieceType, capturedPieceType);	
 	addMoveToHistory(temp);	
 
+	castlingRights[0][actualMoveCount] = canWhiteKSCastle;
+	castlingRights[1][actualMoveCount] = canWhiteQSCastle;
+	castlingRights[2][actualMoveCount] = canBlackKSCastle;
+	castlingRights[3][actualMoveCount] = canBlackQSCastle;
+	
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
 	

@@ -202,10 +202,11 @@ void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 		int from = utils::pop_lsb(promotions);
 		
 
-		if (pawnLookups[side][from] & empty){
-
+		uint64_t normal_promotions = pawnLookups[side][from] & empty;
+		while (normal_promotions != 0ULL){
+			int to = utils::pop_lsb(normal_promotions);
 			for(auto& normal_promoted: normal_promoted_codes){
-				move_list->moves[move_list->count] = Move(normal_promoted, from, pawnLookups[side][from], PAWN, 0ULL);
+				move_list->moves[move_list->count] = Move(normal_promoted, from, to, PAWN, 0ULL);
 				move_list->count++;
 			}
 		}
