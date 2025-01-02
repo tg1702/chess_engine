@@ -11,12 +11,12 @@
 
 Board::Board(){
 			turn = WHITE;
-	
-			whiteKSKRMoved = false;
-			blackKSKRMoved = false;
-			whiteQSKRMoved = false;
-			blackQSKRMoved = false;	
-			 
+		 
+			canWhiteQSCastle = true;
+			canWhiteKSCastle = true;
+			canBlackQSCastle = true;
+			canBlackKSCastle = true;	
+			
 			enPassantSquare = -1;
 	
 			
@@ -107,17 +107,12 @@ void Board::parseEnPassantSquares(std::string &fen){
 
 void Board::parseCastlingRights(std::string &fen){
 	
-	if (fen == "-")
-	{
+	canWhiteKSCastle = false;
+	canWhiteQSCastle = false;
+	canBlackKSCastle = false;
+	canBlackQSCastle = false;
 
-		canWhiteKSCastle = false;
-		canWhiteQSCastle = false;
-		canBlackKSCastle = false;
-		canBlackKSCastle = false;
-
-			
-	}
-	else 
+	if (fen != "-") 
 	{
 		
 		for(const char& f: fen){
@@ -133,6 +128,10 @@ void Board::parseCastlingRights(std::string &fen){
 
 	}
 	
+	castlingRights[0][actualMoveCount] = canWhiteKSCastle;
+	castlingRights[1][actualMoveCount] = canWhiteQSCastle;
+	castlingRights[2][actualMoveCount] = canBlackKSCastle;
+	castlingRights[3][actualMoveCount] = canBlackQSCastle;
 }
 
 void Board::parseHalfMoveClock(std::string &fen){
@@ -248,14 +247,44 @@ void Board::makeMoveHelper(Move& m){
 				blackQueenSideCastle();
 			}
 
-			else if (pieceType == PAWN && pieces.isPromoting(turn, from, to))
-			{
-				if (!special) special = QUEEN_PROMOTION;
-
-				promotePawns(turn, from, to, special);
-				validCapture = true;
+			else if (special == QUEEN_PROMOTION){
+				pieces.addPiece(turn, QUEEN, to);
+				pieces.clearPiece(turn, PAWN, from);	
 			}
-
+			else if (special == ROOK_PROMOTION){
+                		pieces.addPiece(turn, ROOK, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        		}
+			else if (special == BISHOP_PROMOTION){
+                		pieces.addPiece(turn, BISHOP, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        		}
+			else if (special == KNIGHT_PROMOTION){
+                		pieces.addPiece(turn, KNIGHT, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        		}
+			else if (special == QUEEN_PROMOTION_CAPTURE){
+                		pieces.addPiece(turn, QUEEN, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        			validCapture = true;
+			}
+        		else if (special == ROOK_PROMOTION_CAPTURE){
+                		pieces.addPiece(turn, ROOK, to);
+                		pieces.clearPiece(turn, PAWN, from);
+				validCapture = true;
+        		}
+			
+			else if (special == BISHOP_PROMOTION_CAPTURE){
+                		pieces.addPiece(turn, BISHOP, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        			validCapture = true;
+			}
+			
+			else if (special == KNIGHT_PROMOTION_CAPTURE){
+                		pieces.addPiece(turn, KNIGHT, to);
+                		pieces.clearPiece(turn, PAWN, from);
+        			validCapture = true;
+			}
 			else if ( pieceType == PAWN && turn == WHITE && special == EN_PASSANT_FLAG){
 				enPassantWhite(from, to);
 			}
@@ -265,15 +294,14 @@ void Board::makeMoveHelper(Move& m){
 				enPassantBlack(from, to);
 			}
 
-
+		
 	moveMessage = pieceSquareNames[from] + pieceSquareNames[to];	
 	toPieceType = pieceType;
 
 	
 	for (size_t i = 0; i < PIECE_TYPES && validCapture; i++){
-		if ((pieces.getPiecesBB(!turn, i) & bitset(to))){ 
-			special = updateToCaptureFlag(special);
-				
+		if ((pieces.getPiecesBB(!turn, i) & bitset(to))){ 			
+			if (special == NORMAL) special = CAPTURE_FLAG;
 			pieces.clearPiece(!turn, i, to);
 			capturedPieceType = i;
 			break;
@@ -281,9 +309,23 @@ void Board::makeMoveHelper(Move& m){
 
 	}
 
-		
-	
-	
+		canWhiteKSCastle = true;
+		canWhiteQSCastle = true;
+		canBlackKSCastle = true;
+		canBlackQSCastle = true;
+
+		if (pieceType == KING && turn == WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
+		if (pieceType == KING && turn == BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
+		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == WHITE) canWhiteQSCastle = false;
+		if (pieceType == ROOK && (bitset(from) & bitset(H1))	&& turn == WHITE) canWhiteKSCastle = false;
+			
+		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == BLACK) canBlackQSCastle = false;
+		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == BLACK) canBlackKSCastle = false;			
+		castlingRights[0][actualMoveCount] = canWhiteKSCastle;
+		castlingRights[1][actualMoveCount] = canWhiteQSCastle;
+		castlingRights[2][actualMoveCount] = canBlackKSCastle;
+		castlingRights[3][actualMoveCount] = canBlackQSCastle;
+
 	Move temp = Move(special, from, to, toPieceType, capturedPieceType);	
 	addMoveToHistory(temp);	
 
@@ -306,10 +348,6 @@ void Board::generateMoves(){
 		.pawn_bb = pieces.getPiecesBB(turn, PAWN)
 	};
 
-	//canWhiteQSCastle = canWhiteQSCastle && (turn == WHITE);
-	//canWhiteKSCastle = canWhiteKSCastle && (turn == WHITE);
-	//canBlackQSCastle = canBlackQSCastle && (turn == BLACK);
-	//canBlackKSCastle = canBlackKSCastle && (turn == BLACK);	
 	
 	generator.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL), move_list, enPassantSquare, canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE), canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE), canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK), canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK));
 
@@ -388,8 +426,13 @@ void Board::printBoard(){
 		}
 		std::cout << '\n';
 	}
-	std::cout << " turn = " << turn << '\n';
-	std::cout << " ep = " << enPassantSquare << '\n';
+	std::cout << " turn = " << ((turn) ? "BLACK" : "WHITE") << '\n';
+	std::cout << " ep = " << ((enPassantSquare == -1) ? "None" : pieceSquareNames[enPassantSquare]) << '\n';
+	std::cout << " white kingside castle " << ((canWhiteKSCastle) ? "y" : "n") << '\n';
+	std::cout << " white queenside castle " << ((canWhiteQSCastle) ? "y" : "n") << '\n';
+	
+	std::cout << " black kingside castle " << ((canBlackKSCastle) ? "y" : "n") << '\n';
+	std::cout << " black queenside castle " << ((canBlackQSCastle) ? "y" : "n") << '\n';
 	std::cout << "\n\n\n";
 }
 
@@ -452,6 +495,7 @@ void Board::unmakeMoveHelper(){
 
 		pieces.movePiece(WHITE, KING, G1, E1);
 		pieces.movePiece(WHITE, ROOK, F1, H1); 
+	
 	}
 	else if (flag == B_KS_CASTLE_FLAG){
 		
@@ -495,7 +539,7 @@ void Board::unmakeMoveHelper(){
         else if (flag == ROOK_PROMOTION_CAPTURE){
                 pieces.clearPiece(turn, ROOK, to);
                 pieces.addPiece(turn, PAWN, from);
-                pieces.addPiece(!turn, capturedPieceType, to);
+      		pieces.addPiece(!turn, capturedPieceType, to);
         }
         else if (flag == BISHOP_PROMOTION_CAPTURE){
                 pieces.clearPiece(turn, BISHOP, to);
@@ -508,26 +552,13 @@ void Board::unmakeMoveHelper(){
                 pieces.addPiece(!turn, capturedPieceType, to);
         }	
 	
-	canWhiteQSCastle = true;
-	canWhiteKSCastle = true;
-	canBlackQSCastle = true;
-	canBlackKSCastle = true;	
+	canWhiteKSCastle = castlingRights[0][actualMoveCount];
+	canWhiteQSCastle = castlingRights[1][actualMoveCount];
+	canBlackKSCastle = castlingRights[2][actualMoveCount];
+	canBlackQSCastle = castlingRights[3][actualMoveCount];	
 
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
-
-
-	for (int i = 0; i < actualMoveCount; i++){
-		int formerPiece = actualMoves[i].getFromPiece();
-
-		if (formerPiece == KING && (i % 2) == WHITE) {canWhiteQSCastle = false; canWhiteKSCastle = false;}
-		if (formerPiece == KING && (i % 2) == BLACK) {canBlackQSCastle = false; canBlackKSCastle = false;}
-		if (formerPiece == ROOK &&  (bitset(from) & bitset(A1)) && (i % 2) == WHITE) canWhiteQSCastle = false;
-		if (formerPiece == ROOK && (bitset(from) & bitset(H1)) && (i % 2) == WHITE) canWhiteKSCastle = false;	
-		if (formerPiece == ROOK && (bitset(from) & bitset(A8)) && (i % 2) == BLACK) canBlackQSCastle = false;
-		if (formerPiece == ROOK && (bitset(from) & bitset(H8)) && (i % 2) == BLACK) canBlackKSCastle = false;	
-	}	
-
 	
 	enPassantSquare = -1;
 }

@@ -99,8 +99,7 @@ void MoveGen::generateWhitePawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
        	uint64_t empty = ~all;
 	uint64_t ep_squares = (enPassantSquare == -1) ? 0 : (pawnbb & RANK_5 & ( bitset((enPassantSquare - 1 - 8)) | bitset((enPassantSquare + 1 - 8))));
 	uint64_t normal_moves = pawnbb & ~RANK_7;	
-       	uint64_t normal_promotions = pawnbb & RANK_7 & empty;	
-	uint64_t capture_promotions = pawnbb & RANK_7 & ( oppBlockers & (pawnbb<<7) & (pawnbb << 9) ); 
+       	uint64_t promotions = pawnbb & RANK_7;	
 
 	while (normal_moves != 0ULL){
                 int from = utils::pop_lsb(normal_moves);
@@ -130,28 +129,34 @@ void MoveGen::generateWhitePawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 
 	}
 
-/*	
-	while (normal_promotions != 0ULL){
-		int from = utils::pop_lsb(normal_promotions);
+	
+	while (promotions != 0ULL){
+		int from = utils::pop_lsb(promotions);
 		
-		for(auto& normal_promoted: normal_promoted_codes){
-			move_list->moves[move_list->count] = Move(normal_promoted, from, pawnLookups[side][from], PAWN, 0ULL);
-			move_list->count++;
+
+		if (pawnLookups[side][from] & empty){
+
+			for(auto& normal_promoted: normal_promoted_codes){
+				move_list->moves[move_list->count] = Move(normal_promoted, from, pawnLookups[side][from], PAWN, 0ULL);
+				move_list->count++;
+			}
+		}
+
+		uint64_t captures = pawnAttackLookups[side][from] & oppBlockers;
+		
+		while (captures != 0ULL)
+		{
+			int to = utils::pop_lsb(captures);
+
+			for(auto& capture_promoted: capture_promoted_codes){
+				move_list->moves[move_list->count] = Move(capture_promoted, from, to, PAWN, 0ULL);
+				move_list->count++;
+			}	
 		}	
 	}
 
-	while (capture_promotions != 0ULL){
-		int from = utils::pop_lsb(capture_promotions);
 
-		for(auto& capture_promoted: capture_promoted_codes){
-			move_list->moves[move_list->count] = Move(capture_promoted, from, pawnAttackLookups[side][from], PAWN, 0ULL);
-			move_list->count++;
-		}	
-
-	}
-*/
 }
-
 
 void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBlockers, uint64_t oppBlockers, MoveList* move_list, int enPassantSquare){
  	uint64_t all = myBlockers | oppBlockers;
@@ -159,8 +164,7 @@ void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 	uint64_t ep_squares = (enPassantSquare == -1) ? 0: pawnbb & RANK_4 & ( bitset((enPassantSquare - 1 + 8)) | bitset((enPassantSquare + 1 + 8))) ;
       
         uint64_t normal_moves = pawnbb & ~RANK_2;	
-       	uint64_t normal_promotions = pawnbb & RANK_2 & empty;	
-	uint64_t capture_promotions = pawnbb & RANK_2 & ( oppBlockers & (pawnbb>> 7) & (pawnbb >> 9) ); 
+       	uint64_t promotions = pawnbb & RANK_2;	
 	
 	//single and double pawn pushes
 	//
@@ -193,26 +197,33 @@ void MoveGen::generateBlackPawnMoves(bool side, uint64_t pawnbb, uint64_t myBloc
 
 	}	
 
-/*
-	while (normal_promotions != 0ULL){
-		int from = utils::pop_lsb(normal_promotions);
+
+	while (promotions != 0ULL){
+		int from = utils::pop_lsb(promotions);
 		
-		for(auto& normal_promoted: normal_promoted_codes){
-			move_list->moves[move_list->count] = Move(normal_promoted, from, pawnLookups[side][from], PAWN, 0ULL);
-			move_list->count++;
+
+		if (pawnLookups[side][from] & empty){
+
+			for(auto& normal_promoted: normal_promoted_codes){
+				move_list->moves[move_list->count] = Move(normal_promoted, from, pawnLookups[side][from], PAWN, 0ULL);
+				move_list->count++;
+			}
+		}
+
+		uint64_t captures = pawnAttackLookups[side][from] & oppBlockers;
+		
+		while (captures != 0ULL)
+		{
+			int to = utils::pop_lsb(captures);
+
+			for(auto& capture_promoted: capture_promoted_codes){
+				move_list->moves[move_list->count] = Move(capture_promoted, from, to, PAWN, 0ULL);
+				move_list->count++;
+			}	
 		}	
 	}
 
-	while (capture_promotions != 0ULL){
-		int from = utils::pop_lsb(capture_promotions);
 
-		for(auto& capture_promoted: capture_promoted_codes){
-			move_list->moves[move_list->count] = Move(capture_promoted, from, pawnAttackLookups[side][from], PAWN, 0ULL);
-			move_list->count++;
-		}	
-
-	}
-*/
 }
 void MoveGen::generateRookMoves(bool side, uint64_t rookbb, uint64_t myBlockers, uint64_t oppBlockers, MoveList* move_list){
 	uint64_t all = oppBlockers | myBlockers;

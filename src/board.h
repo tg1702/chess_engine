@@ -16,11 +16,13 @@ class Board{
 		MoveList* move_list = new MoveList();
 
 		bool turn = WHITE;
-		
+			
 
 
 		int actualMoveCount = 0;
 		Move actualMoves[10];
+		
+		bool castlingRights[4][10]; 
 		
 		bool whiteKSKRMoved;
 		bool blackKSKRMoved;

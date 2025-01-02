@@ -470,10 +470,8 @@ constexpr uint64_t pawnLookups[2][64] = {
 }
 };
 
-//constexpr uint64_t rookOccupancyMasks[64] = {
 
 
-//};
 
 constexpr uint64_t rookOccupancyMasks[64] = {
     0x000101010101017EULL, 0x000202020202027CULL, 0x000404040404047AULL,  0x8080808080876ULL,
