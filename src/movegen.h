@@ -5,7 +5,7 @@
 #pragma once
 class MoveGen{
 	private:
-		void addPossibleMove(int, uint64_t, bool, int, MoveList*);
+		void addPossibleMove(Square, uint64_t, bool, PieceType, MoveList*);
 	public:
 		void generateMoves(bool, const PieceBB*, uint64_t, MoveList*, int, bool, bool, bool, bool);
 		void addKingSideCastling(bool, MoveList*);
@@ -17,7 +17,6 @@ class MoveGen{
 		void generateRookMoves(bool, uint64_t, uint64_t, uint64_t, MoveList*);
 		void generateBishopMoves(bool, uint64_t, uint64_t, uint64_t, MoveList*);
 		void generateQueenMoves(bool, uint64_t, uint64_t, uint64_t, MoveList*);
-		bool isPromoting(bool, int, int);
 
 		
 

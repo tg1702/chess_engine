@@ -68,7 +68,6 @@ static const std::array<std::array<uint64_t, TABLE_SIZE>, 64> rookMoveList = [] 
 	
 	for (size_t square = 0; square < 64; square++){
 		int MAX_PATTERNS = 1 << (64 - rookShifts[square]);    
-		uint64_t attackCombos = rookOccupancyMasks[square];
 		std::array<uint64_t, TABLE_SIZE> rookLookup {};	
 		
 		for (int i = 0; i < MAX_PATTERNS; i++){

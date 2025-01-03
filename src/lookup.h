@@ -1,7 +1,9 @@
+
+#pragma once
+
 #include <iostream>
 #include <random>
 #include <algorithm>
-#include <vector>
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,27 +11,10 @@
 
 #include "types.h"
 #include "utils.h"
-// Max size of lookup table (redefine as 512 for bishops)
+
 #define TABLE_SIZE 4096
-using namespace std;
 
-#pragma once
 
-static void writeToTextFile(std::array<uint64_t, TABLE_SIZE> lookupTable){
-	ofstream file;
-	file.open("magic.txt", std::ios_base::app);
-	file << " {\n";
-	for (int i = 0; i < lookupTable.size(); ++i){
-          	
-		file << lookupTable[i] << "ULL";
-		if (i != lookupTable.size() - 1)	
-			file << ", ";
-	}
-
-	file << "},\n";
-	file.close();
-
-}
 constexpr uint64_t generateWhiteRookMask(int plain_square){
  uint64_t square = bitset(plain_square);
  uint64_t upDirection = 0Ull;
@@ -143,7 +128,6 @@ for (rank = curRank-1 , file = curFile-1; rank >= 0 && file >= 0; rank--, file--
 
 
 constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_pieces, int MAX_PATTERNS){
-	int count = 0;
 	std::array<uint64_t, TABLE_SIZE> blockedBitboards{};
 
 
@@ -153,7 +137,7 @@ constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_
 
 	int n = __builtin_popcountll(blocker_pieces);
        		
-	for (int patternIndex = 0; patternIndex < (1ULL << n); patternIndex++){
+	for (int patternIndex = 0; patternIndex < (1 << n); patternIndex++){
 		uint64_t result = 0ULL;
 		uint64_t copy = blocker_pieces;
 
@@ -167,10 +151,7 @@ constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_
 	return blockedBitboards;	
 }
 
-constexpr uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){
-	uint64_t legalMoves = 0ULL;
-	
-	
+constexpr uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){	
 	
  uint64_t result = 0ULL;
  

@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <iostream>
 #include "types.h"
 #include "utils.h"
@@ -6,7 +8,6 @@
 #define SIDES 2
 #define MAX_PIECE_TYPES 7
 
-#pragma once
 
 
 class PieceManager{
@@ -15,7 +16,7 @@ class PieceManager{
 	public:
 
 
-		inline void setAnyPosBB(bool side, int type, uint64_t pos){
+		inline void setAnyPosBB(bool side, PieceType type, uint64_t pos){
 			this->Pieces[side][type] = pos;
 		}
 
@@ -24,7 +25,7 @@ class PieceManager{
 		this->Pieces[side][ALL] = all_pieces_bb;
 		}
 
-	inline void updatePiecesBB(bool side, int type, uint64_t bb){
+	inline void updatePiecesBB(bool side, PieceType type, uint64_t bb){
 		this->Pieces[side][type] = bb;
 	}
 
@@ -33,26 +34,26 @@ class PieceManager{
 	}
 
 
-	inline uint64_t getPiecesBB(bool side, int type){
+	inline uint64_t getPiecesBB(bool side, PieceType type){
 		return this->Pieces[side][type];
 	}
 	
 		
 			
 
-	inline void movePiece(bool side, int type, int from, int to){
+	inline void movePiece(bool side, PieceType type, Square from, Square to){
 		clearPiece(side, type, from);
 		addPiece(side, type, to);
 	}
 
-	inline void clearPiece(bool side, int type, int square){
+	inline void clearPiece(bool side, PieceType type, Square square){
 		uint64_t curBB = getPiecesBB(side, type);
 		bitclear(curBB, square);
 		setAnyPosBB( side, type , curBB);
 	
 	}
 
-	inline void addPiece(bool side, int type, int on){
+	inline void addPiece(bool side, PieceType type, Square on){
 		setAnyPosBB(side, type, getPiecesBB(side, type) | bitset(on));
 	}
 		PieceManager(void);
@@ -61,7 +62,6 @@ class PieceManager{
 		
 		bool canKingSideCastle(bool);
 		bool canQueenSideCastle(bool);		
-		bool isPromoting(bool, int, int);	
-		bool isAttacked(bool, int);
+		bool isAttacked(bool, Square);
 };
 

@@ -81,22 +81,6 @@ void PieceManager::setBoard(PieceArgs& args){
 }
 
 
-
-
-bool PieceManager::isPromoting(bool side, int from, int to){
-
-		if (side == WHITE && (bitset(from) & RANK_7) && (bitset(to) & RANK_8)){
-			return true;
-		}
-		else if (side == BLACK && (bitset(from) & RANK_2) && (bitset(to) & RANK_1)){
-			return true;
-		}
-		else{
-			return false;
-		}
-
-}
-
 bool PieceManager::canKingSideCastle(bool side){
 	if (side == WHITE)
 		return (Pieces[side][KING] & bitset(E1)) && 
@@ -113,7 +97,7 @@ bool PieceManager::canKingSideCastle(bool side){
                         !isAttacked(side, G8);
 }
 
-bool PieceManager::isAttacked(bool side, int square){
+bool PieceManager::isAttacked(bool side, Square square){
 	bool opponent = !side;	
 	int bishopIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[!side][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 	 	

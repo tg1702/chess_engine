@@ -1,5 +1,4 @@
 #include "board.h"
-#include "move.h"
 #include "movegen.h"
 #include <iostream>
 #include <algorithm>
@@ -142,40 +141,16 @@ void Board::parseFullMoveClock(std::string &fen){
 
 }
 
-std::vector<std::string> Board::split_fen(std::string &fen){
-	std::stringstream ss(fen);
-	std::istream_iterator<std::string> begin(ss), end;
-	return std::vector<std::string> (begin, end);
-}
 
 Board::Board(std::string fen){
 	setFEN(fen);		
 }
 
 
-Board::Board(PieceArgs &args, bool turn, bool whiteKSCastle, bool whiteQSCastle, bool blackKSCastle, bool blackQSCastle, int epSquare, int halfmove, int fullmove){
-			pieces.setBoard(args);
-			
-			turn = WHITE;
-
-			whiteKSKRMoved = false;
-			blackKSKRMoved = false;
-			whiteQSKRMoved = false;
-			blackQSKRMoved = false;	
-	
-			enPassantSquare = -1;	
-
-			/*
-			canWhiteKSCastle = whiteKSCastle && pieces.canKingSideCastle(WHITE);
-			canWhiteQSCastle = whiteQSCastle && pieces.canQueenSideCastle(WHITE);
-			canBlackKSCastle = blackKSCastle && pieces.canKingSideCastle(BLACK);
-			canBlackQSCastle= blackQSCastle && pieces.canQueenSideCastle(BLACK);
-*/
-}
 
 void Board::setFEN(std::string fen){
 
-	std::vector<std::string> splitFen = split_fen(fen);
+	std::vector<std::string> splitFen = utils::split_string(fen);
 	
 	if (splitFen.size() != 6) return;
 	
@@ -195,14 +170,15 @@ void Board::makeMoveHelper(Move& m){
 	
 	enPassantSquare = -1;
 	
-	int from = m.getFrom();
-	int to = m.getTo();
+	Square from = m.getFrom();
+	Square to = m.getTo();
 	int special = m.getFlag();
 
-	int pieceType = m.getFromPiece();
 	bool validCapture = false;
-	size_t toPieceType = 0;
-	size_t capturedPieceType = 0;
+	
+	PieceType pieceType = m.getFromPiece();
+	PieceType toPieceType = KING;
+	PieceType capturedPieceType = KING;
 
 	
 	std::string moveMessage = "Invalid move " + pieceSquareNames[from] + pieceSquareNames[to];	
@@ -223,27 +199,24 @@ void Board::makeMoveHelper(Move& m){
 				validCapture = true;
 			}
 
-			else if (pieceType == KING && special == W_KS_CASTLE_FLAG)
+			else if (special == W_KS_CASTLE_FLAG)
 			{
 
 				whiteKingSideCastle();	
 			}
 
-			else if (pieceType == KING && special == W_QS_CASTLE_FLAG){
+			else if (special == W_QS_CASTLE_FLAG){
 			
-				special = W_QS_CASTLE_FLAG;
 				whiteQueenSideCastle();	
 			}
 
-			else if (pieceType == KING && special == B_KS_CASTLE_FLAG){
+			else if (special == B_KS_CASTLE_FLAG){
 
-				special = B_KS_CASTLE_FLAG;
 				blackKingSideCastle();
 			}
 
-			else if (pieceType == KING && special == B_QS_CASTLE_FLAG){
+			else if (special == B_QS_CASTLE_FLAG){
 
-				special = B_QS_CASTLE_FLAG;
 				blackQueenSideCastle();
 			}
 
@@ -285,31 +258,30 @@ void Board::makeMoveHelper(Move& m){
                 		pieces.clearPiece(turn, PAWN, from);
         			validCapture = true;
 			}
-			else if ( pieceType == PAWN && turn == WHITE && special == EN_PASSANT_FLAG){
+			else if ( turn == WHITE && special == EN_PASSANT_FLAG){
 				enPassantWhite(from, to);
 			}
 
 
-			else if ( pieceType == PAWN && turn == BLACK && special == EN_PASSANT_FLAG){
+			else if ( turn == BLACK && special == EN_PASSANT_FLAG){
 				enPassantBlack(from, to);
 			}
 
 		
-	moveMessage = pieceSquareNames[from] + pieceSquareNames[to];	
-	toPieceType = pieceType;
+			toPieceType = pieceType;
 
 	
-	for (size_t i = 0; i < PIECE_TYPES && validCapture; i++){
-		if ((pieces.getPiecesBB(!turn, i) & bitset(to))){ 			
-			if (special == NORMAL) special = CAPTURE_FLAG;
-			pieces.clearPiece(!turn, i, to);
-			capturedPieceType = i;
-			break;
-		} 
+	if (validCapture){
+		for (const auto& p: PieceTypes){
+			if ((pieces.getPiecesBB(!turn, p) & bitset(to))){ 			
+				if (special == NORMAL) special = CAPTURE_FLAG;
+				pieces.clearPiece(!turn, p , to);
+				capturedPieceType = p;
+				break;
+			} 
 
+		}
 	}
-
-
 		if (pieceType == KING && turn == WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
 		if (pieceType == KING && turn == BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
 		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == WHITE) canWhiteQSCastle = false;
@@ -363,8 +335,6 @@ std::vector<Move> Board::generatePseudoLegalMoves(){
 	for (int i = 0; i < count; ++i){		
 		pseudoLegalMoves.push_back(move_list->moves[i]);
 	
-		//if (actualMoveCount == 6)
-			//std::cout << pieceSquareNames[move_list->moves[i].getFrom()] << pieceSquareNames[move_list->moves[i].getTo()] << '\n';
 	}
 
 	return pseudoLegalMoves;
@@ -398,9 +368,10 @@ void Board::printBoard(){
 	std::fill(std::begin(board), std::end(board), '.');
 	
 	std::array<char, 6> char_type = {'k', 'r', 'e', 'b', 'q', 'n'};
-	for (size_t square = 0; square < 64; square++){
+	
+	for (const auto& square: Squares){
 		for (int side = 0; side < 2; side++){
-		for(int type = 0; type < PIECE_TYPES; type++){
+		for (const auto& type: PieceTypes){
 			
 			if (pieces.getPiecesBB(side, type) & (1ULL << square)){
 				board[square] = char_type[type];
@@ -433,11 +404,11 @@ void Board::printBoard(){
 	std::cout << "\n\n\n";
 }
 
-bool Board::movePawnFifthRank(int from, int to){	
+bool Board::movePawnFifthRank(Square from, Square to){	
 	return ((pieces.getPiecesBB(BLACK, PAWN) & RANK_7 & bitset(from)) && (RANK_5 & bitset(to)));
 }
 
-bool Board::movePawnFourthRank(int from, int to){
+bool Board::movePawnFourthRank(Square from, Square to){
 
 	return (pieces.getPiecesBB(WHITE, PAWN) & RANK_2 & bitset(from)) && (RANK_4 & bitset(to));
 
@@ -456,8 +427,6 @@ void Board::printHistory(){
 int Board::getActualMoveCount(){
 	return actualMoveCount;
 }
-void Board::setActualMoveCount(int depth){
-}
 
 void Board::unmakeMoveHelper(){
 
@@ -465,10 +434,10 @@ void Board::unmakeMoveHelper(){
 
 	actualMoveCount--;
 
-	int piece = lastMove.getFromPiece();
-	int from = lastMove.getFrom();
-	int to = lastMove.getTo();
-	int capturedPieceType = lastMove.getToPiece();
+	PieceType piece = lastMove.getFromPiece();
+	Square from = lastMove.getFrom();
+	Square to = lastMove.getTo();
+	PieceType capturedPieceType = lastMove.getToPiece();
 	int flag = lastMove.getFlag();	
 	
 	if (flag == NORMAL){	
@@ -483,7 +452,7 @@ void Board::unmakeMoveHelper(){
 
 	}
 	else if (flag == EN_PASSANT_FLAG){
-		int target = (turn == WHITE) ? to - 8 : to + 8;
+		Square target = static_cast<Square>((turn == WHITE) ? to - 8 : to + 8);
 	
 		pieces.movePiece(turn, PAWN, to, from);
 		pieces.addPiece(!turn, PAWN, target);
@@ -593,68 +562,33 @@ void Board::blackQueenSideCastle(){
 	pieces.movePiece(BLACK, ROOK, A8, D8); 
 }
 
-void Board::promotePawns(bool side, int from, int to, int special){
-	
-				pieces.clearPiece(side, PAWN, from);
 
-				switch(special){
-					case QUEEN_PROMOTION:	
-						pieces.addPiece(side, QUEEN, to);
-						break;
-					case ROOK_PROMOTION:
-						pieces.addPiece(side, ROOK, to);
-						break;
-					case BISHOP_PROMOTION:
-						pieces.addPiece(side, BISHOP, to);
-						break;
-					case KNIGHT_PROMOTION:
-						pieces.addPiece(side, KNIGHT, to);
-						break;
-
-				}
-
-}
-
-void Board::enPassantWhite(int from, int to){
+void Board::enPassantWhite(Square from, Square to){
 		
 		
 			pieces.movePiece(WHITE, PAWN, from, to);	
-			pieces.clearPiece(BLACK, PAWN, to-8);
+			
+			
+			Square square = static_cast<Square>(to-8);
+			pieces.clearPiece(BLACK, PAWN, square);
 
 
 
 }
 
-void Board::enPassantBlack(int from, int to){	
+void Board::enPassantBlack(Square from, Square to){	
 			pieces.movePiece(BLACK, PAWN, from, to);
-                        pieces.clearPiece(WHITE, PAWN, to+8);
+
+			Square square = static_cast<Square>(to+8);
+                        pieces.clearPiece(WHITE, PAWN, square);
 
 }
 
 
 bool Board::isInCheck(bool side){
-	int kingSquare = __builtin_ctzll(pieces.getPiecesBB(side, KING));
+	uint64_t king_bb = pieces.getPiecesBB(side, KING);
+
+	Square kingSquare = utils::pop_lsb(king_bb);
 	return pieces.isAttacked(side, kingSquare);
 }
 
-int Board::updateToCaptureFlag(int special){
-
-                                switch(special){
-					case NORMAL:
-						special = CAPTURE_FLAG;
-						break;
-					case QUEEN_PROMOTION:
-                                                special = QUEEN_PROMOTION_CAPTURE; 
-						break;
-                                        case ROOK_PROMOTION:
-                                                special = ROOK_PROMOTION_CAPTURE;
-                                                break;
-                                        case BISHOP_PROMOTION:
-                                                special = BISHOP_PROMOTION_CAPTURE;
-                                                break;
-                                        case KNIGHT_PROMOTION:
-                                                special = KNIGHT_PROMOTION_CAPTURE;
-                                                break;
-                                }
-	return special;
-}

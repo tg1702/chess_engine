@@ -171,7 +171,7 @@ int main(){	//PieceArgs p{};
 			node_count = 0ULL;
 			
 			const auto start{std::chrono::steady_clock::now()};
-			const auto perft_result{p_divide(depth, board)};	
+			p_divide(depth, board);	
 			const auto end{std::chrono::steady_clock::now()};
 			const std::chrono::duration<double> elapsed_seconds{end - start};
 			std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
