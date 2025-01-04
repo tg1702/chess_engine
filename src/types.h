@@ -47,7 +47,23 @@ struct PieceBB {
 	uint64_t bishop_bb = 0ULL;
 	uint64_t knight_bb = 0ULL;
 	uint64_t pawn_bb = 0ULL;
+	uint64_t all = 0ULL;
+};
 
+struct BoardState {
+	PieceBB pieces;
+
+	bool turn = WHITE;
+	
+
+	bool whiteKSCastle = true;
+	bool whiteQSCastle = true;
+	bool blackKSCastle = true;
+	bool blackQSCastle = true;
+
+	int enPassant = -1;
+
+	uint64_t enemies = 0ULL;
 };
 
 enum Square{

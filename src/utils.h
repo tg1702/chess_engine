@@ -11,12 +11,6 @@
 #define bitclear(value, index) (value &= ~(1ULL << index))
 
 namespace utils{
-	
-	static std::vector<std::string> split_string(std::string &str){
-		std::stringstream ss(str);
-		std::istream_iterator<std::string> begin(ss), end;
-		return std::vector<std::string> (begin, end);
-	}
 
 	static constexpr Square pop_lsb(uint64_t& bb) {int x = __builtin_ctzll(bb); bb &= (bb - 1ULL); return static_cast<Square>(x);}
         static constexpr PieceType int_to_PieceType(int num){return static_cast<PieceType>(num);}	

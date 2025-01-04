@@ -8,6 +8,13 @@
 #include <string>
 #include <iterator>
 
+
+std::vector<std::string> split_string(std::string &str){
+		std::stringstream ss(str);
+		std::istream_iterator<std::string> begin(ss), end;
+		return std::vector<std::string> (begin, end);
+	}
+
 Board::Board(){
 			turn = WHITE;
 		 
@@ -150,7 +157,7 @@ Board::Board(std::string fen){
 
 void Board::setFEN(std::string fen){
 
-	std::vector<std::string> splitFen = utils::split_string(fen);
+	std::vector<std::string> splitFen = split_string(fen);
 	
 	if (splitFen.size() != 6) return;
 	
@@ -314,11 +321,27 @@ void Board::generateMoves(){
 		.rook_bb = pieces.getPiecesBB(turn, ROOK),  
 		.bishop_bb = pieces.getPiecesBB(turn, BISHOP), 
 		.knight_bb = pieces.getPiecesBB(turn, KNIGHT), 
-		.pawn_bb = pieces.getPiecesBB(turn, PAWN)
+		.pawn_bb = pieces.getPiecesBB(turn, PAWN),
+
+		.all = pieces.getPiecesBB(turn, ALL)
 	};
 
+	BoardState state{
+		.pieces = friendly,
+		
+		.turn = turn,
+		.whiteKSCastle = canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
+		.whiteQSCastle = canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
+		.blackKSCastle = canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
+		.blackQSCastle = canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
+		
+		.enPassant = enPassantSquare,
+
+		.enemies = pieces.getPiecesBB(!turn, ALL)
+	};
 	
-	generator.generateMoves(turn, &friendly, pieces.getPiecesBB(!turn, ALL), move_list, enPassantSquare, canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE), canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE), canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK), canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK));
+	generator.setState(state);
+	generator.generateMoves(move_list);
 
 	
 }

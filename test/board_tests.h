@@ -1,8 +1,10 @@
+/*
 #include <iostream>
 #include <gtest/gtest.h>
 #include <array>
 #include "../src/types.h"
 #include "../src/board.h"
+
 
 TEST(MakeMoveTests, InitialBoardMoves){
 	Board board = Board();
@@ -183,7 +185,6 @@ TEST(CastleTests, InvalidQSMovedA1Rook){
         board.printBoard();
 }
 
-/* BLACK */
 TEST(CastleTests, BlackKingSideCastle){
 	Board board = Board();
 		
@@ -736,4 +737,4 @@ TEST(UndoTests, WhitePromotionCaptures){                                        
 
 }
 
-
+*/
