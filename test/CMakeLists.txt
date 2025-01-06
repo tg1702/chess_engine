@@ -16,17 +16,19 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+
 add_executable(
   hello_test
   tests.cpp
-  ../src/pieces.cpp 
-  ../src/utils.cpp 
-  ../src/board.cpp
+  ../src/pieces.cpp
 )
+
+target_compile_options(hello_test PRIVATE -Ofast -flto)
+
 target_link_libraries(
   hello_test
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(hello_test DISCOVERY_TIMEOUT 120)

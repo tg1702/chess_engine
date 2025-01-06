@@ -2,7 +2,6 @@
 #include <iostream>
 #include "pieces.h"
 #include "types.h"
-#include "lookup.h"
 #include "utils.h"
 #include "magic.h"
 
