@@ -21,6 +21,8 @@ add_executable(
   hello_test
   tests.cpp
   ../src/pieces.cpp
+  ../src/board.cpp
+  ../src/movegen.cpp
 )
 
 target_compile_options(hello_test PRIVATE -Ofast -flto)
