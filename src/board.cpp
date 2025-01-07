@@ -369,12 +369,13 @@ std::vector<Move> Board::generateLegalMoves(){
 	std::vector<Move> legalMoves;
 	
 	int count = move_list->count;
-	
+
+	bool originalTurn = turn;	
 	for (int i = 0; i < count; ++i){
 		makeMove(move_list->moves[i]);
 	
 			
-		if (!isInCheck(turn)){
+		if (!isInCheck(originalTurn)){
 			legalMoves.push_back(move_list->moves[i]);
 		}
 		
