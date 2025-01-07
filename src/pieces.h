@@ -42,19 +42,16 @@ class PieceManager{
 			
 
 	inline void movePiece(bool side, PieceType type, Square from, Square to){
-		clearPiece(side, type, from);
-		addPiece(side, type, to);
+		this->Pieces[side][type] ^= (bitset(from)  |  bitset(to));
 	}
 
 	inline void clearPiece(bool side, PieceType type, Square square){
-		uint64_t curBB = getPiecesBB(side, type);
-		bitclear(curBB, square);
-		setAnyPosBB( side, type , curBB);
+		bitclear(this->Pieces[side][type], square);
 	
 	}
 
 	inline void addPiece(bool side, PieceType type, Square on){
-		setAnyPosBB(side, type, getPiecesBB(side, type) | bitset(on));
+		this->Pieces[side][type] |= bitset(on);
 	}
 		PieceManager(void);
 		PieceManager(PieceArgs& args);
