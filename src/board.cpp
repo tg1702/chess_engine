@@ -1,5 +1,6 @@
 #include "board.h"
 #include "movegen.h"
+#include <cstdint>
 #include <iostream>
 #include <algorithm>
 #include <array>
@@ -311,6 +312,7 @@ void Board::makeMoveHelper(Move& m){
 	
 }
 
+
 void Board::generateMoves(){
 	move_list->count = 0;
 
@@ -616,3 +618,18 @@ bool Board::isInCheck(bool side){
 	return pieces.isAttacked(side, kingSquare);
 }
 
+int Board::getMaterialCount(bool side){
+	return __builtin_popcountll(pieces.getPiecesBB(side, QUEEN)) * 9 + __builtin_popcountll(pieces.getPiecesBB(side, ROOK)) * 5 + __builtin_popcountll(pieces.getPiecesBB(side, BISHOP)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, KNIGHT)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, PAWN)) * 1; 
+}
+bool Board::isGameOver(){	
+	return isCheckmated(WHITE) || isCheckmated(BLACK) || isStalemate();
+}
+
+bool Board::isCheckmated(bool side){
+	return !move_list->count && isInCheck(side); 
+
+}
+
+bool Board::isStalemate(){
+	return !move_list->count && !isInCheck(turn);
+}

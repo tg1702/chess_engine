@@ -68,10 +68,12 @@ class Board{
 		
 		int getActualMoveCount(void);
 		void printHistory(void);
-
+		int getMaterialCount(bool);
+		bool isGameOver(void);
 //inline int getLegalMoveCount() { return legalMoves.getMoveCount(); }
 		inline bool getTurn() { return turn;}
-
+		bool isCheckmated(bool);
+		bool isStalemate();	
 
 
 

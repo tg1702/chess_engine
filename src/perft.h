@@ -69,7 +69,7 @@ uint64_t p_divide(int depth, Board& board){
 
 		
 		if (depth == DEPTH){
-			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << '\n';
+			std::cout << move << ": " << level_count << '\n';
 			node_count += level_count;
 			level_count = 0;
 		}
@@ -117,11 +117,11 @@ uint64_t divide(int depth, Board& board){
          }                                                                                                                                                   
 	 
 	 for(auto& move: move_list){                                                                                                     
-		 board.makeMove(move);                                                                                                                               level_count += divide(depth - 1, board);
+		 board.makeMove(move);                                                                                                   level_count += divide(depth - 1, board);
 	 	 board.unmakeMove();
 
 		 if (depth == DEPTH){
-			std::cout << pieceSquareNames[move.getFrom()] << pieceSquareNames[move.getTo()] << ": " << level_count << '\n';	
+			std::cout << move << ": " << level_count << '\n';	
 			level_count = 0;
 		 }
 	 }	

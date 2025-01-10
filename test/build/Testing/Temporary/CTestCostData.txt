@@ -1,0 +1,21 @@
+CPWPerfts.StartPos 1 7.83196
+CPWPerfts.Kiwipete 1 12.491
+CPWPerfts.Position3 1 0.880858
+CPWPerfts.Position4 1 1.11899
+CPWPerfts.Position5 1 5.96595
+CPWPerfts.Position6 1 10.428
+TalkChess.IllegalEP1 1 0.125463
+TalkChess.IllegalEP2 1 0.0976918
+TalkChess.EPCaptureCheck 1 0.140381
+TalkChess.ShortCastleCheck 1 0.0749702
+TalkChess.LongCastleCheck 1 0.0901094
+TalkChess.CastleRights 1 0.0941028
+TalkChess.CastlingPrevented 1 0.151332
+TalkChess.PromoteOutOfCheck 1 0.29132
+TalkChess.DiscoveredCheck 1 0.0732377
+TalkChess.PromoteToCheck 1 0.0338642
+TalkChess.UnderPromoteToCheck 1 0.0260992
+TalkChess.SelfStalemate 1 0.0153857
+TalkChess.StaleAndCheckMate 1 0.0566016
+TalkChess.StaleAndCheckMate2 1 0.019882
+---
