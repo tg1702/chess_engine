@@ -23,7 +23,7 @@ class Board{
 		Move actualMoves[10];
 		
 		bool castlingRights[4][10]; 
-		
+		int legalMovesCount = 0;	
 		
 		bool canWhiteKSCastle;
 		bool canWhiteQSCastle;

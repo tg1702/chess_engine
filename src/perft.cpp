@@ -9,7 +9,8 @@
 #include "board.h"
 #include "move.h"
 #include "perft.h"
-
+#include "uci_handler.h"
+#include "search.h"
 
 int main(){
 	std::string word;
@@ -42,21 +43,32 @@ int main(){
 
 		}
 
-		if ((words.size() == 3) && words[0] == "go" && words[1] == "perft"){
-			const int depth = words[2][0] - '0';
-			DEPTH = depth;
-			node_count = 0ULL;
+		if (words[0] == "go"){
+			if (words[1] == "perft" && (words.size() == 3)){
+				const int depth = words[2][0] - '0';
+				DEPTH = depth;
+				node_count = 0ULL;
 			
-			const auto start{std::chrono::steady_clock::now()};
-			p_divide(depth, board);	
-			const auto end{std::chrono::steady_clock::now()};
-			const std::chrono::duration<double> elapsed_seconds{end - start};
-			std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
-			std::cout << "Nodes per second= " << (node_count / elapsed_seconds.count()) << '\n';
-			std::cout << "Total time : " << elapsed_seconds.count() << "s" << '\n' << '\n';
-		}
-	
-		
+				const auto start{std::chrono::steady_clock::now()};
+				p_divide(depth, board);	
+				const auto end{std::chrono::steady_clock::now()};
+				const std::chrono::duration<double> elapsed_seconds{end - start};
+				std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
+				std::cout << "Nodes per second= " << (node_count / elapsed_seconds.count()) << '\n';
+				std::cout << "Total time : " << elapsed_seconds.count() << "s" << '\n' << '\n';
+			}
+
+			else if (words[1] == "depth" && words.size() == 3){
+				const int depth = words[2][0] - '0';
+				int turn = board.getTurn() ? -1 : 1;	
+				std::cout << "bestmove " << search(board, turn, depth) << '\n'; 
+			}
+			else {
+
+				int turn = board.getTurn() ? -1 : 1;	
+				std::cout << "bestmove " << search(board, turn) << '\n'; 
+			}
+		}		
 	}
 	
 	return 0;

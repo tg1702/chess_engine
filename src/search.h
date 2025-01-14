@@ -2,15 +2,19 @@
 #include "move.h"
 #include "board.h"
 
-#define INFINITY 99999999
+static uint64_t countNodes = 0ULL;
+
 float evaluate(Board& board){
 	if (board.isCheckmated(WHITE)) return -INFINITY;
 	if (board.isCheckmated(BLACK)) return INFINITY;
-	
+	if (board.isStalemate()) return 0;	
+	countNodes += 1ULL;
+
 	return board.getMaterialCount(WHITE) - board.getMaterialCount(BLACK);
 }
 float negamax(int depth, Board& board, float alpha, float beta, int colour){
-	if (depth == 0 || board.isGameOver())
+
+	if (depth == 0)
 		return colour * evaluate(board);
 
 	
@@ -19,16 +23,21 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
 	std::vector<Move> allMoves = board.generateLegalMoves();
 
 	for(auto& move: allMoves){
+		board.makeMove(move);
 		value = std::max(value, -negamax(depth - 1, board, -beta, -alpha, -colour));
+		
+		board.unmakeMove();	
+		
 		alpha = std::max(alpha, value);
 		
 		if (alpha >= beta)
-			break;	
+			break;
+
 	}
 
 	return value;	
 }
-Move search(int depth, Board& board, int colour){
+Move search(Board& board, int colour, int depth=5){
 
 	Move bestMove;
 	float bestValue = -INFINITY;
@@ -38,26 +47,24 @@ Move search(int depth, Board& board, int colour){
 
 	std::vector<Move> allMoves = board.generateLegalMoves();
 
+	// Return null move
+	if (allMoves.size() == 0)
+		return Move(NORMAL, H1, H1, KING);
+
 	for (auto& move: allMoves){
 		board.makeMove(move);
 		value = -negamax(depth, board, alpha, beta, -colour);
 		board.unmakeMove();
-
-		if (value > bestValue){
+	
+		//std::cout << "value " << value << " move " << move <<  '\n';
+		if (value >= bestValue){
 			bestMove = move;
 			bestValue = value;
 
 		}	
 	}
 
+	//std::cout << "nodes " << countNodes << '\n';
 	return bestMove;	
 
-}
-
-
-int main(){
-	Board board = Board("rnbqkbnr/pppp1ppp/8/4p3/5PP1/8/PPPPP2P/RNBQKBNR b KQkq - 0 2");
-	Move resultMove = search(6, board, -1);
-	std::cout << "bestmove " << resultMove << '\n';
-	return 0;
 }

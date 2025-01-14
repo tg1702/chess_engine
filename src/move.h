@@ -39,6 +39,9 @@ class Move{
 			uint32_t flag = move.getFlag();
 			std::string promoteCode = "";
 
+			if (move.getTo() == H1 && move.getFrom() == H1)
+				return os << "0000";
+			
 			if (flag == QUEEN_PROMOTION || flag == QUEEN_PROMOTION_CAPTURE)
 				promoteCode = "q";
 

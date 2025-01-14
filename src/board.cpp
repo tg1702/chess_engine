@@ -10,11 +10,6 @@
 #include <iterator>
 
 
-std::vector<std::string> split_string(std::string &str){
-		std::stringstream ss(str);
-		std::istream_iterator<std::string> begin(ss), end;
-		return std::vector<std::string> (begin, end);
-	}
 
 Board::Board(){
 			turn = WHITE;
@@ -158,7 +153,7 @@ Board::Board(std::string fen){
 
 void Board::setFEN(std::string fen){
 
-	std::vector<std::string> splitFen = split_string(fen);
+	std::vector<std::string> splitFen = utils::split_string(fen);
 	
 	if (splitFen.size() != 6) return;
 	
@@ -372,13 +367,17 @@ std::vector<Move> Board::generateLegalMoves(){
 	
 	int count = move_list->count;
 
-	bool originalTurn = turn;	
+	bool originalTurn = turn;
+
+	legalMovesCount = 0;
+
 	for (int i = 0; i < count; ++i){
 		makeMove(move_list->moves[i]);
 	
 			
 		if (!isInCheck(originalTurn)){
 			legalMoves.push_back(move_list->moves[i]);
+			legalMovesCount += 1;
 		}
 		
 
@@ -622,14 +621,14 @@ int Board::getMaterialCount(bool side){
 	return __builtin_popcountll(pieces.getPiecesBB(side, QUEEN)) * 9 + __builtin_popcountll(pieces.getPiecesBB(side, ROOK)) * 5 + __builtin_popcountll(pieces.getPiecesBB(side, BISHOP)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, KNIGHT)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, PAWN)) * 1; 
 }
 bool Board::isGameOver(){	
-	return isCheckmated(WHITE) || isCheckmated(BLACK) || isStalemate();
+	return isCheckmated(WHITE) || isCheckmated(BLACK);
 }
 
 bool Board::isCheckmated(bool side){
-	return !move_list->count && isInCheck(side); 
+	return !legalMovesCount && isInCheck(side); 
 
 }
 
 bool Board::isStalemate(){
-	return !move_list->count && !isInCheck(turn);
+	return !legalMovesCount && (!isInCheck(turn) || !isInCheck(!turn));
 }
