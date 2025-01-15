@@ -19,12 +19,13 @@ class Board{
 
 		bool turn = WHITE;
 
-		int actualMoveCount = 0;
-		Move actualMoves[10];
+		int actualMoveCount;
+		Move actualMoves[MAX_MOVES];
 		
-		bool castlingRights[4][10]; 
+		bool castlingRights[4][MAX_MOVES]; 
 		int legalMovesCount = 0;	
-		
+		//std::vector<Move> legalMoves;
+
 		bool canWhiteKSCastle;
 		bool canWhiteQSCastle;
 		bool canBlackKSCastle;
@@ -41,6 +42,7 @@ class Board{
 		void makeMoveHelper(Move&);
 		void unmakeMove();
 		void unmakeMoveHelper();
+		void makeMove(std::string);
 		void printBoard(void);
 		void addMoveToHistory(Move&);
 		bool movePawnFifthRank(Square, Square);
@@ -70,7 +72,7 @@ class Board{
 		void printHistory(void);
 		int getMaterialCount(bool);
 		bool isGameOver(void);
-//inline int getLegalMoveCount() { return legalMoves.getMoveCount(); }
+
 		inline bool getTurn() { return turn;}
 		bool isCheckmated(bool);
 		bool isStalemate();	

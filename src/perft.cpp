@@ -35,13 +35,32 @@ int main(){
 			words.push_back(w);
 		}	
 		
-		if ((words.size() == 8) && words[0] == "position" && words[1] == "fen"){
+		if (words[0] == "position" && words[1] == "fen"){
 			std::string fen = words[2] + " " + words[3] + " " + words[4] + " " + words[5] + " " + words[6] + " " + words[7];
 
 			board.setFEN(fen);
+			
+			if (words[8] == "moves"){	
+				for(size_t i = 9; i < words.size(); i++){
+					board.makeMove(words[i]);	
+				}
+			}	
+			
 			board.printBoard();
 
 		}
+
+		if (words[0] == "position" && words[1] == "startpos"){
+			board.setFEN(STARTPOS_FEN);
+		
+			if (words[2] == "moves"){	
+				for(size_t i = 3; i < words.size(); i++){
+					board.makeMove(words[i]);	
+				}
+			}
+			board.printBoard();
+		}
+
 
 		if (words[0] == "go"){
 			if (words[1] == "perft" && (words.size() == 3)){

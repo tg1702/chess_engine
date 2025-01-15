@@ -22,13 +22,13 @@ Board::Board(){
 			enPassantSquare = -1;
 	
 			
-
+			actualMoveCount = 0;
 }
 
 void Board::parsePieceFen(std::string &fen){
 
 	int squareCount = 0;
-	PieceArgs args;	
+	PieceArgs args{};	
 	std::array<int, 8>  nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
 	for(int s = fen.length() - 1; s >= 0; s--){
 		if (fen[s] == '/')
@@ -153,6 +153,8 @@ Board::Board(std::string fen){
 
 void Board::setFEN(std::string fen){
 
+	actualMoveCount = 0;
+	
 	std::vector<std::string> splitFen = utils::split_string(fen);
 	
 	if (splitFen.size() != 6) return;
@@ -169,6 +171,50 @@ void Board::makeMove(Move& m){
 	turn = !turn;
 }
 
+void Board::makeMove(std::string uci_move){
+	if (uci_move.length() < 4 || uci_move.length() > 5) return;
+
+
+	std::string fromString(uci_move.begin(), uci_move.begin() + 2);
+	std::string toString(uci_move.begin() + 2, uci_move.begin() + 4);
+
+
+	if ((pieceSquareValues.find(fromString) != pieceSquareValues.end()) && (pieceSquareValues.find(toString) != pieceSquareValues.end())){
+		
+		int from = pieceSquareValues.at(fromString);
+		int to = pieceSquareValues.at(toString); 	
+		
+		std::vector<Move> legalMoves = generateLegalMoves();
+
+		
+		if (uci_move.length() == 4){
+			
+			for(auto& move: legalMoves){
+				if (move.getFrom() == from && move.getTo() == to){
+					makeMove(move);	
+					break;
+				}
+			}
+		}
+		//dealing with promotions
+		else {
+		char promotion = uci_move[4];
+
+			for(auto& move: legalMoves){
+				if (move.getFrom() == from && move.getTo() == to && 
+				   (((move.getFlag() == QUEEN_PROMOTION || move.getFlag() == QUEEN_PROMOTION_CAPTURE) && promotion == 'q') || 
+				   ((move.getFlag() == ROOK_PROMOTION || move.getFlag() == ROOK_PROMOTION_CAPTURE) && promotion == 'r') || 
+				   ((move.getFlag() == BISHOP_PROMOTION || move.getFlag() == BISHOP_PROMOTION_CAPTURE) && promotion == 'b') || 
+				    ((move.getFlag() == KNIGHT_PROMOTION || move.getFlag() == KNIGHT_PROMOTION_CAPTURE) && promotion == 'n'))){
+					makeMove(move);	
+					break;
+				}
+			}	
+		}
+
+		
+	}
+}
 void Board::makeMoveHelper(Move& m){
 	
 	enPassantSquare = -1;
@@ -303,7 +349,7 @@ void Board::makeMoveHelper(Move& m){
 	
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
-	
+
 	
 }
 
@@ -361,10 +407,11 @@ std::vector<Move> Board::generatePseudoLegalMoves(){
 
 }
 std::vector<Move> Board::generateLegalMoves(){
+
 	generateMoves();
 
 	std::vector<Move> legalMoves;
-	
+
 	int count = move_list->count;
 
 	bool originalTurn = turn;
@@ -441,7 +488,6 @@ bool Board::movePawnFourthRank(Square from, Square to){
 
 void Board::addMoveToHistory(Move& move){	
 	actualMoves[actualMoveCount] = move;
-
 	actualMoveCount++;
 
 }

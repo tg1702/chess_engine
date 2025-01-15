@@ -200,6 +200,7 @@ const std::unordered_map<std::string, int> pieceSquareValues ={
 	{"a8", A8},
 
 };
+
 enum flags{
 	NORMAL,
 	QUEEN_PROMOTION,
@@ -252,6 +253,7 @@ struct PieceArgs{
 		uint64_t b_knights_bb = 0;	
 };
 
+const std::string STARTPOS_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 enum StartingPositions{
 	W_KING_START = 0b0000000000000000000000000000000000000000000000000000000000001000,
