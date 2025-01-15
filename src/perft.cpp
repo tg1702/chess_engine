@@ -1,16 +1,15 @@
 #include <iostream>
 #include <array>
 #include <chrono>
+#include <climits>
 
-
-#include <sstream>
-#include <cassert>
 
 #include "board.h"
 #include "move.h"
 #include "perft.h"
 #include "uci_handler.h"
 #include "search.h"
+#include "timer.h"
 
 int main(){
 	std::string word;
@@ -63,29 +62,41 @@ int main(){
 
 
 		if (words[0] == "go"){
+			
+			int turn = board.getTurn() ? -1 : 1;
+			int defaultTime = INT_MAX;	
+			
+			if (words[1] == "wtime" && words[3] == "btime"){
+				const int wtimeVal = std::stoi(words[2]);
+				const int btimeVal = std::stoi(words[4]);
+
+				(turn == -1) ?	defaultTime = btimeVal/25 : defaultTime = wtimeVal/25;
+
+			}
+			
 			if (words[1] == "perft" && (words.size() == 3)){
 				const int depth = words[2][0] - '0';
 				DEPTH = depth;
 				node_count = 0ULL;
 			
-				const auto start{std::chrono::steady_clock::now()};
+				Timer t = Timer();
+
+				t.start();
 				p_divide(depth, board);	
-				const auto end{std::chrono::steady_clock::now()};
-				const std::chrono::duration<double> elapsed_seconds{end - start};
+				t.stop();
+
 				std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
-				std::cout << "Nodes per second= " << (node_count / elapsed_seconds.count()) << '\n';
-				std::cout << "Total time : " << elapsed_seconds.count() << "s" << '\n' << '\n';
+				std::cout << "Nodes per second= " << (node_count / t.elapsedTime()) << '\n';
+				std::cout << "Total time : " << t.elapsedTime() << "s" << '\n' << '\n';
 			}
 
 			else if (words[1] == "depth" && words.size() == 3){
 				const int depth = words[2][0] - '0';
-				int turn = board.getTurn() ? -1 : 1;	
 				std::cout << "bestmove " << search(board, turn, depth) << '\n'; 
 			}
 			else {
 
-				int turn = board.getTurn() ? -1 : 1;	
-				std::cout << "bestmove " << search(board, turn) << '\n'; 
+				std::cout << "bestmove " << search(board, turn, defaultTime) << '\n'; 
 			}
 		}		
 	}

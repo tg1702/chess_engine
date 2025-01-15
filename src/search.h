@@ -1,5 +1,6 @@
 #include <iostream>
 #include "move.h"
+#include "timer.h"
 #include "board.h"
 
 static uint64_t countNodes = 0ULL;
@@ -37,8 +38,8 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
 
 	return value;	
 }
-Move search(Board& board, int colour, int depth=5){
-
+Move search(Board& board, int colour, int allottedTime, int depth=10){
+	Timer timer = Timer();
 	Move bestMove;
 	float bestValue = -INFINITY;
 	float value = -INFINITY;
@@ -51,20 +52,24 @@ Move search(Board& board, int colour, int depth=5){
 	if (allMoves.size() == 0)
 		return Move(NORMAL, H1, H1, KING);
 
-	for (auto& move: allMoves){
-		board.makeMove(move);
-		value = -negamax(depth, board, alpha, beta, -colour);
-		board.unmakeMove();
+	for (int d = 0; d < depth; i++){
+		for (auto& move: allMoves){
+			board.makeMove(move);
+			value = -negamax(d, board, alpha, beta, -colour);
+			board.unmakeMove();
 	
-		//std::cout << "value " << value << " move " << move <<  '\n';
-		if (value >= bestValue){
-			bestMove = move;
-			bestValue = value;
+			if (value >= bestValue){
+				bestMove = move;
+				bestValue = value;
 
+			}
+
+			if (timer.getCurrentTime() > allottedTime){
+				timer.stop();
+				return bestMove;
+			}	
 		}	
 	}
-
-	//std::cout << "nodes " << countNodes << '\n';
 	return bestMove;	
 
 }
