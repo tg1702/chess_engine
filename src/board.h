@@ -8,6 +8,7 @@
 #include <cctype>
 #include <algorithm>
 #include <vector>
+#include <memory>
 
 #define PIECE_TYPES 6
 
@@ -15,7 +16,7 @@ class Board{
 	private:
 		PieceManager pieces;	
 		MoveGen generator;	
-		MoveList* move_list = new MoveList();
+		MoveList* move_list;
 
 		bool turn = WHITE;
 
@@ -37,7 +38,7 @@ class Board{
 		Board(void);
 		Board(std::string);
 		
-		~Board() { delete move_list; }
+		//~Board() { delete move_list; }
 		void makeMove(Move&);	
 		void makeMoveHelper(Move&);
 		void unmakeMove();

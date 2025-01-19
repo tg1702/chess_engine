@@ -12,6 +12,7 @@
 #include "types.h"
 #include "utils.h"
 
+
 #define TABLE_SIZE 4096
 
 
@@ -39,7 +40,7 @@ constexpr uint64_t generateWhiteRookMask(int plain_square){
 }
 
 
-static uint64_t generateWhiteBishopMask(int plain_square){
+constexpr uint64_t generateWhiteBishopMask(int plain_square){
  uint64_t square = bitset(plain_square);
  uint64_t upLeftDirection = 0Ull;
  uint64_t downLeftDirection = 0Ull;
@@ -236,6 +237,7 @@ constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, in
 		return false;
 }
 
+
 static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){ 
 	
 	int MAX_PATTERNS;
@@ -299,5 +301,8 @@ static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
     return magicNumber;
 
 }
+
+
+
 
 

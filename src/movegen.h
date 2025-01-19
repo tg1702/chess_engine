@@ -1,7 +1,7 @@
 #include <iostream>
 #include <array>
 #include "types.h"
-
+#include <memory>
 #pragma once
 class MoveGen{
 	private:

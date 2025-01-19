@@ -1,5 +1,7 @@
 #include "board.h"
 #include "movegen.h"
+#include "move.h"
+
 #include <cstdint>
 #include <iostream>
 #include <algorithm>
@@ -8,7 +10,7 @@
 #include <sstream>
 #include <string>
 #include <iterator>
-
+#include <memory>
 
 
 Board::Board(){
@@ -20,7 +22,7 @@ Board::Board(){
 			canBlackKSCastle = true;	
 			
 			enPassantSquare = -1;
-	
+			move_list = new MoveList();	
 			
 			actualMoveCount = 0;
 }
@@ -146,6 +148,8 @@ void Board::parseFullMoveClock(std::string &fen){
 
 
 Board::Board(std::string fen){
+
+	move_list = new MoveList();	
 	setFEN(fen);		
 }
 

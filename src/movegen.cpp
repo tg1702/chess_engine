@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdint>
+#include <memory>
+
 #include "magic.h"
 #include "move.h"
 #include "pieces.h"

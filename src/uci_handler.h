@@ -7,7 +7,7 @@
 class UCICommandHandler{
 	public:
 		UCICommandHandler() = default;
-		~UCICommandHandler() {delete command;}
+		
 		void parse(std::string, Board&);
 	private:
 		Command* command;
