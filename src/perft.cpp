@@ -11,7 +11,6 @@
 #include "board.h"
 #include "move.h"
 #include "perft.h"
-#include "uci_handler.h"
 #include "search.h"
 #include "timer.h"
 

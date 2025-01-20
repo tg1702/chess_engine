@@ -139,11 +139,11 @@ void Board::parseCastlingRights(std::string &fen){
 }
 
 void Board::parseHalfMoveClock(std::string &fen){
-
+	//TODO: store half move clock info
 }
 
 void Board::parseFullMoveClock(std::string &fen){
-
+	//TODO: store full move clock info
 }
 
 
@@ -363,28 +363,27 @@ void Board::generateMoves(){
 
 
 	PieceBB friendly {
-		.king_bb = pieces.getPiecesBB(turn, KING), 
-		.queen_bb = pieces.getPiecesBB(turn, QUEEN), 
-		.rook_bb = pieces.getPiecesBB(turn, ROOK),  
-		.bishop_bb = pieces.getPiecesBB(turn, BISHOP), 
-		.knight_bb = pieces.getPiecesBB(turn, KNIGHT), 
-		.pawn_bb = pieces.getPiecesBB(turn, PAWN),
+		pieces.getPiecesBB(turn, KING), 
+		pieces.getPiecesBB(turn, QUEEN), 
+		pieces.getPiecesBB(turn, ROOK),  
+		pieces.getPiecesBB(turn, BISHOP), 
+		pieces.getPiecesBB(turn, KNIGHT), 
+		pieces.getPiecesBB(turn, PAWN),
 
-		.all = pieces.getPiecesBB(turn, ALL)
+		pieces.getPiecesBB(turn, ALL)
 	};
 
 	BoardState state{
-		.pieces = friendly,
+		friendly,
+		turn,
+		canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
+		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
+		canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
+		canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
 		
-		.turn = turn,
-		.whiteKSCastle = canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
-		.whiteQSCastle = canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
-		.blackKSCastle = canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
-		.blackQSCastle = canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
-		
-		.enPassant = enPassantSquare,
+		enPassantSquare,
 
-		.enemies = pieces.getPiecesBB(!turn, ALL)
+		pieces.getPiecesBB(!turn, ALL)
 	};
 	
 	generator.setState(state);
@@ -682,3 +681,4 @@ bool Board::isCheckmated(bool side){
 bool Board::isStalemate(){
 	return !legalMovesCount && (!isInCheck(turn) || !isInCheck(!turn));
 }
+

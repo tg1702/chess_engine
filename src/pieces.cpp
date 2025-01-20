@@ -3,7 +3,6 @@
 #include <cstdint>
 #include "pieces.h"
 #include "types.h"
-#include "utils.h"
 #include "magic.h"
 
 PieceManager::PieceManager(){

@@ -28,7 +28,7 @@ void MoveGen::generateMoves(MoveList* move_list){
 
 
 
-void MoveGen::addPossibleMove(Square start, uint64_t positions, bool side, PieceType type, MoveList* move_list){
+void MoveGen::addPossibleMove(Square start, uint64_t positions, PieceType type, MoveList* move_list){
 	
 	while (positions != 0){
                 Square to = utils::pop_lsb(positions);
@@ -46,7 +46,7 @@ void MoveGen::generateKingMoves(MoveList* move_list){
 		
 		uint64_t legalMove = kingLookups[from] & ~(state.pieces.all);
                 
-		addPossibleMove(from, legalMove, state.turn, KING, move_list);
+		addPossibleMove(from, legalMove, KING, move_list);
        		 
 	}
 
@@ -82,7 +82,7 @@ void MoveGen::generateKnightMoves(MoveList* move_list){
 		uint64_t legalMove = knightLookups[from] & ~(state.pieces.all);
 
 
-        addPossibleMove(from, legalMove, state.turn, KNIGHT, move_list);
+        addPossibleMove(from, legalMove,  KNIGHT, move_list);
 
  }
 }
@@ -236,7 +236,7 @@ void MoveGen::generateRookMoves(MoveList* move_list){
 	
 		uint64_t legalMove = rookMoveList[from][index] & ~(state.pieces.all); 
 
-		addPossibleMove(from, legalMove, state.turn, ROOK, move_list);
+		addPossibleMove(from, legalMove,  ROOK, move_list);
 
         }
 	
@@ -253,7 +253,7 @@ void MoveGen::generateBishopMoves(MoveList* move_list){
 
 		uint64_t legalMove = bishopMoveList[from][index] & ~(state.pieces.all); 
 
-                addPossibleMove(from, legalMove, state.turn, BISHOP, move_list);
+                addPossibleMove(from, legalMove,  BISHOP, move_list);
 
         }
 
@@ -274,7 +274,7 @@ void MoveGen::generateQueenMoves(MoveList* move_list){
         uint64_t legalRookMoves = rookMoveList[from][rookIndex] & ~(state.pieces.all);
 
 		uint64_t legalQueenMoves = legalRookMoves | legalBishopMoves;
-                addPossibleMove(from, (legalQueenMoves) , state.turn, QUEEN, move_list);
+                addPossibleMove(from, (legalQueenMoves) ,  QUEEN, move_list);
 
         }
 

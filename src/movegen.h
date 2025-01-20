@@ -6,7 +6,7 @@
 class MoveGen{
 	private:
 		BoardState state;
-		void addPossibleMove(Square, uint64_t, bool, PieceType, MoveList*);
+		void addPossibleMove(Square, uint64_t, PieceType, MoveList*);
 	public:
 		void setState(BoardState&);
 		void generateMoves(MoveList*);

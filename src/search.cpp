@@ -55,7 +55,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
 	
 	Timer timer = Timer();
-	Move bestMove;
+	Move bestMove = Move(NORMAL, H1, H1, KING);
 	float bestValue = -INFINITY;
 	float value = -INFINITY;
 	float alpha = -INFINITY;
