@@ -667,7 +667,7 @@ bool Board::isInCheck(bool side){
 }
 
 int Board::getMaterialCount(bool side){
-	return __builtin_popcountll(pieces.getPiecesBB(side, QUEEN)) * 9 + __builtin_popcountll(pieces.getPiecesBB(side, ROOK)) * 5 + __builtin_popcountll(pieces.getPiecesBB(side, BISHOP)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, KNIGHT)) * 3 + __builtin_popcountll(pieces.getPiecesBB(side, PAWN)) * 1; 
+	return pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + pieces.getPieceCount(side, QUEEN) * QUEEN_MATERIAL_VALUE + pieces.getPieceCount(side, ROOK) * ROOK_MATERIAL_VALUE + pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE + pieces.getPieceCount(side, KNIGHT) * KNIGHT_MATERIAL_VALUE + pieces.getPieceCount(side, PAWN) * PAWN_MATERIAL_VALUE; 
 }
 bool Board::isGameOver(){	
 	return isCheckmated(WHITE) || isCheckmated(BLACK);
@@ -678,7 +678,30 @@ bool Board::isCheckmated(bool side){
 
 }
 
+bool Board::isDraw(){
+	return isStalemate() || isInsufficientMaterial();
+}
+
 bool Board::isStalemate(){
 	return !legalMovesCount && (!isInCheck(turn) || !isInCheck(!turn));
 }
 
+bool Board::isInsufficientMaterial(){
+	int whiteBishopCount = pieces.getPieceCount(WHITE, BISHOP);
+	int blackBishopCount = pieces.getPieceCount(BLACK, BISHOP);
+	int whiteKnightCount = pieces.getPieceCount(WHITE, KNIGHT);
+	int blackKnightCount = pieces.getPieceCount(BLACK, KNIGHT);
+
+	int whiteMaterialCount = getMaterialCount(WHITE);
+	int blackMaterialCount = getMaterialCount(BLACK);
+
+	return (
+		( whiteMaterialCount == KING_MATERIAL_VALUE && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && whiteMaterialCount == KING_MATERIAL_VALUE)	
+		|| ( whiteKnightCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + KNIGHT_MATERIAL_VALUE) && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( blackKnightCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + KNIGHT_MATERIAL_VALUE) && whiteMaterialCount == KING_MATERIAL_VALUE)	
+		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE))
+		
+	);
+}

@@ -77,7 +77,8 @@ class Board{
 		inline bool getTurn() { return turn;}
 		bool isCheckmated(bool);
 		bool isStalemate();	
-
+		bool isInsufficientMaterial();
+		bool isDraw();
 
 
 };

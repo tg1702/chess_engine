@@ -22,28 +22,27 @@ int main(){
 
 	std::thread s_thread;
 	std::string s;
-	char split_char = ' ';
 
 	int depth = 10;
 	
 	std::vector<std::string> words;
 
 	while ( std::getline(std::cin, s) ){
-	
-		std::stringstream ss(s);	
-		
-		std::string w;
-		
-			
-		words.clear();
-		while ( std::getline(ss, w, split_char)) {
-			words.push_back(w);
-		}
 
+		words = utils::split_string(s);
 		
 		if (words[0] == "quit")
 			break;	
 	
+		if (words[0] == "uci"){
+			std::cout << "id name Tuna" << '\n';
+			std::cout << "id author tg1702" << '\n';
+			std::cout << "uciok" << '\n';
+		}
+
+		if (words[0] == "isready"){
+			std::cout << "readyok" << '\n';
+		}
 
 		if (words[0] == "position" && words[1] == "fen"){
 			if (s_thread.joinable()){

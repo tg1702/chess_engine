@@ -21,7 +21,7 @@ std::mutex inputMutex;
 float evaluate(Board& board){
 	if (board.isCheckmated(WHITE)) return -INFINITY;
 	if (board.isCheckmated(BLACK)) return INFINITY;
-	if (board.isStalemate()) return 0;	
+	if (board.isDraw()) return 0;	
 
 	return board.getMaterialCount(WHITE) - board.getMaterialCount(BLACK);
 }

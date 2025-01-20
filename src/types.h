@@ -31,6 +31,15 @@ enum PieceType{
 	ALL
 };
 
+enum MaterialValues{
+	KING_MATERIAL_VALUE = 200,
+	QUEEN_MATERIAL_VALUE = 9,
+	ROOK_MATERIAL_VALUE = 5,
+	BISHOP_MATERIAL_VALUE = 3,
+	KNIGHT_MATERIAL_VALUE = 3,
+	PAWN_MATERIAL_VALUE = 1 
+};
+
 const std::array<PieceType, 6> PieceTypes= {
 	KING,
 	ROOK,
