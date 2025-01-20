@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdint>
 #include <string>
 #include <array>
 #include <unordered_map>
@@ -28,6 +29,15 @@ enum PieceType{
 	QUEEN,
 	KNIGHT,
 	ALL
+};
+
+enum MaterialValues{
+	KING_MATERIAL_VALUE = 200,
+	QUEEN_MATERIAL_VALUE = 9,
+	ROOK_MATERIAL_VALUE = 5,
+	BISHOP_MATERIAL_VALUE = 3,
+	KNIGHT_MATERIAL_VALUE = 3,
+	PAWN_MATERIAL_VALUE = 1 
 };
 
 const std::array<PieceType, 6> PieceTypes= {
@@ -199,6 +209,7 @@ const std::unordered_map<std::string, int> pieceSquareValues ={
 	{"a8", A8},
 
 };
+
 enum flags{
 	NORMAL,
 	QUEEN_PROMOTION,
@@ -251,6 +262,7 @@ struct PieceArgs{
 		uint64_t b_knights_bb = 0;	
 };
 
+const std::string STARTPOS_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 enum StartingPositions{
 	W_KING_START = 0b0000000000000000000000000000000000000000000000000000000000001000,

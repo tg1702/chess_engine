@@ -1,5 +1,8 @@
 #include "board.h"
 #include "movegen.h"
+#include "move.h"
+
+#include <cstdint>
 #include <iostream>
 #include <algorithm>
 #include <array>
@@ -7,13 +10,8 @@
 #include <sstream>
 #include <string>
 #include <iterator>
+#include <memory>
 
-
-std::vector<std::string> split_string(std::string &str){
-		std::stringstream ss(str);
-		std::istream_iterator<std::string> begin(ss), end;
-		return std::vector<std::string> (begin, end);
-	}
 
 Board::Board(){
 			turn = WHITE;
@@ -24,15 +22,15 @@ Board::Board(){
 			canBlackKSCastle = true;	
 			
 			enPassantSquare = -1;
-	
+			move_list = new MoveList();	
 			
-
+			actualMoveCount = 0;
 }
 
 void Board::parsePieceFen(std::string &fen){
 
 	int squareCount = 0;
-	PieceArgs args;	
+	PieceArgs args{};	
 	std::array<int, 8>  nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
 	for(int s = fen.length() - 1; s >= 0; s--){
 		if (fen[s] == '/')
@@ -141,15 +139,17 @@ void Board::parseCastlingRights(std::string &fen){
 }
 
 void Board::parseHalfMoveClock(std::string &fen){
-
+	//TODO: store half move clock info
 }
 
 void Board::parseFullMoveClock(std::string &fen){
-
+	//TODO: store full move clock info
 }
 
 
 Board::Board(std::string fen){
+
+	move_list = new MoveList();	
 	setFEN(fen);		
 }
 
@@ -157,7 +157,9 @@ Board::Board(std::string fen){
 
 void Board::setFEN(std::string fen){
 
-	std::vector<std::string> splitFen = split_string(fen);
+	actualMoveCount = 0;
+	
+	std::vector<std::string> splitFen = utils::split_string(fen);
 	
 	if (splitFen.size() != 6) return;
 	
@@ -173,6 +175,50 @@ void Board::makeMove(Move& m){
 	turn = !turn;
 }
 
+void Board::makeMove(std::string uci_move){
+	if (uci_move.length() < 4 || uci_move.length() > 5) return;
+
+
+	std::string fromString(uci_move.begin(), uci_move.begin() + 2);
+	std::string toString(uci_move.begin() + 2, uci_move.begin() + 4);
+
+
+	if ((pieceSquareValues.find(fromString) != pieceSquareValues.end()) && (pieceSquareValues.find(toString) != pieceSquareValues.end())){
+		
+		int from = pieceSquareValues.at(fromString);
+		int to = pieceSquareValues.at(toString); 	
+		
+		std::vector<Move> legalMoves = generateLegalMoves();
+
+		
+		if (uci_move.length() == 4){
+			
+			for(auto& move: legalMoves){
+				if (move.getFrom() == from && move.getTo() == to){
+					makeMove(move);	
+					break;
+				}
+			}
+		}
+		//dealing with promotions
+		else {
+		char promotion = uci_move[4];
+
+			for(auto& move: legalMoves){
+				if (move.getFrom() == from && move.getTo() == to && 
+				   (((move.getFlag() == QUEEN_PROMOTION || move.getFlag() == QUEEN_PROMOTION_CAPTURE) && promotion == 'q') || 
+				   ((move.getFlag() == ROOK_PROMOTION || move.getFlag() == ROOK_PROMOTION_CAPTURE) && promotion == 'r') || 
+				   ((move.getFlag() == BISHOP_PROMOTION || move.getFlag() == BISHOP_PROMOTION_CAPTURE) && promotion == 'b') || 
+				    ((move.getFlag() == KNIGHT_PROMOTION || move.getFlag() == KNIGHT_PROMOTION_CAPTURE) && promotion == 'n'))){
+					makeMove(move);	
+					break;
+				}
+			}	
+		}
+
+		
+	}
+}
 void Board::makeMoveHelper(Move& m){
 	
 	enPassantSquare = -1;
@@ -307,37 +353,37 @@ void Board::makeMoveHelper(Move& m){
 	
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
-	
+
 	
 }
+
 
 void Board::generateMoves(){
 	move_list->count = 0;
 
 
 	PieceBB friendly {
-		.king_bb = pieces.getPiecesBB(turn, KING), 
-		.queen_bb = pieces.getPiecesBB(turn, QUEEN), 
-		.rook_bb = pieces.getPiecesBB(turn, ROOK),  
-		.bishop_bb = pieces.getPiecesBB(turn, BISHOP), 
-		.knight_bb = pieces.getPiecesBB(turn, KNIGHT), 
-		.pawn_bb = pieces.getPiecesBB(turn, PAWN),
+		pieces.getPiecesBB(turn, KING), 
+		pieces.getPiecesBB(turn, QUEEN), 
+		pieces.getPiecesBB(turn, ROOK),  
+		pieces.getPiecesBB(turn, BISHOP), 
+		pieces.getPiecesBB(turn, KNIGHT), 
+		pieces.getPiecesBB(turn, PAWN),
 
-		.all = pieces.getPiecesBB(turn, ALL)
+		pieces.getPiecesBB(turn, ALL)
 	};
 
 	BoardState state{
-		.pieces = friendly,
+		friendly,
+		turn,
+		canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
+		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
+		canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
+		canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
 		
-		.turn = turn,
-		.whiteKSCastle = canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
-		.whiteQSCastle = canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
-		.blackKSCastle = canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
-		.blackQSCastle = canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
-		
-		.enPassant = enPassantSquare,
+		enPassantSquare,
 
-		.enemies = pieces.getPiecesBB(!turn, ALL)
+		pieces.getPiecesBB(!turn, ALL)
 	};
 	
 	generator.setState(state);
@@ -364,19 +410,24 @@ std::vector<Move> Board::generatePseudoLegalMoves(){
 
 }
 std::vector<Move> Board::generateLegalMoves(){
+
 	generateMoves();
 
 	std::vector<Move> legalMoves;
-	
+
 	int count = move_list->count;
 
-	bool originalTurn = turn;	
+	bool originalTurn = turn;
+
+	legalMovesCount = 0;
+
 	for (int i = 0; i < count; ++i){
 		makeMove(move_list->moves[i]);
 	
 			
 		if (!isInCheck(originalTurn)){
 			legalMoves.push_back(move_list->moves[i]);
+			legalMovesCount += 1;
 		}
 		
 
@@ -440,7 +491,6 @@ bool Board::movePawnFourthRank(Square from, Square to){
 
 void Board::addMoveToHistory(Move& move){	
 	actualMoves[actualMoveCount] = move;
-
 	actualMoveCount++;
 
 }
@@ -616,3 +666,42 @@ bool Board::isInCheck(bool side){
 	return pieces.isAttacked(side, kingSquare);
 }
 
+int Board::getMaterialCount(bool side){
+	return pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + pieces.getPieceCount(side, QUEEN) * QUEEN_MATERIAL_VALUE + pieces.getPieceCount(side, ROOK) * ROOK_MATERIAL_VALUE + pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE + pieces.getPieceCount(side, KNIGHT) * KNIGHT_MATERIAL_VALUE + pieces.getPieceCount(side, PAWN) * PAWN_MATERIAL_VALUE; 
+}
+bool Board::isGameOver(){	
+	return isCheckmated(WHITE) || isCheckmated(BLACK);
+}
+
+bool Board::isCheckmated(bool side){
+	return !legalMovesCount && isInCheck(side); 
+
+}
+
+bool Board::isDraw(){
+	return isStalemate() || isInsufficientMaterial();
+}
+
+bool Board::isStalemate(){
+	return !legalMovesCount && (!isInCheck(turn) || !isInCheck(!turn));
+}
+
+bool Board::isInsufficientMaterial(){
+	int whiteBishopCount = pieces.getPieceCount(WHITE, BISHOP);
+	int blackBishopCount = pieces.getPieceCount(BLACK, BISHOP);
+	int whiteKnightCount = pieces.getPieceCount(WHITE, KNIGHT);
+	int blackKnightCount = pieces.getPieceCount(BLACK, KNIGHT);
+
+	int whiteMaterialCount = getMaterialCount(WHITE);
+	int blackMaterialCount = getMaterialCount(BLACK);
+
+	return (
+		( whiteMaterialCount == KING_MATERIAL_VALUE && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && whiteMaterialCount == KING_MATERIAL_VALUE)	
+		|| ( whiteKnightCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + KNIGHT_MATERIAL_VALUE) && blackMaterialCount == KING_MATERIAL_VALUE)
+		|| ( blackKnightCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + KNIGHT_MATERIAL_VALUE) && whiteMaterialCount == KING_MATERIAL_VALUE)	
+		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE))
+		
+	);
+}

@@ -20,6 +20,9 @@ class PieceManager{
 			this->Pieces[side][type] = pos;
 		}
 
+	inline int getPieceCount(bool side, PieceType type){
+		return __builtin_popcountll(this->Pieces[side][type]);
+	}
 
 	inline void setSidePiecesBB(uint64_t all_pieces_bb, bool side){
 		this->Pieces[side][ALL] = all_pieces_bb;

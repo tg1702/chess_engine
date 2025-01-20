@@ -12,6 +12,7 @@
 #include "types.h"
 #include "utils.h"
 
+
 #define TABLE_SIZE 4096
 
 
@@ -39,7 +40,7 @@ constexpr uint64_t generateWhiteRookMask(int plain_square){
 }
 
 
-static uint64_t generateWhiteBishopMask(int plain_square){
+constexpr uint64_t generateWhiteBishopMask(int plain_square){
  uint64_t square = bitset(plain_square);
  uint64_t upLeftDirection = 0Ull;
  uint64_t downLeftDirection = 0Ull;
@@ -127,7 +128,7 @@ for (rank = curRank-1 , file = curFile-1; rank >= 0 && file >= 0; rank--, file--
 }
 
 
-constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_pieces, int MAX_PATTERNS){
+constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_pieces){
 	std::array<uint64_t, TABLE_SIZE> blockedBitboards{};
 
 
@@ -187,7 +188,7 @@ constexpr uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){
 
  return result;
 }
-
+/*
 static uint64_t random_uint64() {
 
   uint64_t u1 = (uint64_t)(random()) & 0xFFFF; 
@@ -200,8 +201,8 @@ static uint64_t random_uint64() {
 static uint64_t random_uint64_fewbits() {
   return random_uint64() & random_uint64() & random_uint64();
 }
-
-constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, uint64_t attackCombos, std::array<uint64_t,TABLE_SIZE> occupancyCombos, int square,  int type, uint64_t magicNumber){
+*/
+constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, std::array<uint64_t,TABLE_SIZE> occupancyCombos, int square,  int type, uint64_t magicNumber){
 
 		
 		int i=0;
@@ -236,6 +237,7 @@ constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, in
 		return false;
 }
 
+/*
 static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){ 
 	
 	int MAX_PATTERNS;
@@ -299,5 +301,8 @@ static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
     return magicNumber;
 
 }
+
+*/
+
 
 
