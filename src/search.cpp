@@ -6,6 +6,7 @@
 #include <atomic>
 #include <cmath>
 #include <mutex>
+#include <random>
 
 #include "board.h"
 #include "move.h"
@@ -13,23 +14,26 @@
 #include "timer.h"
 
 std::atomic<bool> isSearching{false};
-
+std::mt19937 mt{std::random_device{}()};
+std::uniform_real_distribution<double> distribution(0.0,1.0);
 
 float evaluate(Board& board){
-    if (board.isCheckmated(WHITE)) return -INFINITY;
-    if (board.isCheckmated(BLACK)) return INFINITY;
-    if (board.isDraw()) return 0;    
-
-    return board.getMaterialCount(WHITE) - board.getMaterialCount(BLACK);
+    return (board.getMaterialCount(WHITE) - board.getMaterialCount(BLACK)) + distribution(mt);
 }
 
 float negamax(int depth, Board& board, float alpha, float beta, int colour){
+    std::vector<Move> allMoves = board.generateLegalMoves();
+
+    if (board.isCheckmated(WHITE)) return colour * -INFINITY;
+    if (board.isCheckmated(BLACK)) return colour * INFINITY;
+    if (board.isDraw()) return 0;    
+
     if (depth == 0 || !isSearching)
         return colour * evaluate(board);
 
     float value = -INFINITY;
     
-    std::vector<Move> allMoves = board.generateLegalMoves();
+    
     
     for(auto& move: allMoves){
         board.makeMove(move);
@@ -66,12 +70,12 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
         for (auto& move: allMoves){
             board.makeMove(move);
             float value = -negamax(d - 1, board, -beta, -alpha, -colour);
-            
             board.unmakeMove();
 
 			if (value > bestIterationValue){
                 bestIterationMove = move;
                 bestIterationValue = value;
+               // std::cout << "bestvalue " << bestIterationValue << '\n';
 
             }
             
@@ -83,6 +87,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
             if (timer.getCurrentTime() > allottedTime || !isSearching){
                 timer.stop();
                 std::cout << "bestmove " << bestMove << '\n';
+                
                 isSearching.store(false);
                 return;
             }    

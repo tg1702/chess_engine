@@ -32,9 +32,7 @@ int main(){
 	
 	while ( std::getline(std::cin, s) ){
 
-	std::ofstream log("uci_comm_log.txt");
-	
-	log << s << '\n';
+
 		words = utils::split_string(s);
 			
 		if (words[0] == "quit")
@@ -154,7 +152,6 @@ int main(){
 			isSearching.store(false);
 		}
 
-		log.close();
 	}
 
 
