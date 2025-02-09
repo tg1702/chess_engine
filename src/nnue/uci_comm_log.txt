@@ -1,1 +1,0 @@
-go wtime 10000 btime 10000

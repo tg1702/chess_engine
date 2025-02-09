@@ -1,7 +1,9 @@
+#ifndef NNUE_H
+#define NNUE_H
+
 #include <iostream>
 #include "types.h"
 
-#pragma once
 const int INPUT_SIZE = 768;
 const int HL_SIZE = 3072;
 
@@ -211,3 +213,5 @@ void NNUE::predict(Accumulator& side_to_move_acc, Accumulator& not_side_to_move_
 	forward(side_to_move_acc, not_side_to_move_acc);
 
 }
+
+#endif

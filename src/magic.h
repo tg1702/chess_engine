@@ -1,3 +1,6 @@
+#ifndef MAGIC_H
+#define MAGIC_H
+
 #include <iostream>
 #include "lookup.h"
 #include <array>
@@ -217,3 +220,4 @@ static const std::array<std::array<uint64_t, TABLE_SIZE>, 64> rookMoveList = [] 
 	return allRookLookups;
 }();
 
+#endif

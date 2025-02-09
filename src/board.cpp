@@ -1,5 +1,4 @@
 #include "board.h"
-#include "movegen.h"
 #include "move.h"
 
 #include <cstdint>
@@ -668,6 +667,7 @@ bool Board::isInCheck(bool side){
 
 int Board::getMaterialCount(bool side){
 	//std::cout << pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE << '\n';
+
 	return
 	pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + 	
 	pieces.getPieceCount(side, QUEEN) * QUEEN_MATERIAL_VALUE + 

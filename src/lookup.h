@@ -1,5 +1,6 @@
 
-#pragma once
+#ifndef LOOKUP_H
+#define LOOKUP_H
 
 #include <iostream>
 #include <random>
@@ -306,3 +307,4 @@ static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
 
 
 
+#endif

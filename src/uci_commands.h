@@ -1,3 +1,6 @@
+#ifndef UCI_COMMANDS_H
+#define UCI_COMMANDS_H
+
 #include <iostream>
 #include <string>
 
@@ -40,3 +43,5 @@ class ReadyCommand: public Command{
 	public:
 		void execute(void) override;
 };
+
+#endif

@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <cstdint>
 #include <string>
@@ -8,8 +10,12 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-
 constexpr int MAX_MOVES = 256;
+
+enum MoveType{
+	CAPTURES,
+	QUIETS
+};
 
 enum SlidingPieces{
         ROOK_MOVES,

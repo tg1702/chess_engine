@@ -138,4 +138,3 @@ bool PieceManager::canQueenSideCastle(bool side){
                         !isAttacked(side, D8) &&
                         !isAttacked(side, E8);
 }
-

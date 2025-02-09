@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <iostream>
 #include "pieces.h"
@@ -98,3 +99,5 @@ class Board{
 
 
 };
+
+#endif
