@@ -1,5 +1,4 @@
 #include "board.h"
-#include "movegen.h"
 #include "move.h"
 
 #include <cstdint>
@@ -438,9 +437,9 @@ std::vector<Move> Board::generateLegalMoves(){
 
 }
 void Board::printBoard(){
-	std::array<char, 64> board;
+	std::array<char, 64> char_board = {'.'};
 
-	std::fill(std::begin(board), std::end(board), '.');
+	std::fill(std::begin(char_board), std::end(char_board), '.');
 	
 	std::array<char, 6> char_type = {'k', 'r', 'e', 'b', 'q', 'n'};
 	
@@ -449,9 +448,9 @@ void Board::printBoard(){
 		for (const auto& type: PieceTypes){
 			
 			if (pieces.getPiecesBB(side, type) & (1ULL << square)){
-				board[square] = char_type[type];
+				char_board[square] = char_type[type];
 					
-				if (side == WHITE) board[square] = toupper(board[square]);
+				if (side == WHITE) char_board[square] = toupper(char_board[square]);
 
 			}
 			
@@ -465,7 +464,7 @@ void Board::printBoard(){
 
 	for (int row = 7; row >=0 ; row--){
 		for (int col = 7; col >= 0; col--){
-			std::cout << board[row*8 + col] << " ";
+			std::cout << char_board[row*8 + col] << " ";
 		}
 		std::cout << '\n';
 	}
@@ -667,7 +666,15 @@ bool Board::isInCheck(bool side){
 }
 
 int Board::getMaterialCount(bool side){
-	return pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + pieces.getPieceCount(side, QUEEN) * QUEEN_MATERIAL_VALUE + pieces.getPieceCount(side, ROOK) * ROOK_MATERIAL_VALUE + pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE + pieces.getPieceCount(side, KNIGHT) * KNIGHT_MATERIAL_VALUE + pieces.getPieceCount(side, PAWN) * PAWN_MATERIAL_VALUE; 
+	//std::cout << pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE << '\n';
+
+	return
+	pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + 	
+	pieces.getPieceCount(side, QUEEN) * QUEEN_MATERIAL_VALUE + 
+	pieces.getPieceCount(side, ROOK) * ROOK_MATERIAL_VALUE + 
+	pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE + 
+	pieces.getPieceCount(side, KNIGHT) * KNIGHT_MATERIAL_VALUE + 
+	pieces.getPieceCount(side, PAWN) * PAWN_MATERIAL_VALUE; 
 }
 bool Board::isGameOver(){	
 	return isCheckmated(WHITE) || isCheckmated(BLACK);
@@ -704,4 +711,33 @@ bool Board::isInsufficientMaterial(){
 		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE))
 		
 	);
+}
+
+void Board::getPositionIndexes(std::array<int, 768>& input){
+
+	
+		uint64_t all = pieces.getPiecesBB(WHITE, ALL) | pieces.getPiecesBB(BLACK, ALL);
+
+		for (Square square: Squares){
+			for (PieceType pieceType: PieceTypes){
+				for (int curSide = 0; curSide < 2; curSide++){
+					int index = calculateIndex(square, pieceType, curSide, turn);
+
+					
+					if (bitset(square) & pieces.getPiecesBB(curSide, pieceType)){
+						std::cout << "square " << pieceSquareNames[square] << '\n';
+						std::cout << "pieceType " << pieceType << '\n' << '\n';
+						input[index] = 1;
+					}
+						
+					else if (input[index] != 1){
+						input[index]  = 0;
+					}
+				}
+			}
+			
+		}
+
+
+
 }

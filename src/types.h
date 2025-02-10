@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <cstdint>
 #include <string>
@@ -8,8 +10,12 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-
 constexpr int MAX_MOVES = 256;
+
+enum MoveType{
+	CAPTURES,
+	QUIETS
+};
 
 enum SlidingPieces{
         ROOK_MOVES,
@@ -32,12 +38,12 @@ enum PieceType{
 };
 
 enum MaterialValues{
-	KING_MATERIAL_VALUE = 200,
-	QUEEN_MATERIAL_VALUE = 9,
-	ROOK_MATERIAL_VALUE = 5,
+	PAWN_MATERIAL_VALUE = 1, 	
 	BISHOP_MATERIAL_VALUE = 3,
-	KNIGHT_MATERIAL_VALUE = 3,
-	PAWN_MATERIAL_VALUE = 1 
+	KNIGHT_MATERIAL_VALUE = 4,
+	ROOK_MATERIAL_VALUE = 5,
+	QUEEN_MATERIAL_VALUE = 9,
+	KING_MATERIAL_VALUE = 200
 };
 
 const std::array<PieceType, 6> PieceTypes= {

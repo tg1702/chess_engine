@@ -1,3 +1,6 @@
+#ifndef PERFT_H
+#define PERFT_H
+
 #include <iostream>
 #include <array>
 #include <chrono>
@@ -9,7 +12,7 @@
 #include "board.h"
 #include "move.h"
 #include "types.h"
-#include "magic.h"
+//#include "magic.h"
 
 int DEPTH = 0;
 static uint64_t node_count = 0ULL;	
@@ -128,3 +131,5 @@ uint64_t divide(int depth, Board& board){
 	
 	return level_count;
 }
+
+#endif

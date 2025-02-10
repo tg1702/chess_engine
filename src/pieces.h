@@ -1,5 +1,6 @@
 
-#pragma once
+#ifndef PIECES_H
+#define PIECES_H
 
 #include <iostream>
 #include "types.h"
@@ -65,3 +66,4 @@ class PieceManager{
 		bool isAttacked(bool, Square);
 };
 
+#endif

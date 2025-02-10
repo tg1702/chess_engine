@@ -1,5 +1,6 @@
 
-#pragma once
+#ifndef MOVE_H
+#define MOVE_H
 
 #include <iostream>
 #include "types.h"
@@ -64,3 +65,5 @@ struct MoveList{
 	Move moves[MAX_MOVES];
 	int count = 0;
 };
+
+#endif

@@ -1,6 +1,8 @@
+#ifndef TIMER_H
+#define TIMER_H
+
 #include <chrono>
 
-#pragma once
 class Timer{
 	public:
 		Timer() {startTime = std::chrono::steady_clock::now(); endTime = std::chrono::steady_clock::now();}
@@ -13,3 +15,5 @@ class Timer{
 		std::chrono::time_point<std::chrono::steady_clock> startTime;
 		std::chrono::time_point<std::chrono::steady_clock> endTime;
 };
+
+#endif

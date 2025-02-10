@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <iostream>
 #include "pieces.h"
@@ -21,9 +22,9 @@ class Board{
 		bool turn = WHITE;
 
 		int actualMoveCount;
-		Move actualMoves[MAX_MOVES];
+		Move actualMoves[MAX_MOVES * 5];
 		
-		bool castlingRights[4][MAX_MOVES]; 
+		bool castlingRights[4][MAX_MOVES * 5]; 
 		int legalMovesCount = 0;	
 		//std::vector<Move> legalMoves;
 
@@ -38,11 +39,13 @@ class Board{
 		Board(void);
 		Board(std::string);
 		
-		//~Board() { delete move_list; }
-		void makeMove(Move&);	
-		void makeMoveHelper(Move&);
+	//	~Board() { delete move_list; }
+		//Board(const Board& b) = default;
+		//Board& operator=(Board other) {}	
 		void unmakeMove();
 		void unmakeMoveHelper();
+		void makeMoveHelper(Move&);
+		void makeMove(Move&);
 		void makeMove(std::string);
 		void printBoard(void);
 		void addMoveToHistory(Move&);
@@ -80,5 +83,21 @@ class Board{
 		bool isInsufficientMaterial();
 		bool isDraw();
 
+		void getPositionIndexes(std::array<int, 768>&);
+
+		inline int calculateIndex(Square square, PieceType pieceType, bool side, bool perspective){
+			int int_square = 0;
+
+			if (perspective == BLACK)
+			{
+				side = !side;
+				int_square = square ^ 0b111000;
+				
+			}	
+			return side * 64 * 6 + pieceType * 64 + int_square;
+		}
+
 
 };
+
+#endif

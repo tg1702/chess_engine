@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <vector>
 #include <iostream>
@@ -41,3 +42,5 @@ namespace utils{
 
 	
 }
+
+#endif
