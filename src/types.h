@@ -5,7 +5,7 @@
 #include <string>
 #include <array>
 #include <unordered_map>
-#include "move.h"
+#include "./movegen/move.h"
 
 #ifndef TYPES_H
 #define TYPES_H

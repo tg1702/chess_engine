@@ -2,10 +2,10 @@
 #include <cstdint>
 #include <memory>
 
-#include "move.h"
-#include "pieces.h"
-#include "types.h"
-#include "utils.h"
+#include "../movegen/move.h"
+#include "../pieces.h"
+#include "../types.h"
+#include "../utils.h"
 #include "movegen.h"
 
 void MoveGen::setState(BoardState& state){

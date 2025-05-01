@@ -8,10 +8,10 @@
 #include <mutex>
 #include <random>
 
-#include "board.h"
-#include "move.h"
+#include "../board.h"
+#include "../movegen/move.h"
 #include "search.h"
-#include "timer.h"
+#include "../uci/timer.h"
 
 std::atomic<bool> isSearching{false};
 std::mt19937 mt{std::random_device{}()};

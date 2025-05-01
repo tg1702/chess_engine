@@ -4,7 +4,7 @@
 #include <iostream>
 #include "pieces.h"
 #include "types.h"
-#include "movegen.h"
+#include "./movegen/movegen.h"
 #include <string>
 #include <cctype>
 #include <algorithm>
@@ -83,19 +83,6 @@ class Board{
 		bool isInsufficientMaterial();
 		bool isDraw();
 
-		void getPositionIndexes(std::array<int, 768>&);
-
-		inline int calculateIndex(Square square, PieceType pieceType, bool side, bool perspective){
-			int int_square = 0;
-
-			if (perspective == BLACK)
-			{
-				side = !side;
-				int_square = square ^ 0b111000;
-				
-			}	
-			return side * 64 * 6 + pieceType * 64 + int_square;
-		}
 
 
 };

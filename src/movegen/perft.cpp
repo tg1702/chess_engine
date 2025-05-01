@@ -9,11 +9,11 @@
 #include <mutex>
 #include <fstream>
 
-#include "board.h"
+#include "../board.h"
 #include "move.h"
 #include "perft.h"
-#include "search.h"
-#include "timer.h"
+#include "../search/search.h"
+#include "../uci/timer.h"
 
 
 

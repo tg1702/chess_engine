@@ -1,5 +1,5 @@
 #include "board.h"
-#include "move.h"
+#include "./movegen/move.h"
 
 #include <cstdint>
 #include <iostream>
@@ -711,33 +711,4 @@ bool Board::isInsufficientMaterial(){
 		|| ( whiteBishopCount == 1 && whiteMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE) && blackBishopCount == 1 && blackMaterialCount == (KING_MATERIAL_VALUE + BISHOP_MATERIAL_VALUE))
 		
 	);
-}
-
-void Board::getPositionIndexes(std::array<int, 768>& input){
-
-	
-		uint64_t all = pieces.getPiecesBB(WHITE, ALL) | pieces.getPiecesBB(BLACK, ALL);
-
-		for (Square square: Squares){
-			for (PieceType pieceType: PieceTypes){
-				for (int curSide = 0; curSide < 2; curSide++){
-					int index = calculateIndex(square, pieceType, curSide, turn);
-
-					
-					if (bitset(square) & pieces.getPiecesBB(curSide, pieceType)){
-						std::cout << "square " << pieceSquareNames[square] << '\n';
-						std::cout << "pieceType " << pieceType << '\n' << '\n';
-						input[index] = 1;
-					}
-						
-					else if (input[index] != 1){
-						input[index]  = 0;
-					}
-				}
-			}
-			
-		}
-
-
-
 }

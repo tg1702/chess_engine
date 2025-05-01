@@ -9,9 +9,9 @@
 #include <sstream>
 #include <cassert>
 
-#include "board.h"
+#include "../board.h"
 #include "move.h"
-#include "types.h"
+#include "../types.h"
 //#include "magic.h"
 
 int DEPTH = 0;

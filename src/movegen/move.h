@@ -3,8 +3,8 @@
 #define MOVE_H
 
 #include <iostream>
-#include "types.h"
-#include "utils.h"
+#include "../types.h"
+#include "../utils.h"
 
 class Move{
 	private:

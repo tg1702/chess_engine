@@ -3,7 +3,7 @@
 #include <cstdint>
 #include "pieces.h"
 #include "types.h"
-#include "magic.h"
+#include "./movegen/magic.h"
 
 PieceManager::PieceManager(){
 			
@@ -22,7 +22,7 @@ PieceManager::PieceManager(){
 			Pieces[BLACK][ROOK] = B_ROOKS_START;
 			Pieces[BLACK][KNIGHT] = B_KNIGHTS_START;
 			
-		        Pieces[BLACK][ALL] = B_ALL_PIECES_START;
+		    Pieces[BLACK][ALL] = B_ALL_PIECES_START;
 			Pieces[WHITE][ALL] = W_ALL_PIECES_START;
 
 

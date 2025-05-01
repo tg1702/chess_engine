@@ -9,8 +9,8 @@
 #include <stdlib.h>
 #include <array>
 
-#include "types.h"
-#include "utils.h"
+#include "../types.h"
+#include "../utils.h"
 
 
 #define TABLE_SIZE 4096

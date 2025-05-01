@@ -7,9 +7,9 @@
 
 #include "magic.h"
 #include "move.h"
-#include "pieces.h"
-#include "types.h"
-#include "utils.h"
+#include "../pieces.h"
+#include "../types.h"
+#include "../utils.h"
 
 
 

@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <atomic>
-#include "board.h"
-#include "move.h"
+#include "../board.h"
+#include "../movegen/move.h"
 
 extern std::atomic<bool> isSearching;
 
