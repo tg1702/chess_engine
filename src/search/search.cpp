@@ -7,6 +7,7 @@
 #include <cmath>
 #include <mutex>
 #include <random>
+#include <algorithm>
 
 #include "../board.h"
 #include "../movegen/move.h"
@@ -14,7 +15,7 @@
 #include "../uci/timer.h"
 #include "pst.h"
 #include "../types.h"
-
+#include "move_ordering.h"
 std::atomic<bool> isSearching{false};
 std::mt19937 mt{std::random_device{}()};
 std::uniform_real_distribution<double> distribution(0.0,1.0);
@@ -123,7 +124,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
 	std::vector<Move> allMoves = board.generateLegalMoves();  
 
-   
+    score_moves(allMoves);
 
     for (int d = 1; d <= depth && isSearching; d++){  // Start from depth 1
         float alpha = -INFINITY;
@@ -133,7 +134,11 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
         
 
 
-        for (auto& move: allMoves){
+        for (size_t i = 0; i < allMoves.size(); ++i){
+            pick_move(allMoves, i);
+
+            
+            Move move = allMoves[i];
             board.makeMove(move);
             float value = -negamax(d - 1, board, -beta, -alpha, -colour);
             board.unmakeMove();
@@ -167,4 +172,21 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
     isSearching.store(false);
     std::cout << "bestmove " << bestMove << '\n';
     std::cout << "info score cp " << bestValue << "\n";
+}
+
+
+void score_moves(std::vector<Move>& moves){
+
+    for (Move move: moves){
+        move.set_score(MVV_LVA[move.getToPiece()][move.getFromPiece()]);
+    }
+}
+
+void pick_move(std::vector<Move>& moves, size_t start_index){
+    for (size_t i = start_index; i < moves.size(); i++){
+        if (moves[i].get_score() > moves[start_index].get_score()){
+            std::swap(moves[i], moves[start_index]);
+        }
+    }
+
 }

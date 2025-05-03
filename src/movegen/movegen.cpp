@@ -25,7 +25,7 @@ void MoveGen::generateMoves(MoveList* move_list){
 	
 	generateRookMoves<CAPTURES>(move_list);
 	generateBishopMoves<CAPTURES>(move_list);
-	
+	//generateQueenMoves<CAPTURES>(move_list);
 
 
 	generateKingMoves<QUIETS>(move_list);

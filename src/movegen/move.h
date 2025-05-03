@@ -9,11 +9,13 @@
 class Move{
 	private:
 		uint32_t value;
+		int score;
 	public:
 
 		Move() = default;
 		constexpr Move(int flag, Square from, Square to, PieceType fromPiece, PieceType toPiece=utils::int_to_PieceType(0)) : 
-			value(((flag & 0xf)<<18) | ((from & 0x3f)<<12) | ((to & 0x3f)<<6) | ((fromPiece & 0x7)<<3) | ((toPiece & 0x7))) {};
+			value(((flag & 0xf)<<18) | ((from & 0x3f)<<12) | ((to & 0x3f)<<6) | ((fromPiece & 0x7)<<3) | ((toPiece & 0x7))),
+			score(0) {};
 	
 		
 		inline Move(Move&& other) noexcept = default;
@@ -35,6 +37,9 @@ class Move{
 		inline void setTo(Square to) {value &= ~0xfc0; value |= (to & 0xfc0) << 6; }
 		inline void setFrom(Square from) {value &= ~0x3f000; value |= (from & 0x3f000) << 12; }
 		inline void setFlag(int flag) {value &= ~0xfc0000; value |= (flag & 0xfc0000) << 18;} 
+
+		int get_score(){return this->score;}
+		void set_score(int score){this->score = score;}
 
 		friend std::ostream& operator<<(std::ostream& os, const Move& move){
 			uint32_t flag = move.getFlag();
