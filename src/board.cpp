@@ -232,8 +232,7 @@ void Board::makeMoveHelper(Move& m){
 	PieceType toPieceType = KING;
 	PieceType capturedPieceType = KING;
 
-	
-	std::string moveMessage = "Invalid move " + pieceSquareNames[from] + pieceSquareNames[to];	
+
 
 			if (special == NORMAL) {
 
@@ -356,6 +355,9 @@ void Board::makeMoveHelper(Move& m){
 	
 }
 
+uint64_t Board::getBitboard(bool turn, PieceType pieceType){
+	return pieces.getPiecesBB(turn, pieceType);
+}
 
 void Board::generateMoves(){
 	move_list->count = 0;
@@ -441,7 +443,7 @@ void Board::printBoard(){
 
 	std::fill(std::begin(char_board), std::end(char_board), '.');
 	
-	std::array<char, 6> char_type = {'k', 'r', 'e', 'b', 'q', 'n'};
+	std::array<char, 6> char_type = {'p', 'n', 'b', 'r', 'q', 'k'};
 	
 	for (const auto& square: Squares){
 		for (int side = 0; side < 2; side++){

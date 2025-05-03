@@ -6,6 +6,7 @@
 #include "../board.h"
 #include "../movegen/move.h"
 
+
 extern std::atomic<bool> isSearching;
 
 float negamax(int, Board&, float, float, int);

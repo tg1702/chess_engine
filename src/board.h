@@ -83,6 +83,8 @@ class Board{
 		bool isInsufficientMaterial();
 		bool isDraw();
 
+		uint64_t getBitboard(bool, PieceType);
+
 
 
 };

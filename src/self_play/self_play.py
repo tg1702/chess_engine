@@ -86,10 +86,10 @@ async def main() -> None:
         transport, engine = await chess.engine.popen_uci(r"../main")
         board = chess.Board()
         
-        play_book_moves(board, 10)
+        #play_book_moves(board, 10)
         
         while not board.is_game_over():
-          result = await engine.play(board, chess.engine.Limit(depth=4))
+          result = await engine.play(board, chess.engine.Limit(depth=5))
           board.push(result.move)
 
         await engine.quit()
