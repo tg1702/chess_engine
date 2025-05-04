@@ -25,9 +25,9 @@ void MoveGen::generateMoves(MoveList* move_list){
 	
 	generateRookMoves<CAPTURES>(move_list);
 	generateBishopMoves<CAPTURES>(move_list);
-	//generateQueenMoves<CAPTURES>(move_list);
+	generateQueenMoves<CAPTURES>(move_list);
 
-
+/* 
 	generateKingMoves<QUIETS>(move_list);
 	generateKnightMoves<QUIETS>(move_list);
 	
@@ -35,7 +35,7 @@ void MoveGen::generateMoves(MoveList* move_list){
 
 	generateRookMoves<QUIETS>(move_list);
 	generateBishopMoves<QUIETS>(move_list);
-	generateQueenMoves<QUIETS>(move_list);
+	generateQueenMoves<QUIETS>(move_list); */
 
 	
 
@@ -43,15 +43,34 @@ void MoveGen::generateMoves(MoveList* move_list){
 }
 
 
-
+template <MoveType Type>
 void MoveGen::addPossibleMove(Square start, uint64_t positions, PieceType type, MoveList* move_list){
 	
-	while (positions != 0){
-                Square to = utils::pop_lsb(positions);
-		move_list->moves[move_list->count] = Move(NORMAL, start, to, type);			// }
+		while (positions != 0){
+				PieceType capturedPieceType = KING;
+				flags flag = NORMAL;
+                
+				Square to = utils::pop_lsb(positions);
+
+				if (Type == CAPTURES){
+					
+					for (const auto& p: PieceTypes){
+						if (state.enemy_array[p] & bitset(to)){ 		
+							capturedPieceType = p;
+							flag = CAPTURE_FLAG;
+							break;
+						} 
+			
+					}
+					
+				}
+				
+		Move new_move = Move(flag, start, to, type, capturedPieceType);
+		
+		move_list->moves[move_list->count] = new_move;			// }
 		move_list->count++;
 
-        }
+    }
            
 
 }
@@ -59,46 +78,45 @@ void MoveGen::addPossibleMove(Square start, uint64_t positions, PieceType type, 
 template <MoveType Type>
 void MoveGen::generateKingMoves(MoveList* move_list){
 		
-		uint64_t king_bb = (Type == CAPTURES) ? state.pieces.king_bb & state.enemies : state.pieces.king_bb & ~state.enemies;
+	
+		uint64_t king_bb =  state.pieces.king_bb;
         
 		while (king_bb != 0ULL){
             Square from = utils::pop_lsb(king_bb);
 		
 			uint64_t legalMove = kingLookups[from] & ~(state.pieces.all);
                 
-			addPossibleMove(from, legalMove, KING, move_list);  		 
+			addPossibleMove<CAPTURES>(from, legalMove, KING, move_list);  		 
 	}
 
-	if (Type == QUIETS){
 		if (state.whiteKSCastle)
 		{
-			move_list->moves[move_list->count] = Move(W_KS_CASTLE_FLAG, E1, G1, KING);
+			move_list->moves[move_list->count] = Move(W_KS_CASTLE_FLAG, E1, G1, KING, KING);
 			move_list->count++;
 		}
 
 		if (state.whiteQSCastle)
 		{
-			move_list->moves[move_list->count] = Move(W_QS_CASTLE_FLAG, E1, C1, KING);
+			move_list->moves[move_list->count] = Move(W_QS_CASTLE_FLAG, E1, C1, KING, KING);
 			move_list->count++;
 		}	
 
 		if (state.blackKSCastle)
 		{
-			move_list->moves[move_list->count] = Move(B_KS_CASTLE_FLAG, E8, G8, KING);
+			move_list->moves[move_list->count] = Move(B_KS_CASTLE_FLAG, E8, G8, KING, KING);
 			move_list->count++;
 		}
 		if (state.blackQSCastle)
 		{
-			move_list->moves[move_list->count] = Move(B_QS_CASTLE_FLAG, E8, C8, KING);
+			move_list->moves[move_list->count] = Move(B_QS_CASTLE_FLAG, E8, C8, KING, KING);
 			move_list->count++;
 		}
-	}
 	
 }
 
 template <MoveType Type>
 void MoveGen::generateKnightMoves(MoveList* move_list){
-	uint64_t knight_bb = (Type == CAPTURES) ? state.pieces.knight_bb & state.enemies : state.pieces.knight_bb & ~state.enemies;	
+	uint64_t knight_bb = state.pieces.knight_bb;	
  	
 	while (knight_bb != 0ULL){
     	Square from = utils::pop_lsb(knight_bb);
@@ -106,7 +124,7 @@ void MoveGen::generateKnightMoves(MoveList* move_list){
 		uint64_t legalMove = knightLookups[from] & ~(state.pieces.all);
 
 
-        addPossibleMove(from, legalMove,  KNIGHT, move_list);
+        addPossibleMove<CAPTURES>(from, legalMove,  KNIGHT, move_list);
 
  	}
 }
@@ -119,7 +137,7 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 	uint64_t normal_moves = state.pieces.pawn_bb & ~RANK_7;	
     uint64_t promotions = state.pieces.pawn_bb & RANK_7;	
 
-	if (Type == QUIETS){
+
 		while (normal_moves != 0ULL){
 			Square from = utils::pop_lsb(normal_moves);
 	
@@ -154,21 +172,15 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 	
 			
 		}
-	}
+
 	
-	else if (Type == CAPTURES){
 		normal_moves = state.pieces.pawn_bb & ~RANK_7;
 
 		while (normal_moves != 0ULL){
 			Square from = utils::pop_lsb(normal_moves);
 			uint64_t pawn_attack = (pawnAttackLookups[WHITE][from] & state.enemies );
 
-			while ( pawn_attack != 0ULL){
-				Square to = utils::pop_lsb(pawn_attack);
-				move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN);
-				move_list->count++;
-
-			}
+			addPossibleMove<CAPTURES>(from, pawn_attack, PAWN, move_list);
 			
 		}
 
@@ -201,7 +213,7 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 			move_list->count++;
 
 		}
-	}
+
 
 	
 
@@ -221,7 +233,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 	
 	//single and double pawn pushes
 	//
-		if (Type == QUIETS){
+
 			while (normal_moves != 0ULL){
 				Square from = utils::pop_lsb(normal_moves);
 
@@ -233,14 +245,14 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 
 				uint64_t legalMove = single_pawn_pushes | double_pawn_pushes;
 
-			while ( legalMove != 0ULL){
-				Square to = utils::pop_lsb(legalMove);
-				move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN);
-				move_list->count++;
+				while ( legalMove != 0ULL){
+					Square to = utils::pop_lsb(legalMove);
+					move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN);
+					move_list->count++;
 
+				}
 			}
 
-			}
 
 			while (promotions != 0ULL){
 				Square from = utils::pop_lsb(promotions);
@@ -257,20 +269,14 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 
 			}
 
-		}
-		else if (Type == CAPTURES){
+		
 			normal_moves = state.pieces.pawn_bb & ~RANK_2;
 
 			while (normal_moves != 0ULL){
 				Square from = utils::pop_lsb(normal_moves);
 				uint64_t legalMove = (pawnAttackLookups[BLACK][from] & state.enemies );
 
-				while ( legalMove != 0ULL){
-					Square to = utils::pop_lsb(legalMove);
-					move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN);
-					move_list->count++;
-
-				}
+				addPossibleMove<CAPTURES>(from, legalMove, PAWN, move_list);
 
 			}	
 
@@ -301,7 +307,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 				move_list->count++;		
 
 			}	
-		}
+
 		
 
 }
@@ -309,7 +315,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 template <MoveType Type>
 void MoveGen::generateRookMoves(MoveList* move_list){
 	uint64_t all = state.enemies | state.pieces.all;
-	uint64_t rook_bb = (Type == CAPTURES) ? state.pieces.rook_bb & state.enemies : state.pieces.rook_bb & ~state.enemies;
+	uint64_t rook_bb = state.pieces.rook_bb;
 
         
 	while (rook_bb != 0ULL){
@@ -320,7 +326,7 @@ void MoveGen::generateRookMoves(MoveList* move_list){
 	
 		uint64_t legalMove = rookMoveList[from][index] & ~(state.pieces.all); 
 
-		addPossibleMove(from, legalMove,  ROOK, move_list);
+		addPossibleMove<CAPTURES>(from, legalMove,  ROOK, move_list);
 
         }
 	
@@ -329,7 +335,7 @@ void MoveGen::generateRookMoves(MoveList* move_list){
 template <MoveType Type>
 void MoveGen::generateBishopMoves(MoveList* move_list){
 	uint64_t all = state.pieces.all | state.enemies;
-	uint64_t bishop_bb = (Type == CAPTURES) ? state.pieces.bishop_bb & state.enemies : state.pieces.bishop_bb & ~state.enemies;
+	uint64_t bishop_bb = state.pieces.bishop_bb;
 
         while (bishop_bb != 0ULL){
 
@@ -340,7 +346,7 @@ void MoveGen::generateBishopMoves(MoveList* move_list){
 
 		uint64_t legalMove = bishopMoveList[from][index] & ~(state.pieces.all); 
 
-                addPossibleMove(from, legalMove,  BISHOP, move_list);
+                addPossibleMove<CAPTURES>(from, legalMove,  BISHOP, move_list);
 
         }
 
@@ -350,7 +356,7 @@ template <MoveType Type>
 void MoveGen::generateQueenMoves(MoveList* move_list){
 	uint64_t all = state.pieces.all | state.enemies;
 
-		uint64_t queen_bb = (Type == CAPTURES) ? state.pieces.queen_bb & state.enemies : state.pieces.queen_bb & ~state.enemies;
+		uint64_t queen_bb = state.pieces.queen_bb;
 
         while (queen_bb != 0ULL){
                 Square from = utils::pop_lsb(queen_bb);
@@ -364,7 +370,7 @@ void MoveGen::generateQueenMoves(MoveList* move_list){
         uint64_t legalRookMoves = rookMoveList[from][rookIndex] & ~(state.pieces.all);
 
 		uint64_t legalQueenMoves = legalRookMoves | legalBishopMoves;
-                addPossibleMove(from, (legalQueenMoves) ,  QUEEN, move_list);
+                addPossibleMove<Type>(from, (legalQueenMoves) ,  QUEEN, move_list);
 
         }
 

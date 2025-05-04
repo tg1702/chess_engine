@@ -16,6 +16,8 @@
 class MoveGen{
 	private:
 		BoardState state;
+
+		template <MoveType Type>
 		void addPossibleMove(Square, uint64_t, PieceType, MoveList*);
 	public:
 		void setState(BoardState&);

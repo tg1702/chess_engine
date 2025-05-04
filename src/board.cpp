@@ -226,15 +226,11 @@ void Board::makeMoveHelper(Move& m){
 	Square to = m.getTo();
 	int special = m.getFlag();
 
-	bool validCapture = false;
-	
 	PieceType pieceType = m.getFromPiece();
-	PieceType toPieceType = KING;
-	PieceType capturedPieceType = KING;
+	PieceType toPieceType = m.getToPiece();
+	
 
-
-
-			if (special == NORMAL) {
+			if (special == NORMAL || special == CAPTURE_FLAG) {
 
 				if (turn == BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
 				
@@ -247,7 +243,8 @@ void Board::makeMoveHelper(Move& m){
 				
 	
 				pieces.movePiece(turn, pieceType, from, to);
-				validCapture = true;
+				
+				if (special == CAPTURE_FLAG) pieces.clearPiece(!turn, toPieceType, to);
 			}
 
 			else if (special == W_KS_CASTLE_FLAG)
@@ -290,24 +287,22 @@ void Board::makeMoveHelper(Move& m){
 			else if (special == QUEEN_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, QUEEN, to);
                 		pieces.clearPiece(turn, PAWN, from);
-        			validCapture = true;
+ 
 			}
         		else if (special == ROOK_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, ROOK, to);
                 		pieces.clearPiece(turn, PAWN, from);
-				validCapture = true;
         		}
 			
 			else if (special == BISHOP_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, BISHOP, to);
                 		pieces.clearPiece(turn, PAWN, from);
-        			validCapture = true;
 			}
 			
 			else if (special == KNIGHT_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, KNIGHT, to);
                 		pieces.clearPiece(turn, PAWN, from);
-        			validCapture = true;
+
 			}
 			else if ( turn == WHITE && special == EN_PASSANT_FLAG){
 				enPassantWhite(from, to);
@@ -318,21 +313,7 @@ void Board::makeMoveHelper(Move& m){
 				enPassantBlack(from, to);
 			}
 
-		
-			toPieceType = pieceType;
 
-	
-	if (validCapture){
-		for (const auto& p: PieceTypes){
-			if ((pieces.getPiecesBB(!turn, p) & bitset(to))){ 			
-				if (special == NORMAL) special = CAPTURE_FLAG;
-				pieces.clearPiece(!turn, p , to);
-				capturedPieceType = p;
-				break;
-			} 
-
-		}
-	}
 		if (pieceType == KING && turn == WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
 		if (pieceType == KING && turn == BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
 		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == WHITE) canWhiteQSCastle = false;
@@ -340,9 +321,8 @@ void Board::makeMoveHelper(Move& m){
 			
 		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == BLACK) canBlackQSCastle = false;
 		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == BLACK) canBlackKSCastle = false;			
-
-	Move temp = Move(special, from, to, toPieceType, capturedPieceType);	
-	addMoveToHistory(temp);	
+	
+	addMoveToHistory(m);	
 
 	castlingRights[0][actualMoveCount] = canWhiteKSCastle;
 	castlingRights[1][actualMoveCount] = canWhiteQSCastle;
@@ -374,6 +354,7 @@ void Board::generateMoves(){
 		pieces.getPiecesBB(turn, ALL)
 	};
 
+	
 	BoardState state{
 		friendly,
 		turn,
@@ -384,7 +365,18 @@ void Board::generateMoves(){
 		
 		enPassantSquare,
 
-		pieces.getPiecesBB(!turn, ALL)
+		pieces.getPiecesBB(!turn, ALL),
+
+
+		{
+			pieces.getPiecesBB(!turn, PAWN),
+			pieces.getPiecesBB(!turn, KNIGHT), 
+			pieces.getPiecesBB(!turn, BISHOP), 
+			pieces.getPiecesBB(!turn, ROOK), 
+			pieces.getPiecesBB(!turn, QUEEN), 
+			pieces.getPiecesBB(!turn, KING)
+			
+		}
 	};
 	
 	generator.setState(state);

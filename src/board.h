@@ -20,6 +20,7 @@ class Board{
 		MoveList* move_list;
 
 		bool turn = WHITE;
+		int count = 0;
 
 		int actualMoveCount;
 		Move actualMoves[MAX_MOVES * 5];

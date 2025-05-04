@@ -91,6 +91,7 @@ struct BoardState {
 	int enPassant = -1;
 
 	uint64_t enemies = 0ULL;
+	uint64_t enemy_array[6];
 };
 
 enum Square{

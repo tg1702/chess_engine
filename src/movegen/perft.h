@@ -98,7 +98,8 @@ uint64_t perft(int depth, Board& board){
          }                                                                                                                                                   
 	 
 	 for(auto& move: move_list){                                                                                                     
-		 board.makeMove(move);                                                                                                   nodes += perft(depth - 1, board);
+		 board.makeMove(move);
+		 nodes += perft(depth - 1, board);
 	 	 board.unmakeMove();
 
 	 }	

@@ -19,6 +19,7 @@
 std::atomic<bool> isSearching{false};
 std::mt19937 mt{std::random_device{}()};
 std::uniform_real_distribution<double> distribution(0.0,1.0);
+int nodes = 0;
 
 float evaluate(Board& board){
     int w_mg_score = 0;
@@ -74,6 +75,9 @@ float evaluate(Board& board){
     std::cout << " black mg " << b_mg_score << '\n'; */
     //board.printBoard();
 
+
+    ++nodes;
+
     int mgScore = w_mg_score - b_mg_score;
     int egScore = w_eg_score - b_eg_score;
 
@@ -99,8 +103,15 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
     float value = -INFINITY;
     
     
-    
-    for(auto& move: allMoves){
+    score_moves(allMoves);
+
+    for(size_t i = 0; i < allMoves.size(); ++i){
+
+        pick_move(allMoves, i);
+
+            
+        Move move = allMoves[i];
+        
         board.makeMove(move);
 		value = std::max(value, -negamax(depth - 1, board, -beta, -alpha, -colour));
         board.unmakeMove();    
@@ -122,6 +133,8 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 	float bestValue = -INFINITY;
     int lastDepth = 0;
 
+    nodes = 0;
+
 	std::vector<Move> allMoves = board.generateLegalMoves();  
 
     score_moves(allMoves);
@@ -139,6 +152,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
             
             Move move = allMoves[i];
+
             board.makeMove(move);
             float value = -negamax(d - 1, board, -beta, -alpha, -colour);
             board.unmakeMove();
@@ -158,7 +172,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
             if (timer.getCurrentTime() > allottedTime || !isSearching){
                 timer.stop();
                 std::cout << "bestmove " << bestMove << '\n';
-                std::cout << "info score cp " << bestValue << " depth " << lastDepth << "\n";
+                std::cout << "info score cp " << bestValue << " depth " << lastDepth << " nodes " << nodes << "\n";
                 isSearching.store(false);
                 return;
             }    
@@ -170,20 +184,24 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
     }
     isSearching.store(false);
+    timer.stop();
+
     std::cout << "bestmove " << bestMove << '\n';
-    std::cout << "info score cp " << bestValue << "\n";
+    std::cout << "info score cp " << bestValue << " depth " << lastDepth << " nodes " << nodes << "\n";
+
 }
 
 
 void score_moves(std::vector<Move>& moves){
 
-    for (Move move: moves){
+    for (Move& move: moves){
         move.set_score(MVV_LVA[move.getToPiece()][move.getFromPiece()]);
     }
 }
 
 void pick_move(std::vector<Move>& moves, size_t start_index){
     for (size_t i = start_index; i < moves.size(); i++){
+        
         if (moves[i].get_score() > moves[start_index].get_score()){
             std::swap(moves[i], moves[start_index]);
         }
