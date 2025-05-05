@@ -28,23 +28,11 @@ float evaluate(Board& board){
     int b_eg_score = 0;
     int gamePhase = 0;
 
-    bool turn = board.getTurn();
-
-   /*  std::cout << "------------------------------------------------------" << '\n'; */
-
     for (Square sq: Squares){
         for (PieceType pc: PieceTypes){
             if (board.getBitboard(WHITE, pc) & bitset(sq)){
 
-                /* if (pc == ROOK && turn == WHITE){
-                    std::cout << "mat value and pesto " << MaterialValues[pc] << ", " << mg_pesto_table[pc][sq] << '\n';
-                } */
-
-
                 w_mg_score += MaterialValues[pc] + mg_pesto_table[pc][sq];
-                /* std::cout << "current score: " <<  MaterialValues[pc] + mg_pesto_table[pc][sq] << ",score: " << w_mg_score << ", piece_type: " << pc << '\n';
-
-                std::cout << "square " << sq << '\n'; */
                 w_eg_score += MaterialValues[pc] + eg_pesto_table[pc][sq];
                 gamePhase += gamePhaseInc[pc];
             }
@@ -52,15 +40,7 @@ float evaluate(Board& board){
             
             else if (board.getBitboard(BLACK, pc) & bitset(sq)){
 
-                /* if (pc == ROOK){
-                    std::cout << "mat value and pesto " << MaterialValues[pc] << ", " << mg_pesto_table[pc][63-sq] << '\n';
-                    std::cout << "square " << sq << '\n';
-                } */
-
                 b_mg_score += MaterialValues[pc] + mg_pesto_table[pc][56 ^ sq];
-
-                /* std::cout << "side " << BLACK << "current score: " <<  MaterialValues[pc] + mg_pesto_table[pc][56 ^ sq] << ",score: " << b_mg_score << ", piece_type: " << pc << '\n';
-                std::cout << "square " << sq << '\n'; */
                 b_eg_score += MaterialValues[pc] + eg_pesto_table[pc][56 ^ sq];
                 gamePhase += gamePhaseInc[pc];
             }
@@ -68,38 +48,54 @@ float evaluate(Board& board){
 
         }
     }
-/* 
-    std::cout << "------------------------------------------------------" << '\n';
-
-    std::cout << " white mg " << w_mg_score << '\n';
-    std::cout << " black mg " << b_mg_score << '\n'; */
-    //board.printBoard();
-
-
     ++nodes;
 
     int mgScore = w_mg_score - b_mg_score;
     int egScore = w_eg_score - b_eg_score;
 
     int mgPhase = gamePhase;
-    if (mgPhase > 24) mgPhase = 24; /* in case of early promotion */
+    if (mgPhase > 24) mgPhase = 24; 
     int egPhase = 24 - mgPhase;
     return (mgScore * mgPhase + egScore * egPhase) / 24;
-
-    //return w_mg_score - b_mg_score;
-    //return (board.getMaterialCount(WHITE) - board.getMaterialCount(BLACK)) + distribution(mt);
 }
 
 float negamax(int depth, Board& board, float alpha, float beta, int colour){
     std::vector<Move> allMoves = board.generateLegalMoves();
 
-    if (board.isCheckmated(WHITE)) return colour * -INFINITY;
-    if (board.isCheckmated(BLACK)) return colour * INFINITY;
+    bool turn = (colour == 1) ? 0:1;
+    if (board.isCheckmated(turn)) return -INT_MAX+ depth;
+
     if (board.isDraw()) return 0;    
 
-    if (depth == 0 || !isSearching)
-        return colour * evaluate(board);
+    if (depth == 0 || !isSearching){
 
+        std::vector<Move> captures;
+
+        for (Move& move: allMoves){
+
+            if (move.getFlag() == CAPTURE_FLAG || 
+            move.getFlag() ==QUEEN_PROMOTION_CAPTURE || 
+            move.getFlag() ==ROOK_PROMOTION_CAPTURE || 
+            move.getFlag() ==BISHOP_PROMOTION_CAPTURE || 
+            move.getFlag() == KNIGHT_PROMOTION_CAPTURE ||
+            move.getFlag() == EN_PASSANT_FLAG
+        ){
+                captures.push_back(move);
+            }
+        }
+
+        //std::cout << "captures size " << captures.size() << '\n';
+
+        if (captures.size() == 0)
+            return colour * evaluate(board);
+        else
+            return quiescence_search(board, 4, colour, alpha, beta);
+        
+
+    }
+        
+
+    
     float value = -INFINITY;
     
     
@@ -145,7 +141,11 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 		float bestIterationValue = -INFINITY;
 		Move bestIterationMove = allMoves[0];
         
-
+        if (bestValue == INT_MAX)
+        {
+            
+            break;
+        }
 
         for (size_t i = 0; i < allMoves.size(); ++i){
             pick_move(allMoves, i);
@@ -160,8 +160,6 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 			if (value > bestIterationValue){
                 bestIterationMove = move;
                 bestIterationValue = value;
-               // std::cout << "bestvalue " << bestIterationValue << '\n';
-
             }
             
            
@@ -178,6 +176,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
             }    
         }
 
+        
 		bestMove = bestIterationMove;
         bestValue = bestIterationValue;
         lastDepth = d;
@@ -191,6 +190,60 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
 }
 
+float quiescence_search(Board& board, int depth, int colour, float alpha, float beta){
+
+    std::vector<Move> moves = board.generateLegalMoves();
+
+    
+    bool turn = (colour == 1) ? 0:1;
+    if (board.isCheckmated(turn)) return -INT_MAX + depth;
+    if (board.isDraw()) return 0;    
+
+
+    
+    float stand_pat = colour * evaluate(board);
+
+    if( stand_pat >= beta)
+        return beta;
+    if( alpha < stand_pat )
+        alpha = stand_pat;
+
+    if (depth == 0)
+        return stand_pat;
+
+   
+    std::vector<Move> captures;
+
+    for (Move& move: moves){
+
+        if (move.getFlag() == CAPTURE_FLAG || 
+        move.getFlag() ==QUEEN_PROMOTION_CAPTURE || 
+        move.getFlag() ==ROOK_PROMOTION_CAPTURE || 
+        move.getFlag() ==BISHOP_PROMOTION_CAPTURE || 
+        move.getFlag() == KNIGHT_PROMOTION_CAPTURE ||
+        move.getFlag() == EN_PASSANT_FLAG){
+            captures.push_back(move);
+        }
+    }
+
+    float value = stand_pat;
+
+    for (Move& move: captures){
+            board.makeMove(move);
+            value = std::max(value, -quiescence_search(board, depth - 1, -colour, -beta, -alpha));
+            board.unmakeMove();
+
+            alpha = std::max(alpha, value);
+            
+            if (alpha >= beta){
+                break; // Beta cutoff
+            } 
+        
+        
+    }
+    
+    return value;
+}
 
 void score_moves(std::vector<Move>& moves){
 

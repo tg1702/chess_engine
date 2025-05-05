@@ -50,6 +50,7 @@ class Board{
 		void makeMove(std::string);
 		void printBoard(void);
 		void addMoveToHistory(Move&);
+		
 		bool movePawnFifthRank(Square, Square);
 	       	bool movePawnFourthRank(Square, Square);
 		
@@ -87,6 +88,12 @@ class Board{
 		uint64_t getBitboard(bool, PieceType);
 
 
+		inline Move getLastMove() {
+			if (actualMoveCount > 0) {
+				return actualMoves[actualMoveCount - 1];
+			}
+			throw std::out_of_range("No moves have been made yet.");
+		}
 
 };
 
