@@ -14,7 +14,7 @@
 
 namespace utils{
 	
-	inline constexpr Square pop_lsb(uint64_t& bb) {
+	inline constexpr Square pop_lsb(Bitboard& bb) {
 		int x = __builtin_ctzll(bb); 
 		bb &= (bb - 1ULL); 
 		return static_cast<Square>(x);
@@ -22,13 +22,20 @@ namespace utils{
 
 	inline constexpr PieceType int_to_PieceType(int num){return static_cast<PieceType>(num);}	
 	
-	inline constexpr int generateMagicIndex(uint64_t bitboard, uint64_t magicNumber, int square, int type){
+	inline constexpr int generateMagicIndex(Bitboard bitboard, Bitboard magicNumber, int square, int type){
         if (type == ROOK_MOVES)
                 return (int)((bitboard * magicNumber) >> rookShifts[square]);
         else
                 return (int)((bitboard * magicNumber) >> bishopShifts[square]);
 	}
 
+	inline constexpr Side flip_side(const Side side) { 
+		bool s = static_cast<bool>(side);
+		s = !s;
+
+		return static_cast<Side>(s);
+
+	}
 	std::vector<std::string> split_string(std::string);
 
 	template<typename T>

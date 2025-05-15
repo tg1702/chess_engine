@@ -13,7 +13,7 @@
 
 
 Board::Board(){
-			turn = WHITE;
+			turn = Side::WHITE;
 		 
 			canWhiteQSCastle = true;
 			canWhiteKSCastle = true;
@@ -26,7 +26,7 @@ Board::Board(){
 			actualMoveCount = 0;
 }
 
-void Board::parsePieceFen(std::string &fen){
+void Board::parsePieceFen(const std::string &fen){
 
 	int squareCount = 0;
 	PieceArgs args{};	
@@ -87,16 +87,16 @@ void Board::parsePieceFen(std::string &fen){
 	pieces.setBoard(args);	
 }
 
-void Board::parseTurn(std::string &fen){
+void Board::parseTurn(const std::string &fen){
 	if (fen.length() != 1) return;
 
 	if ( fen[0] == 'w')
-		turn = WHITE;
+		turn = Side::WHITE;
 	else if (fen[0] == 'b')
-		turn = BLACK;
+		turn = Side::BLACK;
 }
 
-void Board::parseEnPassantSquares(std::string &fen){
+void Board::parseEnPassantSquares(const std::string &fen){
 	
 	if (fen.length() > 2) return;
 
@@ -108,7 +108,7 @@ void Board::parseEnPassantSquares(std::string &fen){
 	
 }
 
-void Board::parseCastlingRights(std::string &fen){
+void Board::parseCastlingRights(const std::string &fen){
 	
 	canWhiteKSCastle = false;
 	canWhiteQSCastle = false;
@@ -137,16 +137,16 @@ void Board::parseCastlingRights(std::string &fen){
 	castlingRights[3][actualMoveCount] = canBlackQSCastle;
 }
 
-void Board::parseHalfMoveClock(std::string &fen){
+void Board::parseHalfMoveClock(const std::string &fen){
 	//TODO: store half move clock info
 }
 
-void Board::parseFullMoveClock(std::string &fen){
+void Board::parseFullMoveClock(const std::string &fen){
 	//TODO: store full move clock info
 }
 
 
-Board::Board(std::string fen){
+Board::Board(const std::string fen){
 
 	move_list = new MoveList();	
 	setFEN(fen);		
@@ -154,7 +154,7 @@ Board::Board(std::string fen){
 
 
 
-void Board::setFEN(std::string fen){
+void Board::setFEN(const std::string fen){
 
 	actualMoveCount = 0;
 	
@@ -169,12 +169,12 @@ void Board::setFEN(std::string fen){
 	parseHalfMoveClock(splitFen[4]);
 	parseFullMoveClock(splitFen[5]);
 }
-void Board::makeMove(Move& m){
+void Board::makeMove(const Move& m){
 	makeMoveHelper(m);
 	turn = !turn;
 }
 
-void Board::makeMove(std::string uci_move){
+void Board::makeMove(const std::string& uci_move){
 	if (uci_move.length() < 4 || uci_move.length() > 5) return;
 
 
@@ -218,7 +218,7 @@ void Board::makeMove(std::string uci_move){
 		
 	}
 }
-void Board::makeMoveHelper(Move& m){
+void Board::makeMoveHelper(const Move& m){
 	
 	enPassantSquare = -1;
 	
@@ -232,12 +232,12 @@ void Board::makeMoveHelper(Move& m){
 
 			if (special == NORMAL || special == CAPTURE_FLAG) {
 
-				if (turn == BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
+				if (turn == Side::BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
 				
 					enPassantSquare = to + 8;
 				}
 
-				else if (turn == WHITE && pieceType == PAWN && movePawnFourthRank(from, to)){
+				else if (turn == Side::WHITE && pieceType == PAWN && movePawnFourthRank(from, to)){
 					enPassantSquare = to - 8;
 				}
 				
@@ -304,23 +304,23 @@ void Board::makeMoveHelper(Move& m){
                 		pieces.clearPiece(turn, PAWN, from);
 
 			}
-			else if ( turn == WHITE && special == EN_PASSANT_FLAG){
+			else if ( turn == Side::WHITE && special == EN_PASSANT_FLAG){
 				enPassantWhite(from, to);
 			}
 
 
-			else if ( turn == BLACK && special == EN_PASSANT_FLAG){
+			else if ( turn == Side::BLACK && special == EN_PASSANT_FLAG){
 				enPassantBlack(from, to);
 			}
 
 
-		if (pieceType == KING && turn == WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
-		if (pieceType == KING && turn == BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
-		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == WHITE) canWhiteQSCastle = false;
-		if (pieceType == ROOK && (bitset(from) & bitset(H1))	&& turn == WHITE) canWhiteKSCastle = false;
+		if (pieceType == KING && turn == Side::WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
+		if (pieceType == KING && turn == Side::BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
+		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == Side::WHITE) canWhiteQSCastle = false;
+		if (pieceType == ROOK && (bitset(from) & bitset(H1))	&& turn == Side::WHITE) canWhiteKSCastle = false;
 			
-		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == BLACK) canBlackQSCastle = false;
-		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == BLACK) canBlackKSCastle = false;			
+		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == Side::BLACK) canBlackQSCastle = false;
+		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == Side::BLACK) canBlackKSCastle = false;			
 	
 	addMoveToHistory(m);	
 
@@ -335,11 +335,11 @@ void Board::makeMoveHelper(Move& m){
 	
 }
 
-uint64_t Board::getBitboard(bool turn, PieceType pieceType){
+Bitboard Board::getBitboard(Side turn, PieceType pieceType) const{
 	return pieces.getPiecesBB(turn, pieceType);
 }
 
-void Board::generateMoves(){
+void Board::generateMoves(const MoveType type){
 	move_list->count = 0;
 
 
@@ -358,10 +358,10 @@ void Board::generateMoves(){
 	BoardState state{
 		friendly,
 		turn,
-		canWhiteKSCastle && !turn && pieces.canKingSideCastle(WHITE),
-		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(WHITE),
-		canBlackKSCastle && turn && pieces.canKingSideCastle(BLACK),
-		canBlackQSCastle && turn && pieces.canQueenSideCastle(BLACK),
+		canWhiteKSCastle && !turn && pieces.canKingSideCastle(Side::WHITE),
+		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(Side::WHITE),
+		canBlackKSCastle && turn && pieces.canKingSideCastle(Side::BLACK),
+		canBlackQSCastle && turn && pieces.canQueenSideCastle(Side::BLACK),
 		
 		enPassantSquare,
 
@@ -380,14 +380,31 @@ void Board::generateMoves(){
 	};
 	
 	generator.setState(state);
-	generator.generateMoves(move_list);
+
+	
+	//std::cout << " type " << type << '\n';
+
+	if (type == MoveType::QUIETS){
+		
+		generator.generateQuiets(move_list);
+
+	}
+	else if (type == MoveType::CAPTURES){
+		generator.generateCaptures(move_list);
+		//std::cout << "size " << move_list->count << '\n';
+	}
+	else if ( type == MoveType::ALL_TYPES){
+
+		generator.generateMoves(move_list);
+
+	}
 
 	
 }
 
 
-std::vector<Move> Board::generatePseudoLegalMoves(){
-	generateMoves();
+std::vector<Move> Board::generatePseudoLegalMoves(MoveType type){
+	generateMoves(type);
 
 	std::vector<Move> pseudoLegalMoves;
 	
@@ -402,15 +419,15 @@ std::vector<Move> Board::generatePseudoLegalMoves(){
 	return pseudoLegalMoves;
 
 }
-std::vector<Move> Board::generateLegalMoves(){
+std::vector<Move> Board::generateLegalMoves(MoveType type){
 
-	generateMoves();
+	generateMoves(type);
 
 	std::vector<Move> legalMoves;
 
 	int count = move_list->count;
 
-	bool originalTurn = turn;
+	Side originalTurn = turn;
 
 	legalMovesCount = 0;
 
@@ -438,13 +455,13 @@ void Board::printBoard(){
 	std::array<char, 6> char_type = {'p', 'n', 'b', 'r', 'q', 'k'};
 	
 	for (const auto& square: Squares){
-		for (int side = 0; side < 2; side++){
+		for (const auto& side: Sides){
 		for (const auto& type: PieceTypes){
 			
 			if (pieces.getPiecesBB(side, type) & (1ULL << square)){
 				char_board[square] = char_type[type];
 					
-				if (side == WHITE) char_board[square] = toupper(char_board[square]);
+				if (side == Side::WHITE) char_board[square] = toupper(char_board[square]);
 
 			}
 			
@@ -462,7 +479,7 @@ void Board::printBoard(){
 		}
 		std::cout << '\n';
 	}
-	std::cout << " turn = " << ((turn) ? "BLACK" : "WHITE") << '\n';
+	std::cout << " turn = " << ((turn) ? "Side::BLACK" : "Side::WHITE") << '\n';
 	std::cout << " ep = " << ((enPassantSquare == -1) ? "None" : pieceSquareNames[enPassantSquare]) << '\n';
 	std::cout << " white kingside castle " << ((canWhiteKSCastle) ? "y" : "n") << '\n';
 	std::cout << " white queenside castle " << ((canWhiteQSCastle) ? "y" : "n") << '\n';
@@ -472,17 +489,17 @@ void Board::printBoard(){
 	std::cout << "\n\n\n";
 }
 
-bool Board::movePawnFifthRank(Square from, Square to){	
-	return ((pieces.getPiecesBB(BLACK, PAWN) & RANK_7 & bitset(from)) && (RANK_5 & bitset(to)));
+bool Board::movePawnFifthRank(const Square from, const Square to){	
+	return ((pieces.getPiecesBB(Side::BLACK, PAWN) & RANK_7 & bitset(from)) && (RANK_5 & bitset(to)));
 }
 
-bool Board::movePawnFourthRank(Square from, Square to){
+bool Board::movePawnFourthRank(const Square from, const Square to){
 
-	return (pieces.getPiecesBB(WHITE, PAWN) & RANK_2 & bitset(from)) && (RANK_4 & bitset(to));
+	return (pieces.getPiecesBB(Side::WHITE, PAWN) & RANK_2 & bitset(from)) && (RANK_4 & bitset(to));
 
 }
 
-void Board::addMoveToHistory(Move& move){	
+void Board::addMoveToHistory(const Move& move){	
 	actualMoves[actualMoveCount] = move;
 	actualMoveCount++;
 
@@ -519,33 +536,33 @@ void Board::unmakeMoveHelper(){
 
 	}
 	else if (flag == EN_PASSANT_FLAG){
-		Square target = static_cast<Square>((turn == WHITE) ? to - 8 : to + 8);
+		Square target = static_cast<Square>((turn == Side::WHITE) ? to - 8 : to + 8);
 	
 		pieces.movePiece(turn, PAWN, to, from);
 		pieces.addPiece(!turn, PAWN, target);
 	}	
 	else if (flag == W_KS_CASTLE_FLAG){
 
-		pieces.movePiece(WHITE, KING, G1, E1);
-		pieces.movePiece(WHITE, ROOK, F1, H1); 
+		pieces.movePiece(Side::WHITE, KING, G1, E1);
+		pieces.movePiece(Side::WHITE, ROOK, F1, H1); 
 	
 	}
 	else if (flag == B_KS_CASTLE_FLAG){
 		
-		pieces.movePiece(BLACK, KING, G8, E8);
-		pieces.movePiece(BLACK, ROOK, F8, H8); 
+		pieces.movePiece(Side::BLACK, KING, G8, E8);
+		pieces.movePiece(Side::BLACK, ROOK, F8, H8); 
 		
 	}	
  	else if (flag == W_QS_CASTLE_FLAG){
 
-                pieces.movePiece(WHITE, KING, C1, E1);
-                pieces.movePiece(WHITE, ROOK, D1, A1);
+                pieces.movePiece(Side::WHITE, KING, C1, E1);
+                pieces.movePiece(Side::WHITE, ROOK, D1, A1);
         	
 	}
         else if (flag == B_QS_CASTLE_FLAG){
 
-                pieces.movePiece(BLACK, KING, C8, E8);
-                pieces.movePiece(BLACK, ROOK, D8, A8);
+                pieces.movePiece(Side::BLACK, KING, C8, E8);
+                pieces.movePiece(Side::BLACK, ROOK, D8, A8);
         	
 	}
 	else if (flag == QUEEN_PROMOTION){
@@ -605,62 +622,61 @@ void Board::unmakeMove(){
 
 void Board::whiteKingSideCastle(){
 
-	pieces.movePiece(WHITE, KING, E1, G1);
-	pieces.movePiece(WHITE, ROOK, H1, F1); 
+	pieces.movePiece(Side::WHITE, KING, E1, G1);
+	pieces.movePiece(Side::WHITE, ROOK, H1, F1); 
 }
 
 void Board::whiteQueenSideCastle(){
 
-	pieces.movePiece(WHITE, KING, E1, C1);
-	pieces.movePiece(WHITE, ROOK, A1, D1); 
+	pieces.movePiece(Side::WHITE, KING, E1, C1);
+	pieces.movePiece(Side::WHITE, ROOK, A1, D1); 
 
 }
 
 void Board::blackKingSideCastle(){
 
-	pieces.movePiece(BLACK, KING, E8, G8);
-	pieces.movePiece(BLACK, ROOK, H8, F8); 
+	pieces.movePiece(Side::BLACK, KING, E8, G8);
+	pieces.movePiece(Side::BLACK, ROOK, H8, F8); 
 
 }
 
 void Board::blackQueenSideCastle(){
 
-	pieces.movePiece(BLACK, KING, E8, C8);
-	pieces.movePiece(BLACK, ROOK, A8, D8); 
+	pieces.movePiece(Side::BLACK, KING, E8, C8);
+	pieces.movePiece(Side::BLACK, ROOK, A8, D8); 
 }
 
 
-void Board::enPassantWhite(Square from, Square to){
+void Board::enPassantWhite(const Square from, const Square to){
 		
 		
-			pieces.movePiece(WHITE, PAWN, from, to);	
+			pieces.movePiece(Side::WHITE, PAWN, from, to);	
 			
 			
 			Square square = static_cast<Square>(to-8);
-			pieces.clearPiece(BLACK, PAWN, square);
+			pieces.clearPiece(Side::BLACK, PAWN, square);
 
 
 
 }
 
-void Board::enPassantBlack(Square from, Square to){	
-			pieces.movePiece(BLACK, PAWN, from, to);
+void Board::enPassantBlack(const Square from, const Square to){	
+			pieces.movePiece(Side::BLACK, PAWN, from, to);
 
 			Square square = static_cast<Square>(to+8);
-                        pieces.clearPiece(WHITE, PAWN, square);
+            pieces.clearPiece(Side::WHITE, PAWN, square);
 
 }
 
 
-bool Board::isInCheck(bool side){
-	uint64_t king_bb = pieces.getPiecesBB(side, KING);
+bool Board::isInCheck(Side side){
+	Bitboard king_bb = pieces.getPiecesBB(side, KING);
 
 	Square kingSquare = utils::pop_lsb(king_bb);
 	return pieces.isAttacked(side, kingSquare);
 }
 
-int Board::getMaterialCount(bool side){
-	//std::cout << pieces.getPieceCount(side, BISHOP) * BISHOP_MATERIAL_VALUE << '\n';
+int Board::getMaterialCount(Side side) const{
 
 	return
 	pieces.getPieceCount(side, KING) * KING_MATERIAL_VALUE + 	
@@ -671,10 +687,10 @@ int Board::getMaterialCount(bool side){
 	pieces.getPieceCount(side, PAWN) * PAWN_MATERIAL_VALUE; 
 }
 bool Board::isGameOver(){	
-	return isCheckmated(WHITE) || isCheckmated(BLACK);
+	return isCheckmated(Side::WHITE) || isCheckmated(Side::BLACK);
 }
 
-bool Board::isCheckmated(bool side){
+bool Board::isCheckmated(Side side){
 	return !legalMovesCount && isInCheck(side); 
 
 }
@@ -688,13 +704,13 @@ bool Board::isStalemate(){
 }
 
 bool Board::isInsufficientMaterial(){
-	int whiteBishopCount = pieces.getPieceCount(WHITE, BISHOP);
-	int blackBishopCount = pieces.getPieceCount(BLACK, BISHOP);
-	int whiteKnightCount = pieces.getPieceCount(WHITE, KNIGHT);
-	int blackKnightCount = pieces.getPieceCount(BLACK, KNIGHT);
+	int whiteBishopCount = pieces.getPieceCount(Side::WHITE, BISHOP);
+	int blackBishopCount = pieces.getPieceCount(Side::BLACK, BISHOP);
+	int whiteKnightCount = pieces.getPieceCount(Side::WHITE, KNIGHT);
+	int blackKnightCount = pieces.getPieceCount(Side::BLACK, KNIGHT);
 
-	int whiteMaterialCount = getMaterialCount(WHITE);
-	int blackMaterialCount = getMaterialCount(BLACK);
+	int whiteMaterialCount = getMaterialCount(Side::WHITE);
+	int blackMaterialCount = getMaterialCount(Side::BLACK);
 
 	return (
 		( whiteMaterialCount == KING_MATERIAL_VALUE && blackMaterialCount == KING_MATERIAL_VALUE)

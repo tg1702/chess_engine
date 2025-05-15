@@ -10,11 +10,13 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+using Bitboard = uint64_t;
 constexpr int MAX_MOVES = 256;
 
-enum MoveType{
+enum class MoveType{
 	CAPTURES,
-	QUIETS
+	QUIETS,
+	ALL_TYPES
 };
 
 enum SlidingPieces{
@@ -22,10 +24,18 @@ enum SlidingPieces{
         BISHOP_MOVES
 };
 
-enum sides{
+enum Side{
 	WHITE,
 	BLACK
 };
+
+inline Side operator!(Side& side){
+
+	if (side == Side::WHITE) return Side::BLACK;
+	else return Side::WHITE;
+}
+
+const std::array<Side, 2> Sides = { WHITE, BLACK };
 
 enum PieceType{
 	PAWN,
@@ -80,7 +90,7 @@ struct PieceBB {
 struct BoardState {
 	PieceBB pieces;
 
-	bool turn = WHITE;
+	Side turn = WHITE;
 	
 
 	bool whiteKSCastle = true;

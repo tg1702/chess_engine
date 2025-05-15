@@ -19,7 +19,7 @@ class Board{
 		MoveGen generator;	
 		MoveList* move_list;
 
-		bool turn = WHITE;
+		Side turn = Side::WHITE;
 		int count = 0;
 
 		int actualMoveCount;
@@ -45,47 +45,47 @@ class Board{
 		//Board& operator=(Board other) {}	
 		void unmakeMove();
 		void unmakeMoveHelper();
-		void makeMoveHelper(Move&);
-		void makeMove(Move&);
-		void makeMove(std::string);
+		void makeMoveHelper(const Move&);
+		void makeMove(const Move&);
+		void makeMove(const std::string&);
 		void printBoard(void);
-		void addMoveToHistory(Move&);
+		void addMoveToHistory(const Move&);
 		
-		bool movePawnFifthRank(Square, Square);
-	       	bool movePawnFourthRank(Square, Square);
+		bool movePawnFifthRank(const Square, const Square);
+	    bool movePawnFourthRank(const Square, const Square);
 		
-		void setFEN(std::string);
+		void setFEN(const std::string);
 		void whiteKingSideCastle(void);
 		void whiteQueenSideCastle(void);
 		void blackKingSideCastle(void);
 		void blackQueenSideCastle(void);
-		void enPassantWhite(Square, Square);
-		void enPassantBlack(Square, Square);
-		bool isInCheck(bool);
-		void generateMoves(void);
-		std::vector<Move> generateLegalMoves(void);
-		std::vector<Move> generatePseudoLegalMoves(void);
-		std::vector<std::string> split_fen(std::string&);
-		void parsePieceFen(std::string&);
+		void enPassantWhite(const Square, const Square);
+		void enPassantBlack(const Square, const Square);
+		bool isInCheck(Side);
+		void generateMoves(const MoveType=MoveType::ALL_TYPES);
+		std::vector<Move> generateLegalMoves(MoveType=MoveType::ALL_TYPES);
+		std::vector<Move> generatePseudoLegalMoves(MoveType=MoveType::ALL_TYPES);
+		std::vector<std::string> split_fen(const std::string&);
+		void parsePieceFen(const std::string&);
 		
-		void parseTurn(std::string&);
-		void parseEnPassantSquares(std::string&);
-		void parseCastlingRights(std::string&);
-		void parseHalfMoveClock(std::string&);
-		void parseFullMoveClock(std::string&);
+		void parseTurn(const std::string&);
+		void parseEnPassantSquares(const std::string&);
+		void parseCastlingRights(const std::string&);
+		void parseHalfMoveClock(const std::string&);
+		void parseFullMoveClock(const std::string&);
 		
 		int getActualMoveCount(void);
 		void printHistory(void);
-		int getMaterialCount(bool);
+		int getMaterialCount(Side) const;
 		bool isGameOver(void);
 
-		inline bool getTurn() { return turn;}
-		bool isCheckmated(bool);
+		inline Side getTurn() { return turn;}
+		bool isCheckmated(Side);
 		bool isStalemate();	
 		bool isInsufficientMaterial();
 		bool isDraw();
 
-		uint64_t getBitboard(bool, PieceType);
+		Bitboard getBitboard(Side, PieceType) const;
 
 
 		inline Move getLastMove() {

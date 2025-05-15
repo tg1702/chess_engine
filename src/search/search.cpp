@@ -8,6 +8,7 @@
 #include <mutex>
 #include <random>
 #include <algorithm>
+#include <random>
 
 #include "../board.h"
 #include "../movegen/move.h"
@@ -16,6 +17,7 @@
 #include "pst.h"
 #include "../types.h"
 #include "move_ordering.h"
+
 std::atomic<bool> isSearching{false};
 std::mt19937 mt{std::random_device{}()};
 std::uniform_real_distribution<double> distribution(0.0,1.0);
@@ -28,8 +30,8 @@ float evaluate(Board& board){
     int b_eg_score = 0;
     int gamePhase = 0;
 
-    for (Square sq: Squares){
-        for (PieceType pc: PieceTypes){
+    for (const Square& sq: Squares){
+        for (const PieceType& pc: PieceTypes){
             if (board.getBitboard(WHITE, pc) & bitset(sq)){
 
                 w_mg_score += MaterialValues[pc] + mg_pesto_table[pc][sq];
@@ -62,8 +64,8 @@ float evaluate(Board& board){
 float negamax(int depth, Board& board, float alpha, float beta, int colour){
     std::vector<Move> allMoves = board.generateLegalMoves();
 
-    bool turn = (colour == 1) ? 0:1;
-    if (board.isCheckmated(turn)) return -INT_MAX+ depth;
+    Side turn = (colour == 1) ? WHITE:BLACK;
+    if (board.isCheckmated(turn)) return -INT_MAX + depth;
 
     if (board.isDraw()) return 0;    
 
@@ -71,7 +73,7 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
 
         std::vector<Move> captures;
 
-        for (Move& move: allMoves){
+        for (const Move& move: allMoves){
 
             if (move.getFlag() == CAPTURE_FLAG || 
             move.getFlag() ==QUEEN_PROMOTION_CAPTURE || 
@@ -83,8 +85,6 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
                 captures.push_back(move);
             }
         }
-
-        //std::cout << "captures size " << captures.size() << '\n';
 
         if (captures.size() == 0)
             return colour * evaluate(board);
@@ -151,7 +151,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
             pick_move(allMoves, i);
 
             
-            Move move = allMoves[i];
+            const Move move = allMoves[i];
 
             board.makeMove(move);
             float value = -negamax(d - 1, board, -beta, -alpha, -colour);
@@ -190,12 +190,12 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
 }
 
+
 float quiescence_search(Board& board, int depth, int colour, float alpha, float beta){
 
-    std::vector<Move> moves = board.generateLegalMoves();
+    std::vector<Move> captures = board.generateLegalMoves(MoveType::CAPTURES);
 
-    
-    bool turn = (colour == 1) ? 0:1;
+    Side turn = (colour == 1) ? WHITE:BLACK;
     if (board.isCheckmated(turn)) return -INT_MAX + depth;
     if (board.isDraw()) return 0;    
 
@@ -212,23 +212,16 @@ float quiescence_search(Board& board, int depth, int colour, float alpha, float 
         return stand_pat;
 
    
-    std::vector<Move> captures;
-
-    for (Move& move: moves){
-
-        if (move.getFlag() == CAPTURE_FLAG || 
-        move.getFlag() ==QUEEN_PROMOTION_CAPTURE || 
-        move.getFlag() ==ROOK_PROMOTION_CAPTURE || 
-        move.getFlag() ==BISHOP_PROMOTION_CAPTURE || 
-        move.getFlag() == KNIGHT_PROMOTION_CAPTURE ||
-        move.getFlag() == EN_PASSANT_FLAG){
-            captures.push_back(move);
-        }
-    }
-
+    score_moves(captures);
+  
+        
     float value = stand_pat;
 
-    for (Move& move: captures){
+    for (size_t i = 0; i < captures.size(); i++){
+            pick_move(captures, i);
+            
+            const Move move = captures[i];
+
             board.makeMove(move);
             value = std::max(value, -quiescence_search(board, depth - 1, -colour, -beta, -alpha));
             board.unmakeMove();
@@ -236,7 +229,7 @@ float quiescence_search(Board& board, int depth, int colour, float alpha, float 
             alpha = std::max(alpha, value);
             
             if (alpha >= beta){
-                break; // Beta cutoff
+                break; 
             } 
         
         

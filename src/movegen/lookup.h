@@ -17,12 +17,12 @@
 #define TABLE_SIZE 4096
 
 
-constexpr uint64_t generateWhiteRookMask(int plain_square){
- uint64_t square = bitset(plain_square);
- uint64_t upDirection = 0Ull;
- uint64_t downDirection = 0Ull;
- uint64_t leftDirection = 0Ull;
- uint64_t rightDirection = 0Ull;
+constexpr Bitboard generateWhiteRookMask(int plain_square){
+ Bitboard square = bitset(plain_square);
+ Bitboard upDirection = 0Ull;
+ Bitboard downDirection = 0Ull;
+ Bitboard leftDirection = 0Ull;
+ Bitboard rightDirection = 0Ull;
  for (int i = 8; i <= 56; i+= 8){
 	 upDirection |= square << i;
 	 downDirection |= square >> i;
@@ -41,12 +41,12 @@ constexpr uint64_t generateWhiteRookMask(int plain_square){
 }
 
 
-constexpr uint64_t generateWhiteBishopMask(int plain_square){
- uint64_t square = bitset(plain_square);
- uint64_t upLeftDirection = 0Ull;
- uint64_t downLeftDirection = 0Ull;
- uint64_t upRightDirection = 0Ull;
- uint64_t downRightDirection = 0Ull;
+constexpr Bitboard generateWhiteBishopMask(int plain_square){
+ Bitboard square = bitset(plain_square);
+ Bitboard upLeftDirection = 0Ull;
+ Bitboard downLeftDirection = 0Ull;
+ Bitboard upRightDirection = 0Ull;
+ Bitboard downRightDirection = 0Ull;
 
 
  for (int i = 7; i <= 49; i+= 7){ 
@@ -83,12 +83,12 @@ for (int i = 7; i <= 49; i+= 7){
 }
 
 
-constexpr uint64_t calcLegalBishopMoves(int plain_square, uint64_t occupancy){
+constexpr Bitboard calcLegalBishopMoves(int plain_square, Bitboard occupancy){
 	
- uint64_t upLeftDirection = 0Ull;
- uint64_t downLeftDirection = 0Ull;
- uint64_t upRightDirection = 0Ull;
- uint64_t downRightDirection = 0Ull;
+ Bitboard upLeftDirection = 0Ull;
+ Bitboard downLeftDirection = 0Ull;
+ Bitboard upRightDirection = 0Ull;
+ Bitboard downRightDirection = 0Ull;
 
  int curRank = plain_square / 8;
  int curFile = plain_square % 8;
@@ -129,8 +129,8 @@ for (rank = curRank-1 , file = curFile-1; rank >= 0 && file >= 0; rank--, file--
 }
 
 
-constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_pieces){
-	std::array<uint64_t, TABLE_SIZE> blockedBitboards{};
+constexpr std::array<Bitboard, TABLE_SIZE> createBlockedBoards(Bitboard blocker_pieces){
+	std::array<Bitboard, TABLE_SIZE> blockedBitboards{};
 
 
 	for (int i = 0; i < TABLE_SIZE; i++){
@@ -140,8 +140,8 @@ constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_
 	int n = __builtin_popcountll(blocker_pieces);
        		
 	for (int patternIndex = 0; patternIndex < (1 << n); patternIndex++){
-		uint64_t result = 0ULL;
-		uint64_t copy = blocker_pieces;
+		Bitboard result = 0ULL;
+		Bitboard copy = blocker_pieces;
 
 		for (int bitIndex = 0; bitIndex < n; bitIndex++){
 			int index = utils::pop_lsb(copy);
@@ -153,9 +153,9 @@ constexpr std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_
 	return blockedBitboards;	
 }
 
-constexpr uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){	
+constexpr Bitboard calcLegalRookMoves(int plain_square, Bitboard occupancy){	
 	
- uint64_t result = 0ULL;
+ Bitboard result = 0ULL;
  
  int curRank = plain_square / 8;
  int curFile = plain_square % 8;
@@ -190,26 +190,26 @@ constexpr uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){
  return result;
 }
 /*
-static uint64_t random_uint64() {
+static Bitboard random_uint64() {
 
-  uint64_t u1 = (uint64_t)(random()) & 0xFFFF; 
-  uint64_t u2 = (uint64_t)(random()) & 0xFFFF;
-  uint64_t u3 = (uint64_t)(random()) & 0xFFFF; 
-  uint64_t u4 = (uint64_t)(random()) & 0xFFFF;
+  Bitboard u1 = (Bitboard)(random()) & 0xFFFF; 
+  Bitboard u2 = (Bitboard)(random()) & 0xFFFF;
+  Bitboard u3 = (Bitboard)(random()) & 0xFFFF; 
+  Bitboard u4 = (Bitboard)(random()) & 0xFFFF;
   return u1 | (u2 << 16) | (u3 << 32) | (u4 << 48);
 }
 
-static uint64_t random_uint64_fewbits() {
+static Bitboard random_uint64_fewbits() {
   return random_uint64() & random_uint64() & random_uint64();
 }
 */
-constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, std::array<uint64_t,TABLE_SIZE> occupancyCombos, int square,  int type, uint64_t magicNumber){
+constexpr bool fillLookupTable(std::array<Bitboard, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, std::array<Bitboard,TABLE_SIZE> occupancyCombos, int square,  int type, Bitboard magicNumber){
 
 		
 		int i=0;
 		for (i = 0; i < MAX_PATTERNS; i++){
                         int index = utils::generateMagicIndex(occupancyCombos[i], magicNumber, square, ROOK_MOVES); 
-			uint64_t legalMoves=0ULL;
+			Bitboard legalMoves=0ULL;
 				
 			switch(type) {
 				case ROOK_MOVES:
@@ -239,10 +239,10 @@ constexpr bool fillLookupTable(std::array<uint64_t, TABLE_SIZE>& lookupTable, in
 }
 
 /*
-static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){ 
+static Bitboard generateMagicNumber(int square, Bitboard blockers, int type){ 
 	
 	int MAX_PATTERNS;
-	uint64_t attackCombos;	
+	Bitboard attackCombos;	
 
 	switch(type){
 		case ROOK_MOVES:
@@ -257,10 +257,10 @@ static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
 			break;
 	}
 
-	std::array<uint64_t, TABLE_SIZE> occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
+	std::array<Bitboard, TABLE_SIZE> occupancyCombos = createBlockedBoards(blockers, MAX_PATTERNS);
 
-	std::array<uint64_t, TABLE_SIZE> lookupTable = {0ULL};
-    	uint64_t magicNumber = 0;
+	std::array<Bitboard, TABLE_SIZE> lookupTable = {0ULL};
+    	Bitboard magicNumber = 0;
      
        			
 		while (true){ 
@@ -273,7 +273,7 @@ static uint64_t generateMagicNumber(int square, uint64_t blockers, int type){
 		int i;
 		for (i = 0; i < MAX_PATTERNS; i++){
                         int index = utils::generateMagicIndex(occupancyCombos[i], magicNumber, square, type);
-			uint64_t legalMoves;
+			Bitboard legalMoves;
 				
 			switch(type) {
 				case ROOK_MOVES:

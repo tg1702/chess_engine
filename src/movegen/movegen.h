@@ -18,11 +18,14 @@ class MoveGen{
 		BoardState state;
 
 		template <MoveType Type>
-		void addPossibleMove(Square, uint64_t, PieceType, MoveList*);
+		void addPossibleMove(Square, Bitboard, PieceType, MoveList*);
 	public:
 		void setState(BoardState&);
 		
 		void generateMoves(MoveList*);
+
+		void generateCaptures(MoveList* move_list);
+		void generateQuiets(MoveList* move_list);
 		
 		template <MoveType Type>
 		void generateKnightMoves(MoveList*);

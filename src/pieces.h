@@ -13,57 +13,57 @@
 
 class PieceManager{
 	private:
-		uint64_t Pieces[SIDES][MAX_PIECE_TYPES];
+		Bitboard Pieces[SIDES][MAX_PIECE_TYPES];
 	public:
 
 
-		inline void setAnyPosBB(bool side, PieceType type, uint64_t pos){
+		inline void setAnyPosBB(Side side, PieceType type, Bitboard pos){
 			this->Pieces[side][type] = pos;
 		}
 
-	inline int getPieceCount(bool side, PieceType type){
+	inline int getPieceCount(Side side, PieceType type) const{
 		return __builtin_popcountll(this->Pieces[side][type]);
 	}
 
-	inline void setSidePiecesBB(uint64_t all_pieces_bb, bool side){
+	inline void setSidePiecesBB(const Bitboard all_pieces_bb, Side side){
 		this->Pieces[side][ALL] = all_pieces_bb;
 		}
 
-	inline void updatePiecesBB(bool side, PieceType type, uint64_t bb){
+	inline void updatePiecesBB(Side side, PieceType type, const Bitboard bb){
 		this->Pieces[side][type] = bb;
 	}
 
-	inline void setSidePiecesBB(bool side){
+	inline void setSidePiecesBB(Side side){
 		this->Pieces[side][ALL] = this->Pieces[side][KING] | this->Pieces[side][QUEEN] | this->Pieces[side][ROOK] | this->Pieces[side][BISHOP] | this->Pieces[side][KNIGHT] | this->Pieces[side][PAWN];
 	}
 
 
-	inline uint64_t getPiecesBB(bool side, PieceType type){
+	inline Bitboard getPiecesBB(Side side, PieceType type) const{
 		return this->Pieces[side][type];
 	}
 	
 		
 			
 
-	inline void movePiece(bool side, PieceType type, Square from, Square to){
+	inline void movePiece(Side side, PieceType type, Square from, Square to){
 		this->Pieces[side][type] ^= (bitset(from)  |  bitset(to));
 	}
 
-	inline void clearPiece(bool side, PieceType type, Square square){
+	inline void clearPiece(Side side, PieceType type, Square square){
 		bitclear(this->Pieces[side][type], square);
 	
 	}
 
-	inline void addPiece(bool side, PieceType type, Square on){
+	inline void addPiece(Side side, PieceType type, Square on){
 		this->Pieces[side][type] |= bitset(on);
 	}
 		PieceManager(void);
-		PieceManager(PieceArgs& args);
-		void setBoard(PieceArgs& args);
+		PieceManager(const PieceArgs& args);
+		void setBoard(const PieceArgs& args);
 		
-		bool canKingSideCastle(bool);
-		bool canQueenSideCastle(bool);		
-		bool isAttacked(bool, Square);
+		bool canKingSideCastle(Side);
+		bool canQueenSideCastle(Side);		
+		bool isAttacked(Side, Square);
 };
 
 #endif

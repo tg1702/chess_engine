@@ -33,7 +33,7 @@ uint64_t p_perft(int depth, Board& board){
 
         move_list = board.generatePseudoLegalMoves();
 	
-	bool turn = board.getTurn();
+	Side turn = board.getTurn();
 
         for(auto& move: move_list){
                 board.makeMove(move);
@@ -62,7 +62,7 @@ uint64_t p_divide(int depth, Board& board){
 
         move_list = board.generatePseudoLegalMoves();
 	
-	bool turn = board.getTurn();
+	Side turn = board.getTurn();
 
         for(auto& move: move_list){
                 board.makeMove(move);

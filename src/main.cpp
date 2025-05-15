@@ -85,7 +85,7 @@ int main(){
 		if (words[0] == "go"){
 			
 			int turn = board.getTurn() ? -1 : 1;
-			int defaultTime = INT_MAX;	
+			int defaultTime = 1000; // TODO: add movetime argument and reset default to INT_MAX	
 			
 			int wtime = utils::findPos<std::string>(words, "wtime");
 			int btime = utils::findPos<std::string>(words, "btime");
@@ -97,7 +97,7 @@ int main(){
 				const int wtimeVal = std::stol(words[wtime+1]);
 				const int btimeVal = std::stol(words[btime+1]);
 
-				(turn == -1) ?	defaultTime = btimeVal/10 : defaultTime = wtimeVal/10;
+				(turn == -1) ?	defaultTime = btimeVal/25 : defaultTime = wtimeVal/25;
 
 			}
 		
