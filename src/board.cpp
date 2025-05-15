@@ -350,7 +350,6 @@ void Board::generateMoves(const MoveType type){
 		pieces.getPiecesBB(turn, BISHOP), 
 		pieces.getPiecesBB(turn, KNIGHT), 
 		pieces.getPiecesBB(turn, PAWN),
-
 		pieces.getPiecesBB(turn, ALL)
 	};
 

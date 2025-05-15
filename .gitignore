@@ -30,7 +30,9 @@
 *.exe
 *.out
 *.app
+*~
 
-test/build/
+*/build/
 
 *.venv/
+

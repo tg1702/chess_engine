@@ -17,7 +17,7 @@
 #define TABLE_SIZE 4096
 
 
-constexpr Bitboard generateWhiteRookMask(int plain_square){
+inline Bitboard generateWhiteRookMask(int plain_square){
  Bitboard square = bitset(plain_square);
  Bitboard upDirection = 0Ull;
  Bitboard downDirection = 0Ull;
@@ -33,15 +33,11 @@ constexpr Bitboard generateWhiteRookMask(int plain_square){
        	rightDirection |= square >> i;	
  }
 
-
- //leftDirection &= bitset(curRank);
- //rightDirection &= bitset(curRank);
-
  return upDirection | downDirection | leftDirection | rightDirection;
 }
 
 
-constexpr Bitboard generateWhiteBishopMask(int plain_square){
+inline Bitboard generateWhiteBishopMask(int plain_square){
  Bitboard square = bitset(plain_square);
  Bitboard upLeftDirection = 0Ull;
  Bitboard downLeftDirection = 0Ull;
@@ -83,7 +79,7 @@ for (int i = 7; i <= 49; i+= 7){
 }
 
 
-constexpr Bitboard calcLegalBishopMoves(int plain_square, Bitboard occupancy){
+inline Bitboard calcLegalBishopMoves(int plain_square, Bitboard occupancy){
 	
  Bitboard upLeftDirection = 0Ull;
  Bitboard downLeftDirection = 0Ull;
@@ -129,7 +125,7 @@ for (rank = curRank-1 , file = curFile-1; rank >= 0 && file >= 0; rank--, file--
 }
 
 
-constexpr std::array<Bitboard, TABLE_SIZE> createBlockedBoards(Bitboard blocker_pieces){
+inline std::array<Bitboard, TABLE_SIZE> createBlockedBoards(Bitboard blocker_pieces){
 	std::array<Bitboard, TABLE_SIZE> blockedBitboards{};
 
 
@@ -153,7 +149,7 @@ constexpr std::array<Bitboard, TABLE_SIZE> createBlockedBoards(Bitboard blocker_
 	return blockedBitboards;	
 }
 
-constexpr Bitboard calcLegalRookMoves(int plain_square, Bitboard occupancy){	
+inline Bitboard calcLegalRookMoves(int plain_square, Bitboard occupancy){	
 	
  Bitboard result = 0ULL;
  
@@ -203,7 +199,7 @@ static Bitboard random_uint64_fewbits() {
   return random_uint64() & random_uint64() & random_uint64();
 }
 */
-constexpr bool fillLookupTable(std::array<Bitboard, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, std::array<Bitboard,TABLE_SIZE> occupancyCombos, int square,  int type, Bitboard magicNumber){
+inline bool fillLookupTable(std::array<Bitboard, TABLE_SIZE>& lookupTable, int MAX_PATTERNS, std::array<Bitboard,TABLE_SIZE> occupancyCombos, int square,  int type, Bitboard magicNumber){
 
 		
 		int i=0;

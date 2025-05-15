@@ -26,7 +26,7 @@ add_executable(
   ../src/utils.cpp
 )
 
-target_compile_options(hello_test PRIVATE -Ofast -flto)
+target_compile_options(hello_test PRIVATE -Ofast)
 
 target_link_libraries(
   hello_test

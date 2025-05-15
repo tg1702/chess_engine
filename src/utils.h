@@ -14,22 +14,22 @@
 
 namespace utils{
 	
-	inline constexpr Square pop_lsb(Bitboard& bb) {
+	inline  Square pop_lsb(Bitboard& bb) {
 		int x = __builtin_ctzll(bb); 
 		bb &= (bb - 1ULL); 
 		return static_cast<Square>(x);
 	}
 
-	inline constexpr PieceType int_to_PieceType(int num){return static_cast<PieceType>(num);}	
+	inline  PieceType int_to_PieceType(int num){return static_cast<PieceType>(num);}	
 	
-	inline constexpr int generateMagicIndex(Bitboard bitboard, Bitboard magicNumber, int square, int type){
+	inline  int generateMagicIndex(Bitboard bitboard, Bitboard magicNumber, int square, int type){
         if (type == ROOK_MOVES)
                 return (int)((bitboard * magicNumber) >> rookShifts[square]);
         else
                 return (int)((bitboard * magicNumber) >> bishopShifts[square]);
 	}
 
-	inline constexpr Side flip_side(const Side side) { 
+	inline  Side flip_side(const Side side) { 
 		bool s = static_cast<bool>(side);
 		s = !s;
 
