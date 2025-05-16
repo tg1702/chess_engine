@@ -29,7 +29,9 @@ Board::Board(){
 void Board::parsePieceFen(const std::string &fen){
 
 	int squareCount = 0;
-	PieceArgs args{};	
+	PieceBB w_args{};	
+	PieceBB b_args{};	
+
 	std::array<int, 8>  nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
 	for(int s = fen.length() - 1; s >= 0; s--){
 		if (fen[s] == '/')
@@ -42,40 +44,40 @@ void Board::parsePieceFen(const std::string &fen){
 		else {
 			switch(fen[s]){
 			case 'k':
-				args.b_king_bb |= bitset(squareCount);
+				b_args.king_bb |= bitset(squareCount);
 				break;
 			case 'q':
-				args.b_queens_bb |= bitset(squareCount);
+				b_args.queen_bb |= bitset(squareCount);
 				break;
 			case 'r':
-				args.b_rooks_bb |= bitset(squareCount);
+				b_args.rook_bb |= bitset(squareCount);
 				break;
 			case 'b':
-				args.b_bishops_bb |= bitset(squareCount);
+				b_args.bishop_bb |= bitset(squareCount);
 				break;
 			case 'n':
-				args.b_knights_bb |= bitset(squareCount);
+				b_args.knight_bb |= bitset(squareCount);
 				break;
 			case 'p':
-				args.b_pawns_bb |= bitset(squareCount);
+				b_args.pawn_bb |= bitset(squareCount);
 				break;
 			 case 'K':                                                                       	
-				args.w_king_bb |= bitset(squareCount);
+				w_args.king_bb |= bitset(squareCount);
 				break;                                                          
 			 case 'Q':                                                                       	
-				args.w_queens_bb |= bitset(squareCount);
+				w_args.queen_bb |= bitset(squareCount);
 				break;                                                          
 			 case 'R':                                                                       
-				args.w_rooks_bb |= bitset(squareCount);
+				w_args.rook_bb |= bitset(squareCount);
                                 break;
                         case 'B':
-				args.w_bishops_bb |= bitset(squareCount);
+				w_args.bishop_bb |= bitset(squareCount);
                                 break;
                         case 'N':
-                                args.w_knights_bb |= bitset(squareCount);
+                                w_args.knight_bb |= bitset(squareCount);
 				break;
                         case 'P':
-                                args.w_pawns_bb |= bitset(squareCount);
+                                w_args.pawn_bb |= bitset(squareCount);
 				break;
 		}
 		
@@ -84,7 +86,7 @@ void Board::parsePieceFen(const std::string &fen){
 		}	
 	}
 
-	pieces.setBoard(args);	
+	pieces.setBoard(w_args, b_args);	
 }
 
 void Board::parseTurn(const std::string &fen){

@@ -5,7 +5,7 @@
 #include "types.h"
 #include "./movegen/magic.h"
 
-PieceManager::PieceManager(){
+PieceSet::PieceSet(){
 			
 			Pieces[Side::WHITE][KING] = W_KING_START;
 			Pieces[Side::WHITE][ROOK] = W_ROOKS_START;
@@ -29,59 +29,59 @@ PieceManager::PieceManager(){
 }
 
 
-PieceManager::PieceManager(const PieceArgs& args){
-			Bitboard w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;
+PieceSet::PieceSet(const PieceBB& w_args, const PieceBB& b_args){
+	Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | b_args.queen_bb;
 
-			Bitboard b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
-
-
-			Pieces[Side::WHITE][KING] = args.w_king_bb;
-                        Pieces[Side::WHITE][ROOK] = args.w_rooks_bb;
-                        Pieces[Side::WHITE][PAWN] = args.w_pawns_bb;
-                        Pieces[Side::WHITE][BISHOP] = args.w_bishops_bb;
-                        Pieces[Side::WHITE][QUEEN] = args.w_queens_bb;
-                        Pieces[Side::WHITE][KNIGHT] = args.w_knights_bb;
+	Bitboard b_all_pieces = b_args.king_bb | b_args.knight_bb | b_args.pawn_bb | b_args.rook_bb | b_args.bishop_bb |b_args.queen_bb;
 
 
-                        Pieces[Side::BLACK][KING] =  args.b_king_bb;
-                        Pieces[Side::BLACK][PAWN] = args.b_pawns_bb;
-                        Pieces[Side::BLACK][QUEEN] = args.b_queens_bb;
-                        Pieces[Side::BLACK][BISHOP] = args.b_bishops_bb;
-                        Pieces[Side::BLACK][ROOK] = args.b_rooks_bb;
-                        Pieces[Side::BLACK][KNIGHT] = args.b_knights_bb;
+	Pieces[Side::WHITE][KING] = w_args.king_bb;
+	Pieces[Side::WHITE][ROOK] = w_args.rook_bb;
+	Pieces[Side::WHITE][PAWN] = w_args.pawn_bb;
+	Pieces[Side::WHITE][BISHOP] = w_args.bishop_bb;
+	Pieces[Side::WHITE][QUEEN] = w_args.queen_bb;
+	Pieces[Side::WHITE][KNIGHT] = w_args.knight_bb;
 
-                        Pieces[Side::BLACK][ALL] = b_all_pieces;
-                        Pieces[Side::WHITE][ALL] = w_all_pieces;
+
+	Pieces[Side::BLACK][KING] =  b_args.king_bb;
+	Pieces[Side::BLACK][PAWN] = b_args.pawn_bb;
+	Pieces[Side::BLACK][QUEEN] = b_args.queen_bb;
+	Pieces[Side::BLACK][BISHOP] = b_args.bishop_bb;
+	Pieces[Side::BLACK][ROOK] = b_args.rook_bb;
+	Pieces[Side::BLACK][KNIGHT] = b_args.knight_bb;
+
+	Pieces[Side::BLACK][ALL] = b_all_pieces;
+	Pieces[Side::WHITE][ALL] = w_all_pieces;
 
 
 }
-void PieceManager::setBoard(const PieceArgs& args){
- Bitboard w_all_pieces = args.w_king_bb | args.w_knights_bb | args.w_pawns_bb | args.w_rooks_bb | args.w_bishops_bb | args.w_queens_bb;                                                                                                                                                                                                                                                                                                                      
- Bitboard b_all_pieces = args.b_king_bb | args.b_knights_bb | args.b_pawns_bb | args.b_rooks_bb | args.b_bishops_bb |args.b_queens_bb;
+void PieceSet::setBoard(const PieceBB& w_args, const PieceBB& b_args){
+Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | b_args.queen_bb;
+
+	Bitboard b_all_pieces = b_args.king_bb | b_args.knight_bb | b_args.pawn_bb | b_args.rook_bb | b_args.bishop_bb |b_args.queen_bb;
 
 
-                        Pieces[Side::WHITE][KING] = args.w_king_bb;
-                        Pieces[Side::WHITE][ROOK] = args.w_rooks_bb;
-                        Pieces[Side::WHITE][PAWN] = args.w_pawns_bb;
-                        Pieces[Side::WHITE][BISHOP] = args.w_bishops_bb;
-                        Pieces[Side::WHITE][QUEEN] = args.w_queens_bb;
-                        Pieces[Side::WHITE][KNIGHT] = args.w_knights_bb;
+	Pieces[Side::WHITE][KING] = w_args.king_bb;
+	Pieces[Side::WHITE][ROOK] = w_args.rook_bb;
+	Pieces[Side::WHITE][PAWN] = w_args.pawn_bb;
+	Pieces[Side::WHITE][BISHOP] = w_args.bishop_bb;
+	Pieces[Side::WHITE][QUEEN] = w_args.queen_bb;
+	Pieces[Side::WHITE][KNIGHT] = w_args.knight_bb;
 
 
-                        Pieces[Side::BLACK][KING] =  args.b_king_bb;
-                        Pieces[Side::BLACK][PAWN] = args.b_pawns_bb;
-                        Pieces[Side::BLACK][QUEEN] = args.b_queens_bb;
-                        Pieces[Side::BLACK][BISHOP] = args.b_bishops_bb;
-                        Pieces[Side::BLACK][ROOK] = args.b_rooks_bb;
-                        Pieces[Side::BLACK][KNIGHT] = args.b_knights_bb;
+	Pieces[Side::BLACK][KING] =  b_args.king_bb;
+	Pieces[Side::BLACK][PAWN] = b_args.pawn_bb;
+	Pieces[Side::BLACK][QUEEN] = b_args.queen_bb;
+	Pieces[Side::BLACK][BISHOP] = b_args.bishop_bb;
+	Pieces[Side::BLACK][ROOK] = b_args.rook_bb;
+	Pieces[Side::BLACK][KNIGHT] = b_args.knight_bb;
 
-                        Pieces[Side::BLACK][ALL] = b_all_pieces;
-                        Pieces[Side::WHITE][ALL] = w_all_pieces;
-
+	Pieces[Side::BLACK][ALL] = b_all_pieces;
+	Pieces[Side::WHITE][ALL] = w_all_pieces;
 }
 
 
-bool PieceManager::canKingSideCastle(Side side){
+bool PieceSet::canKingSideCastle(Side side){
 	if (side == Side::WHITE)
 		return (Pieces[side][KING] & bitset(E1)) && 
 			(Pieces[side][ROOK] & bitset(H1)) && 
@@ -97,7 +97,7 @@ bool PieceManager::canKingSideCastle(Side side){
                         !isAttacked(side, G8);
 }
 
-bool PieceManager::isAttacked(Side side, Square square){
+bool PieceSet::isAttacked(Side side, Square square){
 	Side opponent = !side;	
 	int bishopIndex = utils::generateMagicIndex((this->Pieces[side][ALL] | this->Pieces[opponent][ALL]) & bishopOccupancyMasks[square], bishopMagics[square], square, 1);
 	 	
@@ -119,7 +119,7 @@ bool PieceManager::isAttacked(Side side, Square square){
 	return false;
 }
 
-bool PieceManager::canQueenSideCastle(Side side){
+bool PieceSet::canQueenSideCastle(Side side){
 	if (side == Side::WHITE)
 		return (Pieces[side][KING] & bitset(E1)) && 
 			(Pieces[side][ROOK] & bitset(A1)) && 

@@ -15,7 +15,7 @@
 
 class Board{
 	private:
-		PieceManager pieces;	
+		PieceSet pieces;	
 		MoveGen generator;	
 		MoveList* move_list;
 
@@ -27,8 +27,7 @@ class Board{
 		
 		bool castlingRights[4][MAX_MOVES * 5]; 
 		int legalMovesCount = 0;	
-		//std::vector<Move> legalMoves;
-
+	
 		bool canWhiteKSCastle;
 		bool canWhiteQSCastle;
 		bool canBlackKSCastle;
