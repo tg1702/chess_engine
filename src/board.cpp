@@ -207,10 +207,10 @@ void Board::makeMove(const std::string& uci_move){
 
 			for(auto& move: legalMoves){
 				if (move.getFrom() == from && move.getTo() == to && 
-				   (((move.getFlag() == QUEEN_PROMOTION || move.getFlag() == QUEEN_PROMOTION_CAPTURE) && promotion == 'q') || 
-				   ((move.getFlag() == ROOK_PROMOTION || move.getFlag() == ROOK_PROMOTION_CAPTURE) && promotion == 'r') || 
-				   ((move.getFlag() == BISHOP_PROMOTION || move.getFlag() == BISHOP_PROMOTION_CAPTURE) && promotion == 'b') || 
-				    ((move.getFlag() == KNIGHT_PROMOTION || move.getFlag() == KNIGHT_PROMOTION_CAPTURE) && promotion == 'n'))){
+				   (((move.getFlag() == Flag::QUEEN_PROMOTION || move.getFlag() == Flag::QUEEN_PROMOTION_CAPTURE) && promotion == 'q') || 
+				   ((move.getFlag() == Flag::ROOK_PROMOTION || move.getFlag() == Flag::ROOK_PROMOTION_CAPTURE) && promotion == 'r') || 
+				   ((move.getFlag() == Flag::BISHOP_PROMOTION || move.getFlag() == Flag::BISHOP_PROMOTION_CAPTURE) && promotion == 'b') || 
+				    ((move.getFlag() == Flag::KNIGHT_PROMOTION || move.getFlag() == Flag::KNIGHT_PROMOTION_CAPTURE) && promotion == 'n'))){
 					makeMove(move);	
 					break;
 				}
@@ -226,13 +226,13 @@ void Board::makeMoveHelper(const Move& m){
 	
 	Square from = m.getFrom();
 	Square to = m.getTo();
-	int special = m.getFlag();
+	Flag flag = m.getFlag();
 
 	PieceType pieceType = m.getFromPiece();
 	PieceType toPieceType = m.getToPiece();
 	
 
-			if (special == NORMAL || special == CAPTURE_FLAG) {
+			if (flag == Flag::NORMAL || flag == Flag::CAPTURE) {
 
 				if (turn == Side::BLACK && pieceType == PAWN && movePawnFifthRank(from, to)){
 				
@@ -246,72 +246,72 @@ void Board::makeMoveHelper(const Move& m){
 	
 				pieces.movePiece(turn, pieceType, from, to);
 				
-				if (special == CAPTURE_FLAG) pieces.clearPiece(!turn, toPieceType, to);
+				if (flag == Flag::CAPTURE) pieces.clearPiece(!turn, toPieceType, to);
 			}
 
-			else if (special == W_KS_CASTLE_FLAG)
+			else if (flag == Flag::W_KS_CASTLE)
 			{
 
 				whiteKingSideCastle();	
 			}
 
-			else if (special == W_QS_CASTLE_FLAG){
+			else if (flag == Flag::W_QS_CASTLE){
 			
 				whiteQueenSideCastle();	
 			}
 
-			else if (special == B_KS_CASTLE_FLAG){
+			else if (flag == Flag::B_KS_CASTLE){
 
 				blackKingSideCastle();
 			}
 
-			else if (special == B_QS_CASTLE_FLAG){
+			else if (flag == Flag::B_QS_CASTLE){
 
 				blackQueenSideCastle();
 			}
 
-			else if (special == QUEEN_PROMOTION){
+			else if (flag == Flag::QUEEN_PROMOTION){
 				pieces.addPiece(turn, QUEEN, to);
 				pieces.clearPiece(turn, PAWN, from);	
 			}
-			else if (special == ROOK_PROMOTION){
+			else if (flag == Flag::ROOK_PROMOTION){
                 		pieces.addPiece(turn, ROOK, to);
                 		pieces.clearPiece(turn, PAWN, from);
         		}
-			else if (special == BISHOP_PROMOTION){
+			else if (flag == Flag::BISHOP_PROMOTION){
                 		pieces.addPiece(turn, BISHOP, to);
                 		pieces.clearPiece(turn, PAWN, from);
         		}
-			else if (special == KNIGHT_PROMOTION){
+			else if (flag == Flag::KNIGHT_PROMOTION){
                 		pieces.addPiece(turn, KNIGHT, to);
                 		pieces.clearPiece(turn, PAWN, from);
         		}
-			else if (special == QUEEN_PROMOTION_CAPTURE){
+			else if (flag == Flag::QUEEN_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, QUEEN, to);
                 		pieces.clearPiece(turn, PAWN, from);
  
 			}
-        		else if (special == ROOK_PROMOTION_CAPTURE){
+        		else if (flag == Flag::ROOK_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, ROOK, to);
                 		pieces.clearPiece(turn, PAWN, from);
         		}
 			
-			else if (special == BISHOP_PROMOTION_CAPTURE){
+			else if (flag == Flag::BISHOP_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, BISHOP, to);
                 		pieces.clearPiece(turn, PAWN, from);
 			}
 			
-			else if (special == KNIGHT_PROMOTION_CAPTURE){
+			else if (flag == Flag::KNIGHT_PROMOTION_CAPTURE){
                 		pieces.addPiece(turn, KNIGHT, to);
                 		pieces.clearPiece(turn, PAWN, from);
 
 			}
-			else if ( turn == Side::WHITE && special == EN_PASSANT_FLAG){
+			else if ( turn == Side::WHITE && flag == Flag::EN_PASSANT){
 				enPassantWhite(from, to);
 			}
 
 
-			else if ( turn == Side::BLACK && special == EN_PASSANT_FLAG){
+			else if ( turn == Side::BLACK && flag == Flag::EN_PASSANT){
 				enPassantBlack(from, to);
 			}
 
@@ -382,8 +382,7 @@ void Board::generateMoves(const MoveType type){
 	
 	generator.setState(state);
 
-	
-	//std::cout << " type " << type << '\n';
+
 
 	if (type == MoveType::QUIETS){
 		
@@ -523,86 +522,87 @@ void Board::unmakeMoveHelper(){
 	Square from = lastMove.getFrom();
 	Square to = lastMove.getTo();
 	PieceType capturedPieceType = lastMove.getToPiece();
-	int flag = lastMove.getFlag();	
-	
-	if (flag == NORMAL){	
+	Flag flag = lastMove.getFlag();	
+
+
+
+	if (flag == Flag::NORMAL ){	
 		pieces.movePiece(turn, piece, to, from); 	
-		
+
 	}
-	else if (flag == CAPTURE_FLAG){
-	
-			
+	else if (flag == Flag::CAPTURE){
+
 		pieces.addPiece(!turn, capturedPieceType, to);
 		pieces.movePiece(turn, piece, to, from);
 
 	}
-	else if (flag == EN_PASSANT_FLAG){
+	else if (flag == Flag::EN_PASSANT){
 		Square target = static_cast<Square>((turn == Side::WHITE) ? to - 8 : to + 8);
-	
+
 		pieces.movePiece(turn, PAWN, to, from);
 		pieces.addPiece(!turn, PAWN, target);
 	}	
-	else if (flag == W_KS_CASTLE_FLAG){
+	else if (flag == Flag::W_KS_CASTLE){
 
 		pieces.movePiece(Side::WHITE, KING, G1, E1);
 		pieces.movePiece(Side::WHITE, ROOK, F1, H1); 
-	
+
 	}
-	else if (flag == B_KS_CASTLE_FLAG){
-		
+	else if (flag == Flag::B_KS_CASTLE){
+
 		pieces.movePiece(Side::BLACK, KING, G8, E8);
 		pieces.movePiece(Side::BLACK, ROOK, F8, H8); 
-		
+
 	}	
- 	else if (flag == W_QS_CASTLE_FLAG){
+	else if (flag == Flag::W_QS_CASTLE){
 
-                pieces.movePiece(Side::WHITE, KING, C1, E1);
-                pieces.movePiece(Side::WHITE, ROOK, D1, A1);
-        	
+		pieces.movePiece(Side::WHITE, KING, C1, E1);
+		pieces.movePiece(Side::WHITE, ROOK, D1, A1);
+	
 	}
-        else if (flag == B_QS_CASTLE_FLAG){
+	else if (flag == Flag::B_QS_CASTLE){
 
-                pieces.movePiece(Side::BLACK, KING, C8, E8);
-                pieces.movePiece(Side::BLACK, ROOK, D8, A8);
-        	
+		pieces.movePiece(Side::BLACK, KING, C8, E8);
+		pieces.movePiece(Side::BLACK, ROOK, D8, A8);
+		
 	}
-	else if (flag == QUEEN_PROMOTION){
+	else if (flag == Flag::QUEEN_PROMOTION){
 		pieces.clearPiece(turn, QUEEN, to);
 		pieces.addPiece(turn, PAWN, from);	
 	}
-	else if (flag == ROOK_PROMOTION){
-                pieces.clearPiece(turn, ROOK, to);
-                pieces.addPiece(turn, PAWN, from);
-        }
-	else if (flag == BISHOP_PROMOTION){
-                pieces.clearPiece(turn, BISHOP, to);
-                pieces.addPiece(turn, PAWN, from);
-        }
-	else if (flag == KNIGHT_PROMOTION){
-                pieces.clearPiece(turn, KNIGHT, to);
-                pieces.addPiece(turn, PAWN, from);
-        }
-	else if (flag == QUEEN_PROMOTION_CAPTURE){
-                pieces.clearPiece(turn, QUEEN, to);
-                pieces.addPiece(turn, PAWN, from);
+	else if (flag == Flag::ROOK_PROMOTION){
+		pieces.clearPiece(turn, ROOK, to);
+		pieces.addPiece(turn, PAWN, from);
+	}
+	else if (flag == Flag::BISHOP_PROMOTION){
+		pieces.clearPiece(turn, BISHOP, to);
+		pieces.addPiece(turn, PAWN, from);
+	}
+	else if (flag == Flag::KNIGHT_PROMOTION){
+		pieces.clearPiece(turn, KNIGHT, to);
+		pieces.addPiece(turn, PAWN, from);
+	}
+	else if (flag == Flag::QUEEN_PROMOTION_CAPTURE){
+		pieces.clearPiece(turn, QUEEN, to);
+		pieces.addPiece(turn, PAWN, from);
 		pieces.addPiece(!turn, capturedPieceType, to);
-        }
-        else if (flag == ROOK_PROMOTION_CAPTURE){
-                pieces.clearPiece(turn, ROOK, to);
-                pieces.addPiece(turn, PAWN, from);
-      		pieces.addPiece(!turn, capturedPieceType, to);
-        }
-        else if (flag == BISHOP_PROMOTION_CAPTURE){
-                pieces.clearPiece(turn, BISHOP, to);
-                pieces.addPiece(turn, PAWN, from);
-                pieces.addPiece(!turn, capturedPieceType, to);
-        }
-        else if (flag == KNIGHT_PROMOTION_CAPTURE){
-                pieces.clearPiece(turn, KNIGHT, to);
-                pieces.addPiece(turn, PAWN, from);
-                pieces.addPiece(!turn, capturedPieceType, to);
-        }	
-	
+	}
+	else if (flag == Flag::ROOK_PROMOTION_CAPTURE){
+		pieces.clearPiece(turn, ROOK, to);
+		pieces.addPiece(turn, PAWN, from);
+		pieces.addPiece(!turn, capturedPieceType, to);
+	}
+	else if (flag == Flag::BISHOP_PROMOTION_CAPTURE){
+		pieces.clearPiece(turn, BISHOP, to);
+		pieces.addPiece(turn, PAWN, from);
+		pieces.addPiece(!turn, capturedPieceType, to);
+	}
+	else if (flag == Flag::KNIGHT_PROMOTION_CAPTURE){
+		pieces.clearPiece(turn, KNIGHT, to);
+		pieces.addPiece(turn, PAWN, from);
+		pieces.addPiece(!turn, capturedPieceType, to);
+	}	
+
 	canWhiteKSCastle = castlingRights[0][actualMoveCount];
 	canWhiteQSCastle = castlingRights[1][actualMoveCount];
 	canBlackKSCastle = castlingRights[2][actualMoveCount];
@@ -610,7 +610,7 @@ void Board::unmakeMoveHelper(){
 
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
-	
+
 	enPassantSquare = -1;
 }
 

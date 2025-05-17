@@ -75,12 +75,12 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
 
         for (const Move& move: allMoves){
 
-            if (move.getFlag() == CAPTURE_FLAG || 
-            move.getFlag() ==QUEEN_PROMOTION_CAPTURE || 
-            move.getFlag() ==ROOK_PROMOTION_CAPTURE || 
-            move.getFlag() ==BISHOP_PROMOTION_CAPTURE || 
-            move.getFlag() == KNIGHT_PROMOTION_CAPTURE ||
-            move.getFlag() == EN_PASSANT_FLAG
+            if (move.getFlag() == Flag::CAPTURE || 
+            move.getFlag() ==Flag::QUEEN_PROMOTION_CAPTURE || 
+            move.getFlag() ==Flag::ROOK_PROMOTION_CAPTURE || 
+            move.getFlag() ==Flag::BISHOP_PROMOTION_CAPTURE || 
+            move.getFlag() == Flag::KNIGHT_PROMOTION_CAPTURE ||
+            move.getFlag() == Flag::EN_PASSANT
         ){
                 captures.push_back(move);
             }
@@ -125,7 +125,7 @@ float negamax(int depth, Board& board, float alpha, float beta, int colour){
 
 void search(Board& board, int colour, int allottedTime, int depth=10){
     Timer timer = Timer();
-    Move bestMove{Move(NORMAL, H1, H1, KING)};
+    Move bestMove{Move(Flag::NORMAL, H1, H1, KING)};
 	float bestValue = -INFINITY;
     int lastDepth = 0;
 

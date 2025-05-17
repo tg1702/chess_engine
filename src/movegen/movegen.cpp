@@ -49,17 +49,16 @@ template <MoveType Type>
 void MoveGen::addPossibleMove(Square start, Bitboard positions, PieceType type, MoveList* move_list){
 	
 		while (positions != 0){
-				PieceType capturedPieceType = KING;
-				flags flag = NORMAL;
-                
-				Square to = utils::pop_lsb(positions);
+			PieceType capturedPieceType = KING;
+			Flag flag = Flag::NORMAL;
+			
+			Square to = utils::pop_lsb(positions);
 
 			if (Type == MoveType::CAPTURES){
-					
 					for (const auto& p: PieceTypes){
-						if (state.enemy_array[p] & bitset(to)){ 		
+						if (state.enemy_array[p] & bitset(to)){ 
 							capturedPieceType = p;
-							flag = CAPTURE_FLAG;
+							flag = Flag::CAPTURE;
 							break;
 						} 
 			
@@ -104,24 +103,24 @@ void MoveGen::generateKingMoves(MoveList* move_list){
 		if (Type == MoveType::QUIETS){
 			if (state.whiteKSCastle)
 			{
-				move_list->moves[move_list->count] = Move(W_KS_CASTLE_FLAG, E1, G1, KING, KING);
+				move_list->moves[move_list->count] = Move(Flag::W_KS_CASTLE, E1, G1, KING, KING);
 				move_list->count++;
 			}
 
 			if (state.whiteQSCastle)
 			{
-				move_list->moves[move_list->count] = Move(W_QS_CASTLE_FLAG, E1, C1, KING, KING);
+				move_list->moves[move_list->count] = Move(Flag::W_QS_CASTLE, E1, C1, KING, KING);
 				move_list->count++;
 			}	
 
 			if (state.blackKSCastle)
 			{
-				move_list->moves[move_list->count] = Move(B_KS_CASTLE_FLAG, E8, G8, KING, KING);
+				move_list->moves[move_list->count] = Move(Flag::B_KS_CASTLE, E8, G8, KING, KING);
 				move_list->count++;
 			}
 			if (state.blackQSCastle)
 			{
-				move_list->moves[move_list->count] = Move(B_QS_CASTLE_FLAG, E8, C8, KING, KING);
+				move_list->moves[move_list->count] = Move(Flag::B_QS_CASTLE, E8, C8, KING, KING);
 				move_list->count++;
 			}
 		}
@@ -176,7 +175,7 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 						
 				while ( legalMove != 0ULL){
 					Square to = utils::pop_lsb(legalMove);
-					move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN, KING);
+					move_list->moves[move_list->count] = Move(Flag::NORMAL, from, to, PAWN, KING);
 					move_list->count++;
 		
 				}
@@ -220,7 +219,7 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 				Square from = utils::pop_lsb(ep_squares);
 				Square ep_square = static_cast<Square>(state.enPassant);
 	
-				move_list->moves[move_list->count] = Move(EN_PASSANT_FLAG, from, ep_square , PAWN, PAWN);
+				move_list->moves[move_list->count] = Move(Flag::EN_PASSANT, from, ep_square , PAWN, PAWN);
 				move_list->count++;
 	
 			}
@@ -283,7 +282,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 
 			while ( legalMove != 0ULL){
 				Square to = utils::pop_lsb(legalMove);
-				move_list->moves[move_list->count] = Move(NORMAL, from, to, PAWN, KING);
+				move_list->moves[move_list->count] = Move(Flag::NORMAL, from, to, PAWN, KING);
 				move_list->count++;
 
 			}
@@ -352,7 +351,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 			Square from = utils::pop_lsb(ep_squares);
 			Square ep_square = static_cast<Square>(state.enPassant);
 
-			move_list->moves[move_list->count] = Move(EN_PASSANT_FLAG, from, ep_square, PAWN, PAWN);
+			move_list->moves[move_list->count] = Move(Flag::EN_PASSANT, from, ep_square, PAWN, PAWN);
 			move_list->count++;		
 
 		}	
