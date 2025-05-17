@@ -17,8 +17,8 @@
 #define TABLE_SIZE 4096
 
 
-inline Bitboard generateWhiteRookMask(int plain_square){
- Bitboard square = bitset(plain_square);
+inline Bitboard generateWhiteRookMask(Square plain_square){
+ Bitboard square = utils::to_bb(plain_square);
  Bitboard upDirection = 0Ull;
  Bitboard downDirection = 0Ull;
  Bitboard leftDirection = 0Ull;
@@ -37,8 +37,8 @@ inline Bitboard generateWhiteRookMask(int plain_square){
 }
 
 
-inline Bitboard generateWhiteBishopMask(int plain_square){
- Bitboard square = bitset(plain_square);
+inline Bitboard generateWhiteBishopMask(Square plain_square){
+ Bitboard square = utils::to_bb(plain_square);
  Bitboard upLeftDirection = 0Ull;
  Bitboard downLeftDirection = 0Ull;
  Bitboard upRightDirection = 0Ull;

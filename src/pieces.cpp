@@ -56,7 +56,7 @@ PieceSet::PieceSet(const PieceBB& w_args, const PieceBB& b_args){
 
 }
 void PieceSet::setBoard(const PieceBB& w_args, const PieceBB& b_args){
-Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | b_args.queen_bb;
+	Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | b_args.queen_bb;
 
 	Bitboard b_all_pieces = b_args.king_bb | b_args.knight_bb | b_args.pawn_bb | b_args.rook_bb | b_args.bishop_bb |b_args.queen_bb;
 
@@ -83,15 +83,15 @@ Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_a
 
 bool PieceSet::canKingSideCastle(Side side){
 	if (side == Side::WHITE)
-		return (Pieces[side][KING] & bitset(E1)) && 
-			(Pieces[side][ROOK] & bitset(H1)) && 
+		return (Pieces[side][KING] & utils::to_bb(E1)) && 
+			(Pieces[side][ROOK] & utils::to_bb(H1)) && 
 			((1ULL << F1) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) && 
 			((1ULL << G1) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) && 
 			!isAttacked(side, E1) && 
 			!isAttacked(side, F1) && 
 			!isAttacked(side, G1);
 	else
-		return (Pieces[side][KING] & bitset(E8)) &&                                                                                                                 (Pieces[side][ROOK] & bitset(H8)) &&                                                                                                                ((1ULL << F8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&                                                                                      ((1ULL << G8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&
+		return (Pieces[side][KING] & utils::to_bb(E8)) &&                                                                                                                 (Pieces[side][ROOK] & utils::to_bb(H8)) &&                                                                                                                ((1ULL << F8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&                                                                                      ((1ULL << G8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&
                         !isAttacked(side, E8) &&
                         !isAttacked(side, F8) &&
                         !isAttacked(side, G8);
@@ -121,8 +121,8 @@ bool PieceSet::isAttacked(Side side, Square square){
 
 bool PieceSet::canQueenSideCastle(Side side){
 	if (side == Side::WHITE)
-		return (Pieces[side][KING] & bitset(E1)) && 
-			(Pieces[side][ROOK] & bitset(A1)) && 
+		return (Pieces[side][KING] & utils::to_bb(E1)) && 
+			(Pieces[side][ROOK] & utils::to_bb(A1)) && 
 			((1ULL << B1) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) && 
 			((1ULL << C1) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) && 
 			((1ULL << D1) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&  
@@ -130,8 +130,8 @@ bool PieceSet::canQueenSideCastle(Side side){
 			!isAttacked(side, D1) && 
 			!isAttacked(side, E1);
 	else
-		return  (Pieces[side][KING] & bitset(E8)) &&
-                        (Pieces[side][ROOK] & bitset(A8)) &&
+		return  (Pieces[side][KING] & utils::to_bb(E8)) &&
+                        (Pieces[side][ROOK] & utils::to_bb(A8)) &&
                         ((1ULL << B8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&
                         ((1ULL << C8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&
                         ((1ULL << D8) & ~(Pieces[Side::WHITE][ALL] | Pieces[Side::BLACK][ALL])) &&

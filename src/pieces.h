@@ -41,16 +41,16 @@ class PieceSet{
 		
 			
 		inline void movePiece(Side side, PieceType type, Square from, Square to){
-			this->Pieces[side][type] ^= (bitset(from)  |  bitset(to));
+			this->Pieces[side][type] ^= (utils::to_bb(from)  |  utils::to_bb(to));
 		}
 
 		inline void clearPiece(Side side, PieceType type, Square square){
-			bitclear(this->Pieces[side][type], square);
+			utils::clear_bb_at(this->Pieces[side][type], square);
 		
 		}
 
 		inline void addPiece(Side side, PieceType type, Square on){
-			this->Pieces[side][type] |= bitset(on);
+			this->Pieces[side][type] |= utils::to_bb(on);
 		}
 
 		PieceSet(void);

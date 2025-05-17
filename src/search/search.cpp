@@ -32,7 +32,7 @@ float evaluate(Board& board){
 
     for (const Square& sq: Squares){
         for (const PieceType& pc: PieceTypes){
-            if (board.getBitboard(WHITE, pc) & bitset(sq)){
+            if (board.getBitboard(WHITE, pc) & utils::to_bb(sq)){
 
                 w_mg_score += MaterialValues[pc] + mg_pesto_table[pc][sq];
                 w_eg_score += MaterialValues[pc] + eg_pesto_table[pc][sq];
@@ -40,7 +40,7 @@ float evaluate(Board& board){
             }
                 
             
-            else if (board.getBitboard(BLACK, pc) & bitset(sq)){
+            else if (board.getBitboard(BLACK, pc) & utils::to_bb(sq)){
 
                 b_mg_score += MaterialValues[pc] + mg_pesto_table[pc][56 ^ sq];
                 b_eg_score += MaterialValues[pc] + eg_pesto_table[pc][56 ^ sq];

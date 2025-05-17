@@ -16,8 +16,8 @@
 #define TABLE_SIZE 4096
 
 
-inline uint64_t generateWhiteRookMask(int plain_square){
- uint64_t square = bitset(plain_square);
+inline uint64_t generateWhiteRookMask(Square plain_square){
+ uint64_t square = utils::to_bb(plain_square);
  uint64_t upDirection = 0Ull;
  uint64_t downDirection = 0Ull;
  uint64_t leftDirection = 0Ull;
@@ -33,15 +33,15 @@ inline uint64_t generateWhiteRookMask(int plain_square){
  }
 
 
- //leftDirection &= bitset(curRank);
- //rightDirection &= bitset(curRank);
+ //leftDirection &= utils::to_bb(curRank);
+ //rightDirection &= utils::to_bb(curRank);
 
  return upDirection | downDirection | leftDirection | rightDirection;
 }
 
 
-uint64_t generateWhiteBishopMask(int plain_square){
- uint64_t square = bitset(plain_square);
+uint64_t generateWhiteBishopMask(Square plain_square){
+ uint64_t square = utils::to_bb(plain_square);
  uint64_t upLeftDirection = 0Ull;
  uint64_t downLeftDirection = 0Ull;
  uint64_t upRightDirection = 0Ull;
@@ -82,7 +82,7 @@ for (int i = 7; i <= 49; i+= 7){
 }
 
 
-inline uint64_t calcLegalBishopMoves(int plain_square, uint64_t occupancy){
+inline uint64_t calcLegalBishopMoves(Square plain_square, Bitboard occupancy){
 	
  uint64_t upLeftDirection = 0Ull;
  uint64_t downLeftDirection = 0Ull;
@@ -152,12 +152,12 @@ inline std::array<uint64_t, TABLE_SIZE> createBlockedBoards(uint64_t blocker_pie
 	return blockedBitboards;	
 }
 
-inline uint64_t calcLegalRookMoves(int plain_square, uint64_t occupancy){	
+inline uint64_t calcLegalRookMoves(Square plain_square, uint64_t occupancy){	
 	
  uint64_t result = 0ULL;
  
- int curRank = plain_square / 8;
- int curFile = plain_square % 8;
+ int curRank = static_cast<int>(plain_square) / 8;
+ int curFile = static_cast<int>(plain_square) % 8;
  
  //std::cout << " current rank" << curRank << '\n';
  for (int file = curFile+1; file <= 7; file++){

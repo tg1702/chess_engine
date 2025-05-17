@@ -56,7 +56,7 @@ void MoveGen::addPossibleMove(Square start, Bitboard positions, PieceType type, 
 
 			if (Type == MoveType::CAPTURES){
 					for (const auto& p: PieceTypes){
-						if (state.enemy_array[p] & bitset(to)){ 
+						if (state.enemy_array[p] & utils::to_bb(to)){ 
 							capturedPieceType = p;
 							flag = Flag::CAPTURE;
 							break;
@@ -156,7 +156,7 @@ template <MoveType Type>
 void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 	Bitboard all = state.pieces.all | state.enemies;
     Bitboard empty = ~all;
-	Bitboard ep_squares = (state.enPassant == -1) ? 0 : (state.pieces.pawn_bb & RANK_5 & ( bitset((state.enPassant - 1 - 8)) | bitset((state.enPassant + 1 - 8))));
+	Bitboard ep_squares = (state.enPassant == -1) ? 0 : (state.pieces.pawn_bb & RANK_5 & ( utils::to_bb((state.enPassant - 1 - 8)) | utils::to_bb((state.enPassant + 1 - 8))));
 	Bitboard normal_moves = state.pieces.pawn_bb & ~RANK_7;	
     Bitboard promotions = state.pieces.pawn_bb & RANK_7;	
 
@@ -240,7 +240,7 @@ void MoveGen::generateWhitePawnMoves(MoveList* move_list){
 						PieceType capturedPieceType = KING;
 		
 						for (const auto& p: PieceTypes){
-							if (state.enemy_array[p] & bitset(to)){ 		
+							if (state.enemy_array[p] & utils::to_bb(to)){ 		
 								capturedPieceType = p;
 								break;
 							} 
@@ -260,7 +260,7 @@ template <MoveType Type>
 void MoveGen::generateBlackPawnMoves(MoveList* move_list){
  	Bitboard all = state.pieces.all | state.enemies;
     Bitboard empty = ~all;
-	Bitboard ep_squares = (state.enPassant == -1) ? 0: state.pieces.pawn_bb & RANK_4 & ( bitset((state.enPassant - 1 + 8)) | bitset((state.enPassant + 1 + 8))) ;
+	Bitboard ep_squares = (state.enPassant == -1) ? 0: state.pieces.pawn_bb & RANK_4 & ( utils::to_bb((state.enPassant - 1 + 8)) | utils::to_bb((state.enPassant + 1 + 8))) ;
       
     Bitboard normal_moves = state.pieces.pawn_bb & ~RANK_2;	
     Bitboard promotions = state.pieces.pawn_bb & RANK_2;	
@@ -334,7 +334,7 @@ void MoveGen::generateBlackPawnMoves(MoveList* move_list){
 					PieceType capturedPieceType = KING;
 		
 						for (const auto& p: PieceTypes){
-							if (state.enemy_array[p] & bitset(to)){ 		
+							if (state.enemy_array[p] & utils::to_bb(to)){ 		
 								capturedPieceType = p;
 								break;
 							} 

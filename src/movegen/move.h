@@ -13,7 +13,7 @@ class Move{
 	public:
 
 		Move() = default;
-		constexpr Move(Flag flag, Square from, Square to, PieceType fromPiece, PieceType toPiece=utils::int_to_PieceType(0)) : 
+		constexpr Move(Flag flag, Square from, Square to, PieceType fromPiece, PieceType toPiece=KING) : 
 			value(((static_cast<int>(flag) & 0xf)<<18) | ((from & 0x3f)<<12) | ((to & 0x3f)<<6) | ((fromPiece & 0x7)<<3) | ((toPiece & 0x7))),
 			score(0) {};
 	

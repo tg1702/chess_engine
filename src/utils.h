@@ -9,18 +9,26 @@
 #include <algorithm>
 #include "types.h"
 
-#define bitset(nbit) ( 1ULL << (nbit))
-#define bitclear(value, index) (value &= ~(1ULL << index))
 
 namespace utils{
 	
-	inline  Square pop_lsb(Bitboard& bb) {
+	constexpr inline Square pop_lsb(Bitboard& bb) {
 		int x = __builtin_ctzll(bb); 
 		bb &= (bb - 1ULL); 
 		return static_cast<Square>(x);
 	}
 
-	inline  PieceType int_to_PieceType(int num){return static_cast<PieceType>(num);}	
+	inline void clear_bb_at(Bitboard& value, Square sq) {
+		value &= ~(1ULL << static_cast<int>(sq));
+	}
+
+	constexpr inline Bitboard to_bb(Square sq) {
+		return 1ULL << static_cast<int>(sq);
+	}
+
+	constexpr inline Bitboard to_bb(int num) {
+		return 1ULL << static_cast<int>(num);
+	}
 	
 	inline  int generateMagicIndex(Bitboard bitboard, Bitboard magicNumber, int square, int type){
         if (type == ROOK_MOVES)
@@ -28,14 +36,7 @@ namespace utils{
         else
                 return (int)((bitboard * magicNumber) >> bishopShifts[square]);
 	}
-
-	inline  Side flip_side(const Side side) { 
-		bool s = static_cast<bool>(side);
-		s = !s;
-
-		return static_cast<Side>(s);
-
-	}
+	
 	std::vector<std::string> split_string(std::string);
 
 	template<typename T>

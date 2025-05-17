@@ -44,40 +44,40 @@ void Board::parsePieceFen(const std::string &fen){
 		else {
 			switch(fen[s]){
 			case 'k':
-				b_args.king_bb |= bitset(squareCount);
+				b_args.king_bb |= utils::to_bb(squareCount);
 				break;
 			case 'q':
-				b_args.queen_bb |= bitset(squareCount);
+				b_args.queen_bb |= utils::to_bb(squareCount);
 				break;
 			case 'r':
-				b_args.rook_bb |= bitset(squareCount);
+				b_args.rook_bb |= utils::to_bb(squareCount);
 				break;
 			case 'b':
-				b_args.bishop_bb |= bitset(squareCount);
+				b_args.bishop_bb |= utils::to_bb(squareCount);
 				break;
 			case 'n':
-				b_args.knight_bb |= bitset(squareCount);
+				b_args.knight_bb |= utils::to_bb(squareCount);
 				break;
 			case 'p':
-				b_args.pawn_bb |= bitset(squareCount);
+				b_args.pawn_bb |= utils::to_bb(squareCount);
 				break;
 			 case 'K':                                                                       	
-				w_args.king_bb |= bitset(squareCount);
+				w_args.king_bb |= utils::to_bb(squareCount);
 				break;                                                          
 			 case 'Q':                                                                       	
-				w_args.queen_bb |= bitset(squareCount);
+				w_args.queen_bb |= utils::to_bb(squareCount);
 				break;                                                          
 			 case 'R':                                                                       
-				w_args.rook_bb |= bitset(squareCount);
+				w_args.rook_bb |= utils::to_bb(squareCount);
                                 break;
                         case 'B':
-				w_args.bishop_bb |= bitset(squareCount);
+				w_args.bishop_bb |= utils::to_bb(squareCount);
                                 break;
                         case 'N':
-                                w_args.knight_bb |= bitset(squareCount);
+                                w_args.knight_bb |= utils::to_bb(squareCount);
 				break;
                         case 'P':
-                                w_args.pawn_bb |= bitset(squareCount);
+                                w_args.pawn_bb |= utils::to_bb(squareCount);
 				break;
 		}
 		
@@ -318,11 +318,11 @@ void Board::makeMoveHelper(const Move& m){
 
 		if (pieceType == KING && turn == Side::WHITE) {canWhiteKSCastle = false; canWhiteQSCastle = false;}
 		if (pieceType == KING && turn == Side::BLACK) {canBlackKSCastle = false; canBlackQSCastle = false;}
-		if (pieceType == ROOK && (bitset(from) & bitset(A1))	&& turn == Side::WHITE) canWhiteQSCastle = false;
-		if (pieceType == ROOK && (bitset(from) & bitset(H1))	&& turn == Side::WHITE) canWhiteKSCastle = false;
+		if (pieceType == ROOK && (utils::to_bb(from) & utils::to_bb(A1))	&& turn == Side::WHITE) canWhiteQSCastle = false;
+		if (pieceType == ROOK && (utils::to_bb(from) & utils::to_bb(H1))	&& turn == Side::WHITE) canWhiteKSCastle = false;
 			
-		if (pieceType == ROOK && (bitset(from) & bitset(A8))	&& turn == Side::BLACK) canBlackQSCastle = false;
-		if (pieceType == ROOK && (bitset(from) & bitset(H8))	&& turn == Side::BLACK) canBlackKSCastle = false;			
+		if (pieceType == ROOK && (utils::to_bb(from) & utils::to_bb(A8))	&& turn == Side::BLACK) canBlackQSCastle = false;
+		if (pieceType == ROOK && (utils::to_bb(from) & utils::to_bb(H8))	&& turn == Side::BLACK) canBlackKSCastle = false;			
 	
 	addMoveToHistory(m);	
 
@@ -490,12 +490,12 @@ void Board::printBoard(){
 }
 
 bool Board::movePawnFifthRank(const Square from, const Square to){	
-	return ((pieces.getPiecesBB(Side::BLACK, PAWN) & RANK_7 & bitset(from)) && (RANK_5 & bitset(to)));
+	return ((pieces.getPiecesBB(Side::BLACK, PAWN) & RANK_7 & utils::to_bb(from)) && (RANK_5 & utils::to_bb(to)));
 }
 
 bool Board::movePawnFourthRank(const Square from, const Square to){
 
-	return (pieces.getPiecesBB(Side::WHITE, PAWN) & RANK_2 & bitset(from)) && (RANK_4 & bitset(to));
+	return (pieces.getPiecesBB(Side::WHITE, PAWN) & RANK_2 & utils::to_bb(from)) && (RANK_4 & utils::to_bb(to));
 
 }
 
