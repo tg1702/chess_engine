@@ -12,6 +12,7 @@
 #include "../board.h"
 #include "move.h"
 #include "../types.h"
+#include "moves.h"
 //#include "magic.h"
 
 int DEPTH = 0;
@@ -21,7 +22,7 @@ uint64_t p_perft(int depth, Board& board){
 	
 	uint64_t nodes = 0ULL;
 
-	std::vector<Move> move_list;
+	Moves move_list;
 	
 	
 	if (depth == 0)
@@ -52,7 +53,7 @@ uint64_t p_divide(int depth, Board& board){
 	uint64_t level_count = 0ULL;
 
 	
-	std::vector<Move> move_list;                                                                                                               
+	Moves move_list;                                                                                                               
 	
 	if (depth == 0)
 	{
@@ -60,7 +61,7 @@ uint64_t p_divide(int depth, Board& board){
 	}
 
 
-        move_list = board.generatePseudoLegalMoves();
+    move_list = board.generatePseudoLegalMoves();
 	
 	Side turn = board.getTurn();
 
@@ -89,7 +90,7 @@ uint64_t perft(int depth, Board& board){
 	
 	uint64_t nodes = 0ULL;
 
-	 std::vector<Move> move_list;                                                                                                               
+	 Moves move_list;                                                                                                               
 	 move_list = board.generateLegalMoves();                                                                                
 	 
 	 if (depth == 1)
@@ -112,7 +113,7 @@ uint64_t divide(int depth, Board& board){
 	
 	uint64_t level_count = 0ULL;
 	
-	std::vector<Move> move_list;
+	Moves move_list;
 	move_list = board.generateLegalMoves();                                                                                
 	 
 	 if (depth == 1)

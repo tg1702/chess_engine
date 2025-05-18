@@ -83,7 +83,7 @@ async def main() -> None:
     
       for i in range(MAX_ROUNDS):
         
-        transport, engine = await chess.engine.popen_uci(r"../main")
+        transport, engine = await chess.engine.popen_uci(r"../../build/rooky")
         board = chess.Board()
         
         #play_book_moves(board, 10)

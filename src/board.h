@@ -5,6 +5,7 @@
 #include "pieces.h"
 #include "types.h"
 #include "./movegen/movegen.h"
+#include "./movegen/moves.h"
 #include <string>
 #include <cctype>
 #include <algorithm>
@@ -61,9 +62,11 @@ class Board{
 		void enPassantWhite(const Square, const Square);
 		void enPassantBlack(const Square, const Square);
 		bool isInCheck(Side);
+
+		bool returnInCheckMoves(const Move&);
 		void generateMoves(const MoveType=MoveType::ALL_TYPES);
-		std::vector<Move> generateLegalMoves(MoveType=MoveType::ALL_TYPES);
-		std::vector<Move> generatePseudoLegalMoves(MoveType=MoveType::ALL_TYPES);
+		Moves generateLegalMoves(MoveType=MoveType::ALL_TYPES);
+		Moves generatePseudoLegalMoves(MoveType=MoveType::ALL_TYPES);
 		std::vector<std::string> split_fen(const std::string&);
 		void parsePieceFen(const std::string&);
 		

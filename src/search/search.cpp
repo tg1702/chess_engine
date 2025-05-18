@@ -62,31 +62,33 @@ float evaluate(Board& board){
 }
 
 float negamax(int depth, Board& board, float alpha, float beta, int colour){
-    std::vector<Move> allMoves = board.generateLegalMoves();
+    Moves allMoves = board.generateLegalMoves();
 
     Side turn = (colour == 1) ? WHITE:BLACK;
     if (board.isCheckmated(turn)) return -INT_MAX + depth;
 
     if (board.isDraw()) return 0;    
 
-    if (depth == 0 || !isSearching){
+    if (depth == 0){
 
-        std::vector<Move> captures;
+        Moves captureSet;
 
-        for (const Move& move: allMoves){
-
-            if (move.getFlag() == Flag::CAPTURE || 
+         auto captures = std::remove_if(captureSet.begin(),
+        captureSet.end(),
+        [](const Move& move){
+            return (
+            move.getFlag() == Flag::CAPTURE || 
             move.getFlag() ==Flag::QUEEN_PROMOTION_CAPTURE || 
             move.getFlag() ==Flag::ROOK_PROMOTION_CAPTURE || 
             move.getFlag() ==Flag::BISHOP_PROMOTION_CAPTURE || 
             move.getFlag() == Flag::KNIGHT_PROMOTION_CAPTURE ||
             move.getFlag() == Flag::EN_PASSANT
-        ){
-                captures.push_back(move);
-            }
-        }
+            );
+        });
 
-        if (captures.size() == 0)
+        captureSet.erase(captures, captureSet.end());
+
+        if (captureSet.size() == 0)
             return colour * evaluate(board);
         else
             return quiescence_search(board, 4, colour, alpha, beta);
@@ -131,7 +133,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
     nodes = 0;
 
-	std::vector<Move> allMoves = board.generateLegalMoves();  
+	Moves allMoves = board.generateLegalMoves();  
 
     score_moves(allMoves);
 
@@ -193,7 +195,7 @@ void search(Board& board, int colour, int allottedTime, int depth=10){
 
 float quiescence_search(Board& board, int depth, int colour, float alpha, float beta){
 
-    std::vector<Move> captures = board.generateLegalMoves(MoveType::CAPTURES);
+    Moves captures = board.generateLegalMoves(MoveType::CAPTURES);
 
     Side turn = (colour == 1) ? WHITE:BLACK;
     if (board.isCheckmated(turn)) return -INT_MAX + depth;
@@ -238,14 +240,14 @@ float quiescence_search(Board& board, int depth, int colour, float alpha, float 
     return value;
 }
 
-void score_moves(std::vector<Move>& moves){
+void score_moves(Moves& moves){
 
     for (Move& move: moves){
         move.set_score(MVV_LVA[move.getToPiece()][move.getFromPiece()]);
     }
 }
 
-void pick_move(std::vector<Move>& moves, size_t start_index){
+void pick_move(Moves& moves, size_t start_index){
     for (size_t i = start_index; i < moves.size(); i++){
         
         if (moves[i].get_score() > moves[start_index].get_score()){

@@ -1,6 +1,6 @@
 #include "board.h"
 #include "./movegen/move.h"
-
+#include "./movegen/moves.h"
 #include <cstdint>
 #include <iostream>
 #include <algorithm>
@@ -10,6 +10,7 @@
 #include <string>
 #include <iterator>
 #include <memory>
+
 
 
 Board::Board(){
@@ -189,7 +190,7 @@ void Board::makeMove(const std::string& uci_move){
 		int from = pieceSquareValues.at(fromString);
 		int to = pieceSquareValues.at(toString); 	
 		
-		std::vector<Move> legalMoves = generateLegalMoves();
+		Moves legalMoves = generateLegalMoves();
 
 		
 		if (uci_move.length() == 4){
@@ -342,8 +343,11 @@ Bitboard Board::getBitboard(Side turn, PieceType pieceType) const{
 }
 
 void Board::generateMoves(const MoveType type){
-	move_list->count = 0;
+	
 
+	//move_list = new MoveList();	
+
+	/* move_list->count = 0;
 
 	PieceBB friendly {
 		pieces.getPiecesBB(turn, KING), 
@@ -397,53 +401,124 @@ void Board::generateMoves(const MoveType type){
 
 		generator.generateMoves(move_list);
 
-	}
+	} */
 
 	
 }
 
 
-std::vector<Move> Board::generatePseudoLegalMoves(MoveType type){
-	generateMoves(type);
+Moves Board::generatePseudoLegalMoves(MoveType type){
 
-	std::vector<Move> pseudoLegalMoves;
-	
-	int count = move_list->count;
 
+	PieceBB friendly {
+		pieces.getPiecesBB(turn, KING), 
+		pieces.getPiecesBB(turn, QUEEN), 
+		pieces.getPiecesBB(turn, ROOK),  
+		pieces.getPiecesBB(turn, BISHOP), 
+		pieces.getPiecesBB(turn, KNIGHT), 
+		pieces.getPiecesBB(turn, PAWN),
+		pieces.getPiecesBB(turn, ALL)
+	};
+
+	BoardState state{
+		friendly,
+		turn,
+		canWhiteKSCastle && !turn && pieces.canKingSideCastle(Side::WHITE),
+		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(Side::WHITE),
+		canBlackKSCastle && turn && pieces.canKingSideCastle(Side::BLACK),
+		canBlackQSCastle && turn && pieces.canQueenSideCastle(Side::BLACK),
 		
-	for (int i = 0; i < count; ++i){		
-		pseudoLegalMoves.push_back(move_list->moves[i]);
-	
-	}
+		enPassantSquare,
 
-	return pseudoLegalMoves;
+		pieces.getPiecesBB(!turn, ALL),
+
+
+		{
+			pieces.getPiecesBB(!turn, PAWN),
+			pieces.getPiecesBB(!turn, KNIGHT), 
+			pieces.getPiecesBB(!turn, BISHOP), 
+			pieces.getPiecesBB(!turn, ROOK), 
+			pieces.getPiecesBB(!turn, QUEEN), 
+			pieces.getPiecesBB(!turn, KING)
+			
+		}
+	};
+
+
+	Moves moves{state};
+
+	return moves;
 
 }
-std::vector<Move> Board::generateLegalMoves(MoveType type){
 
-	generateMoves(type);
-
-	std::vector<Move> legalMoves;
-
-	int count = move_list->count;
-
+bool Board::returnInCheckMoves(const Move& move){
 	Side originalTurn = turn;
 
 	legalMovesCount = 0;
 
-	for (int i = 0; i < count; ++i){
-		makeMove(move_list->moves[i]);
-	
-			
-		if (!isInCheck(originalTurn)){
-			legalMoves.push_back(move_list->moves[i]);
-			legalMovesCount += 1;
-		}
+	makeMove(move);
+	bool isChecked = isInCheck(originalTurn);
+	legalMovesCount++;
+	unmakeMove();
+	return !isChecked; 
+}
+
+Moves Board::generateLegalMoves(MoveType type){
+
+	PieceBB friendly {
+		pieces.getPiecesBB(turn, KING), 
+		pieces.getPiecesBB(turn, QUEEN), 
+		pieces.getPiecesBB(turn, ROOK),  
+		pieces.getPiecesBB(turn, BISHOP), 
+		pieces.getPiecesBB(turn, KNIGHT), 
+		pieces.getPiecesBB(turn, PAWN),
+		pieces.getPiecesBB(turn, ALL)
+	};
+
+	BoardState state{
+		friendly,
+		turn,
+		canWhiteKSCastle && !turn && pieces.canKingSideCastle(Side::WHITE),
+		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(Side::WHITE),
+		canBlackKSCastle && turn && pieces.canKingSideCastle(Side::BLACK),
+		canBlackQSCastle && turn && pieces.canQueenSideCastle(Side::BLACK),
 		
+		enPassantSquare,
 
+		pieces.getPiecesBB(!turn, ALL),
+
+
+		{
+			pieces.getPiecesBB(!turn, PAWN),
+			pieces.getPiecesBB(!turn, KNIGHT), 
+			pieces.getPiecesBB(!turn, BISHOP), 
+			pieces.getPiecesBB(!turn, ROOK), 
+			pieces.getPiecesBB(!turn, QUEEN), 
+			pieces.getPiecesBB(!turn, KING)
+			
+		}
+	};
+
+
+	Moves legalMoves{state};
+	Side originalTurn = turn;
+	
+
+	auto checks = std::remove_if(legalMoves.begin(),
+	legalMoves.end(),
+	[this, originalTurn](const Move& move){
+		makeMove(move);
+		bool isChecked = isInCheck(originalTurn);
 		unmakeMove();
-	}
+		return isChecked; 
+	});
 
+
+	legalMoves.erase(checks, legalMoves.end());
+
+	legalMovesCount = legalMoves.size();
+	
+	
 	return legalMoves;
 
 }

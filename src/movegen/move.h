@@ -6,6 +6,7 @@
 #include "../types.h"
 #include "../utils.h"
 
+
 class Move{
 	private:
 		uint32_t value;
@@ -70,5 +71,6 @@ struct MoveList{
 	Move moves[MAX_MOVES];
 	int count = 0;
 };
+
 
 #endif
