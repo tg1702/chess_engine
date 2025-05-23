@@ -56,7 +56,7 @@ PieceSet::PieceSet(const PieceBB& w_args, const PieceBB& b_args){
 
 }
 void PieceSet::setBoard(const PieceBB& w_args, const PieceBB& b_args){
-	Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | b_args.queen_bb;
+	Bitboard w_all_pieces = w_args.king_bb | w_args.knight_bb | w_args.pawn_bb | w_args.rook_bb | w_args.bishop_bb | w_args.queen_bb;
 
 	Bitboard b_all_pieces = b_args.king_bb | b_args.knight_bb | b_args.pawn_bb | b_args.rook_bb | b_args.bishop_bb |b_args.queen_bb;
 

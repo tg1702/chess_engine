@@ -20,7 +20,8 @@
 int main(){
 	std::string word;
 
-	Board board = Board();
+	Board board = Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
 	std::thread s_thread;
 	std::string s;
 
@@ -30,8 +31,11 @@ int main(){
 	std::vector<std::string> words;
 
 	
+
 	while ( std::getline(std::cin, s) ){
 
+		board.viewState();
+		board.printBoard();
 
 		words = utils::split_string(s);
 			
@@ -125,6 +129,7 @@ int main(){
 			
 				Timer t = Timer();
 
+				//board.setFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 				t.start();
 				p_divide(DEPTH, board);	
 				t.stop();
@@ -132,6 +137,8 @@ int main(){
 				std::cout << "Perft completed with " << node_count << " total nodes" << '\n';
 				std::cout << "Nodes per second= " << (node_count / t.elapsedTime()) << '\n';
 				std::cout << "Total time : " << t.elapsedTime() << "s" << '\n' << '\n';
+
+				
 			}
 
 			else{

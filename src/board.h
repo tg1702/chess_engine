@@ -26,7 +26,7 @@ class Board{
 		int actualMoveCount;
 		Move actualMoves[MAX_MOVES * 5];
 		
-		bool castlingRights[4][MAX_MOVES * 5]; 
+		bool castlingRights[MAX_MOVES * 5][4]; 
 		int legalMovesCount = 0;	
 	
 		bool canWhiteKSCastle;
@@ -63,13 +63,13 @@ class Board{
 		void enPassantBlack(const Square, const Square);
 		bool isInCheck(Side);
 
-		bool returnInCheckMoves(const Move&);
-		void generateMoves(const MoveType=MoveType::ALL_TYPES);
+	
 		Moves generateLegalMoves(MoveType=MoveType::ALL_TYPES);
 		Moves generatePseudoLegalMoves(MoveType=MoveType::ALL_TYPES);
 		std::vector<std::string> split_fen(const std::string&);
 		void parsePieceFen(const std::string&);
 		
+		void viewState();
 		void parseTurn(const std::string&);
 		void parseEnPassantSquares(const std::string&);
 		void parseCastlingRights(const std::string&);

@@ -57,6 +57,7 @@ uint64_t p_divide(int depth, Board& board){
 	
 	if (depth == 0)
 	{
+		//board.viewState();
 		return 1ULL;
 	}
 
@@ -72,10 +73,12 @@ uint64_t p_divide(int depth, Board& board){
 			level_count += p_divide(depth - 1, board);	
 
 		
+		
 		if (depth == DEPTH){
 			std::cout << move << ": " << level_count << '\n';
 			node_count += level_count;
 			level_count = 0;
+			
 		}
 
 		
@@ -128,6 +131,8 @@ uint64_t divide(int depth, Board& board){
 		 if (depth == DEPTH){
 			std::cout << move << ": " << level_count << '\n';	
 			level_count = 0;
+
+			
 		 }
 	 }	
 	

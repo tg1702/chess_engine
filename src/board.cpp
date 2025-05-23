@@ -20,11 +20,19 @@ Board::Board(){
 			canWhiteKSCastle = true;
 			canBlackQSCastle = true;
 			canBlackKSCastle = true;	
+
+			actualMoveCount = 0;
 			
+			castlingRights[actualMoveCount][0] = canWhiteKSCastle;
+			castlingRights[actualMoveCount][1] = canWhiteQSCastle;
+			castlingRights[actualMoveCount][2] = canBlackKSCastle;
+			castlingRights[actualMoveCount][3] = canBlackQSCastle;
+			
+
 			enPassantSquare = -1;
 			move_list = new MoveList();	
 			
-			actualMoveCount = 0;
+			
 }
 
 void Board::parsePieceFen(const std::string &fen){
@@ -134,10 +142,11 @@ void Board::parseCastlingRights(const std::string &fen){
 
 	}
 	
-	castlingRights[0][actualMoveCount] = canWhiteKSCastle;
-	castlingRights[1][actualMoveCount] = canWhiteQSCastle;
-	castlingRights[2][actualMoveCount] = canBlackKSCastle;
-	castlingRights[3][actualMoveCount] = canBlackQSCastle;
+	castlingRights[actualMoveCount][0] = canWhiteKSCastle;
+	castlingRights[actualMoveCount][1] = canWhiteQSCastle;
+	castlingRights[actualMoveCount][2] = canBlackKSCastle;
+	castlingRights[actualMoveCount][3] = canBlackQSCastle;
+	
 }
 
 void Board::parseHalfMoveClock(const std::string &fen){
@@ -327,10 +336,10 @@ void Board::makeMoveHelper(const Move& m){
 	
 	addMoveToHistory(m);	
 
-	castlingRights[0][actualMoveCount] = canWhiteKSCastle;
-	castlingRights[1][actualMoveCount] = canWhiteQSCastle;
-	castlingRights[2][actualMoveCount] = canBlackKSCastle;
-	castlingRights[3][actualMoveCount] = canBlackQSCastle;
+	castlingRights[actualMoveCount][0] = canWhiteKSCastle;
+	castlingRights[actualMoveCount][1] = canWhiteQSCastle;
+	castlingRights[actualMoveCount][2] = canBlackKSCastle;
+	castlingRights[actualMoveCount][3] = canBlackQSCastle;
 	
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
@@ -342,69 +351,6 @@ Bitboard Board::getBitboard(Side turn, PieceType pieceType) const{
 	return pieces.getPiecesBB(turn, pieceType);
 }
 
-void Board::generateMoves(const MoveType type){
-	
-
-	//move_list = new MoveList();	
-
-	/* move_list->count = 0;
-
-	PieceBB friendly {
-		pieces.getPiecesBB(turn, KING), 
-		pieces.getPiecesBB(turn, QUEEN), 
-		pieces.getPiecesBB(turn, ROOK),  
-		pieces.getPiecesBB(turn, BISHOP), 
-		pieces.getPiecesBB(turn, KNIGHT), 
-		pieces.getPiecesBB(turn, PAWN),
-		pieces.getPiecesBB(turn, ALL)
-	};
-
-	
-	BoardState state{
-		friendly,
-		turn,
-		canWhiteKSCastle && !turn && pieces.canKingSideCastle(Side::WHITE),
-		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(Side::WHITE),
-		canBlackKSCastle && turn && pieces.canKingSideCastle(Side::BLACK),
-		canBlackQSCastle && turn && pieces.canQueenSideCastle(Side::BLACK),
-		
-		enPassantSquare,
-
-		pieces.getPiecesBB(!turn, ALL),
-
-
-		{
-			pieces.getPiecesBB(!turn, PAWN),
-			pieces.getPiecesBB(!turn, KNIGHT), 
-			pieces.getPiecesBB(!turn, BISHOP), 
-			pieces.getPiecesBB(!turn, ROOK), 
-			pieces.getPiecesBB(!turn, QUEEN), 
-			pieces.getPiecesBB(!turn, KING)
-			
-		}
-	};
-	
-	generator.setState(state);
-
-
-
-	if (type == MoveType::QUIETS){
-		
-		generator.generateQuiets(move_list);
-
-	}
-	else if (type == MoveType::CAPTURES){
-		generator.generateCaptures(move_list);
-		//std::cout << "size " << move_list->count << '\n';
-	}
-	else if ( type == MoveType::ALL_TYPES){
-
-		generator.generateMoves(move_list);
-
-	} */
-
-	
-}
 
 
 Moves Board::generatePseudoLegalMoves(MoveType type){
@@ -420,13 +366,14 @@ Moves Board::generatePseudoLegalMoves(MoveType type){
 		pieces.getPiecesBB(turn, ALL)
 	};
 
+		
 	BoardState state{
 		friendly,
 		turn,
-		canWhiteKSCastle && !turn && pieces.canKingSideCastle(Side::WHITE),
-		canWhiteQSCastle && !turn && pieces.canQueenSideCastle(Side::WHITE),
-		canBlackKSCastle && turn && pieces.canKingSideCastle(Side::BLACK),
-		canBlackQSCastle && turn && pieces.canQueenSideCastle(Side::BLACK),
+		canWhiteKSCastle &&  (turn == Side::WHITE) && pieces.canKingSideCastle(Side::WHITE),
+		canWhiteQSCastle && (turn == Side::WHITE) && pieces.canQueenSideCastle(Side::WHITE),
+		canBlackKSCastle && (turn == Side::BLACK) && pieces.canKingSideCastle(Side::BLACK),
+		canBlackQSCastle && (turn == Side::BLACK) && pieces.canQueenSideCastle(Side::BLACK),
 		
 		enPassantSquare,
 
@@ -451,17 +398,7 @@ Moves Board::generatePseudoLegalMoves(MoveType type){
 
 }
 
-bool Board::returnInCheckMoves(const Move& move){
-	Side originalTurn = turn;
 
-	legalMovesCount = 0;
-
-	makeMove(move);
-	bool isChecked = isInCheck(originalTurn);
-	legalMovesCount++;
-	unmakeMove();
-	return !isChecked; 
-}
 
 Moves Board::generateLegalMoves(MoveType type){
 
@@ -474,6 +411,8 @@ Moves Board::generateLegalMoves(MoveType type){
 		pieces.getPiecesBB(turn, PAWN),
 		pieces.getPiecesBB(turn, ALL)
 	};
+
+
 
 	BoardState state{
 		friendly,
@@ -494,7 +433,7 @@ Moves Board::generateLegalMoves(MoveType type){
 			pieces.getPiecesBB(!turn, BISHOP), 
 			pieces.getPiecesBB(!turn, ROOK), 
 			pieces.getPiecesBB(!turn, QUEEN), 
-			pieces.getPiecesBB(!turn, KING)
+			pieces.getPiecesBB(!turn, KING),
 			
 		}
 	};
@@ -587,6 +526,16 @@ int Board::getActualMoveCount(){
 	return actualMoveCount;
 }
 
+void Board::viewState(){
+	
+	for (int i = 0; i <= actualMoveCount; i++){
+		std::cout << "---------------------" << '\n';
+		for (int j = 0; j < 4; j++){
+			std::cout << (castlingRights[i][j] == true) << '\n';
+		}
+		std::cout << "---------------------" << '\n';
+	}
+}
 void Board::unmakeMoveHelper(){
 
 	Move lastMove = actualMoves[actualMoveCount-1];
@@ -678,11 +627,11 @@ void Board::unmakeMoveHelper(){
 		pieces.addPiece(!turn, capturedPieceType, to);
 	}	
 
-	canWhiteKSCastle = castlingRights[0][actualMoveCount];
-	canWhiteQSCastle = castlingRights[1][actualMoveCount];
-	canBlackKSCastle = castlingRights[2][actualMoveCount];
-	canBlackQSCastle = castlingRights[3][actualMoveCount];	
-
+	canWhiteKSCastle = castlingRights[actualMoveCount][0];
+	canWhiteQSCastle = castlingRights[actualMoveCount][1];
+	canBlackKSCastle = castlingRights[actualMoveCount][2];
+	canBlackQSCastle = castlingRights[actualMoveCount][3];
+	
 	pieces.setSidePiecesBB(turn);
 	pieces.setSidePiecesBB(!turn);
 
