@@ -29,8 +29,6 @@ int main() {
   std::vector<std::string> words;
 
   while (std::getline(std::cin, s)) {
-    board.viewState();
-    board.printBoard();
 
     words = utils::split_string(s);
 

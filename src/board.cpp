@@ -389,8 +389,7 @@ Moves Board::generateLegalMoves(MoveType type) {
       }};
 
   Moves legalMoves{state};
-
-  // std::cout << "size " << legalMoves.size() << '\n';
+  
   Side originalTurn = turn;
 
   auto checks = std::remove_if(legalMoves.begin(), legalMoves.end(),
@@ -401,8 +400,6 @@ Moves Board::generateLegalMoves(MoveType type) {
                                  return isChecked;
                                });
 
-  // std::cout << "Removed " << std::distance(checks, legalMoves.end()) << "
-  // illegal moves\n";
 
   legalMoves.erase(checks, legalMoves.end());
 
@@ -436,7 +433,7 @@ void Board::printBoard() {
     }
     std::cout << '\n';
   }
-  std::cout << " turn = " << ((turn) ? "Side::BLACK" : "Side::WHITE") << '\n';
+  std::cout << " turn = " << ((turn) ? "BLACK" : "WHITE") << '\n';
   std::cout << " ep = "
             << ((enPassantSquare == -1) ? "None"
                                         : pieceSquareNames[enPassantSquare])
