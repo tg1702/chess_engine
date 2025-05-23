@@ -20,7 +20,6 @@ static uint64_t node_count = 0ULL;
 
 uint64_t p_perft(int depth, Board& board){
 	
-	uint64_t nodes = 0ULL;
 
 	Moves move_list;
 	
@@ -40,14 +39,14 @@ uint64_t p_perft(int depth, Board& board){
                 board.makeMove(move);
 
                 if (!board.isInCheck(turn))
-			nodes += p_perft(depth - 1, board);	
+			node_count += p_perft(depth - 1, board);	
 
 		
 		board.unmakeMove();	
 	}
 
 		
-	return nodes;
+	return node_count;
 }
 uint64_t p_divide(int depth, Board& board){
 	uint64_t level_count = 0ULL;
@@ -116,24 +115,27 @@ uint64_t divide(int depth, Board& board){
 	
 	uint64_t level_count = 0ULL;
 	
-	Moves move_list;
-	move_list = board.generateLegalMoves();                                                                                
+	Moves move_list = board.generateLegalMoves();                                                                                
 	 
+
 	 if (depth == 1)
          {
+				
                 return move_list.size();
          }                                                                                                                                                   
 	 
 	 for(auto& move: move_list){                                                                                                     
-		 board.makeMove(move);                                                                                                   level_count += divide(depth - 1, board);
+		 board.makeMove(move);  
+		 uint64_t child_count = divide(depth - 1, board);
 	 	 board.unmakeMove();
 
 		 if (depth == DEPTH){
-			std::cout << move << ": " << level_count << '\n';	
-			level_count = 0;
+			std::cout << move << ": " << child_count << '\n';
+			node_count += child_count;
 
-			
 		 }
+		 level_count += child_count;
+		 
 	 }	
 	
 	return level_count;
